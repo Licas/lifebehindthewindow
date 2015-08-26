@@ -20,7 +20,7 @@ window.setTimeout(function() {
 
             $scope.uploadedFile = function(element) {
              $scope.$apply(function($scope) {
-                $scope.files = element.files;         
+                 $scope.files = element.files;         
                  UploadFactory.uploadfile($scope.files[0],
                        function( msg ) // success
                        {
