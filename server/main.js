@@ -6,16 +6,15 @@ var bodyParser = require('body-parser');
 var config = require('./lib/config');
 
 var routes = require('./routes/index');
-var video = require('./routes/video');
+var videoRouter = require('./routes/video');
+
+var BinaryServer = require('binaryjs').BinaryServer;
+var videoManager = require('./lib/videomanager');
 
 var app = express();
 
 //app.set('port', process.env.PORT || 3000);
 
-
-
-app.set('views', __dirname + '/views'); // general config
-app.set('view engine', 'html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -33,7 +32,7 @@ app.use(function(req, res, next) {
 
 
 app.use('/', routes);
-app.use('/videos', video);
+app.use('/videos', videoRouter);
 
 
 
@@ -71,5 +70,27 @@ app.use(function(err, req, res, next) {
 
 app.listen(process.env.PORT || config.port);
 console.log("Listening on port: " + (process.env.PORT || config.port));
+
+var bs = new BinaryServer({ port: 9000 });
+bs.on('connection', function (client) {
+    client.on('stream', function (stream, meta) {
+        switch(meta.event) {
+        // list available videos
+        case 'list':
+            videoManager.list(stream, meta);
+            break;
+ 
+        // request for a video
+        case 'request':
+            videoManager.request(client, meta);
+            break;
+ 
+        // attempt an upload
+        case 'upload':
+        default:
+            videoManager.upload(stream, meta);
+        }
+    });
+});
 
 module.exports = app;

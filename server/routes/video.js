@@ -80,6 +80,7 @@ videoRouter.get('/list', function(req, res, next) {
 
 videoRouter.get('/get', function(req, res, next) {
     console.log("required video " + req.query.videoid);
+    
   res.send( 'Retrieving video ' + req.query.videoid );
 });
 
