@@ -7,7 +7,6 @@ angular.module('lifebehindthewindowApp')
 
         var getVideoList = function() {
             
-            console.log("GET VIDEO LIST");
             UploadFactory.getlist(
                 function( msg ) { // success
                     controller.videos = [];
@@ -27,8 +26,9 @@ angular.module('lifebehindthewindowApp')
 //                    console.log("controller.videos[0] - "+controller.videos[0].sources);
 //                    console.log("controller.config.sources - " + controller.config.sources);
 //                    console.log(controller.API);
-                    if(controller.API.isCompleted == true)
-                        controller.API.setVideo(0);
+                    console.log(controller.API);
+                   if(controller.API.currentState == 'stop')
+                        controller.onCompleteVideo();
                 },
                 function( msg ) { // error
                     console.log('error in get video list ' + msg);
@@ -58,6 +58,7 @@ angular.module('lifebehindthewindowApp')
         }
         
         controller.onCompleteVideo = function () {
+            console.log("ON COMPLETE VIDEO");
             controller.isCompleted = true;
             controller.currentVideo++;
 
