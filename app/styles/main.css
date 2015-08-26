@@ -1,0 +1,176 @@
+/* app css stylesheet */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+
+.videogular-container {
+	width: 100%;
+     min-width: 100%;
+    height: auto;
+    min-height: 100%;
+    margin:70px auto auto auto;
+	overflow: hidden;
+    z-index: 10;
+}
+
+.container-full {
+    position: absolute;
+    display: block;
+  margin: 0 auto;
+  width: 100%;
+    height:auto;
+        -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+    background-color: black;
+    background-repeat: repeat-y;
+}
+ 
+
+@media (min-width: 1200px) {
+	.videogular-container {
+		width: 1170px;
+		height: 658.125px;
+	}
+}
+ 
+@media (min-width: 992px) and (max-width: 1199px) {
+	.videogular-container {
+		width: 940px;
+		height: 528.75px;
+	}
+}
+ 
+@media (min-width: 768px) and (max-width: 991px) {
+	.videogular-container {
+		width: 728px;
+		height: 409.5px;
+	}
+}
+
+#upload-file-container {
+   background: url(/images/circle_orange.png) no-repeat;
+}
+
+#upload-file-container input {
+   filter: alpha(opacity=0);
+   opacity: 0;
+    text-align: center;
+    color: beige;
+}
+
+.uploadButton {
+    background:url(/images/circle_orange.png) no-repeat;
+    cursor:pointer;
+    width: 80px;
+    height: 80px;
+    border: none;
+    color:white;
+    padding-bottom: 5px;
+}
+
+
+videogular div.custom-layer {
+    position: absolute;
+    left:50%;
+    top:50%;
+    /*margin:auto auto auto 70px;*/
+    z-index: 50;    
+}
+
+videogular div.custom-layer img {
+    width: 150px;
+    height: auto;
+    padding-left: 20px;
+    padding-top: 20px;
+    opacity: 0.5;
+}
+
+/* Custom button */
+videogular my-stop-button {
+    width: 50px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 180px;
+    margin-left: 70px;
+}
+
+videogular my-stop-button a,
+videogular my-stop-button a:hover,
+videogular my-stop-button a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+
+   /***************************************************************************
+                        Navigation Bar
+    ****************************************************************************/
+
+    .navbar-header #brand{
+        font-family: 'Georgia', Arial, sans-serif;
+        color: white;
+        font-size: 16pt;
+        margin-top: 10px;
+        margin-left: 20px;
+        text-transform: uppercase;
+    }
+
+   .mynav li 
+   {
+       font-family: 'Georgia', Arial, sans-serif;
+       font-size: 12pt;
+       list-style: none;
+        display: inline-block;
+       /*  border-left: 1px solid white; */
+        /*padding-top: 16px;*/
+        padding-left: 5px;
+        padding-right: 10px;
+        margin-top: 10px;
+   }
+
+    .mynav li a{
+        color:white;
+
+    }
+/*
+    .mynav li a:hover{
+        text-decoration: none;
+    }*/
+    /* .mynav li a:active{
+        background-color: black;
+     }*/
