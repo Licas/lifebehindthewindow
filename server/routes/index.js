@@ -7,7 +7,6 @@ var log = require('winston');
 var fs = require('fs');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
-var watch = require('node-watch');
 
 
 /* GET home page. */
@@ -49,7 +48,7 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
     fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err) {
         if ( err ) {
             console.log('ERROR: ' + err);
-            res.status(500).send("Error: "+ err);
+//            res.status(500).send("Error: "+ err);
         }
     });
     
@@ -59,14 +58,5 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
       }
 });
             
-    
-watch('videos/', function(filename) {
-if (filename) {
-    console.log('filename provided: ' + filename);
-  } else {
-    console.log('filename not provided');
-  }
-});
-
 
 module.exports = router;
