@@ -48,7 +48,7 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
         }
         
         controller.onCompleteVideo = function () {
-            console.log("Called onCompletedVideo");
+//            console.log("Called onCompletedVideo");
             controller.API.stop();
             controller.API.isCompleted = true;
             controller.isCompleted = true;
@@ -72,16 +72,17 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
         }
         
         controller.setVideo = function (index) {
-            console.log("Request a new video: " + controller.videos[index]);
-            controller.API.stop();
-            video.request(controller.videos[index]);
-//             var newSource = [{
-//                    src: $sce.trustAsResourceUrl(controller.videos[index]),
-//                    type: "video/mp4"
-//                }];
-            controller.currentVideo = index;
-            $timeout(controller.API.play.bind(controller.API), 2000);
-//            controller.API.play();
+            if(controller.videos[index]) {
+    //            console.log("Request a new video: " + controller.videos[index]);
+                controller.API.stop();
+                video.request(controller.videos[index]);
+    //             var newSource = [{
+    //                    src: $sce.trustAsResourceUrl(controller.videos[index]),
+    //                    type: "video/mp4"
+    //                }];
+                controller.currentVideo = index;
+                $timeout(controller.API.play.bind(controller.API), 2000);
+            }
         }
         
         function loadVideo() {
