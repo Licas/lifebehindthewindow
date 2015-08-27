@@ -2,9 +2,12 @@
 html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow:hidden;
+    display: block;
 }
-
+body {
+    background-color: black;
+}
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;

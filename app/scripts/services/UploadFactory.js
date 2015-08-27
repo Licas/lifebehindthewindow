@@ -3,7 +3,9 @@
 angular.module('lifebehindthewindowApp')
   .factory('UploadFactory', [ "$http", function ( $http) {
     
-      var baseUrl = 'http://localhost:3000';
+      var host = 'localhost';
+      var port = 3000;
+      var baseUrl = 'http://' + host +':' + port;
 
     // Public API here
     return {
@@ -20,18 +22,18 @@ angular.module('lifebehindthewindowApp')
 		                transformRequest: angular.identity
 		            })
 		            .success(function (data) {
-                        console.log("success in posting data");
+//                        console.log("success in posting data");
 		                console.log(data);
                         success();
 		            })
 		            .error(function (data) {
-                        console.log("error in posting data");
+//                        console.log("error in posting data");
 		                console.log(data);
                         error();
 		            });
 		    },
         getlist: function(success, error) {
-            console.log("in factory... get file list");
+//            console.log("in factory... get file list");
             var videoList ;
             
             video.list(function setupList(err, files) {

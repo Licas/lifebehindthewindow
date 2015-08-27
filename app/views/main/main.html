@@ -1,49 +1,26 @@
+<div ng-controller="HomeCtrl as controller">
+    <videogular vg-responsive="controller.config.responsive" 
+                vg-stretch="controler.config.stretch"
+                vg-auto-play="controller.config.autoPlay" 
+                vg-player-ready="controller.onPlayerReady($API)" 
+                vg-complete="controller.onCompleteVideo()" 
+                vg-theme="controller.config.theme.url">
 
-            
-        <div ng-controller="HomeCtrl as controller">
-            <videogular 
-                        vg-responsive="controller.config.responsive"
-                        vg-stretch="controler.config.stretch"
-                        vg-auto-play="controller.config.autoPlay" 
-                        vg-player-ready="controller.onPlayerReady($API)"
-                        vg-complete="controller.onCompleteVideo()" 
-                        vg-theme="controller.config.theme.url">
-    
-                    <vg-media 
-                              id="videogular-media" 
-                              vg-volume="controller.config.volume"
-                              vg-loop="controller.config.loop" 
-                              vg-src="controller.config.sources" 
-                              vg-tracks="controller.config.tracks">
-                    </vg-media>
-<!--
-                    <video class='videoPlayer' preload='none' vg-poster='{{ data.poster }}'>
-                        <source ng-repeat='media in data.media' ng-src='{{ media.url }}' type='{{ media.type }}'>
-                    </video>
--->
-<!--                    <vg-overlay-play></vg-overlay-play>-->
-                    <vg-buffering></vg-buffering>
-                    
-                    <div class="custom-layer" ng-show="controller.API.currentState == 'play' || controller.API.currentState != 'play'">
-                        <form 
-                              name="upload"
-                              class="form"
-                              ng-controller="FormCtrl as formctrl">
-                            <input class="uploadButton" 
-                                   value="Upload" 
-                                   type="button"
-                                   onclick="$('input[type=file]').click()" 
-                                   />
-                            <input class="hidden-xs hidden-sm hidden-md hidden-lg"
-                                   type="file" 
-                                   name="file"
-                                   ng-model="videonew"
-                                   onchange="angular.element(this).scope().uploadedFile(this)"/>
-                        </form>
-                        <input type="button" ng-click="loadVideo()" value="Load" />
-                        
-                        
-                    </div>
-                </videogular>
-            </div><!-- controller -->
-            
+        <vg-media id="videogular-media" 
+                  vg-volume="controller.config.volume"
+                  vg-loop="controller.config.loop" 
+                  vg-src="controller.config.sources"
+                  vg-tracks="controller.config.tracks">
+        </vg-media>
+
+        <vg-buffering></vg-buffering>
+
+        <div class="custom-layer">
+            <form name="upload" class="form" ng-controller="FormCtrl as formctrl">
+                <input class="uploadButton" value="Upload" type="button" onclick="$('input[type=file]').click()" />
+                <input class="hidden-xs hidden-sm hidden-md hidden-lg" type="file" name="file" ng-model="videonew" onchange="angular.element(this).scope().uploadedFile(this)" />
+            </form>
+        </div>
+    </videogular>
+</div>
+<!-- controller -->

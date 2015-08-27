@@ -40,7 +40,6 @@ $(document).ready(function () {
         var $ul, $li;
         var $list     = $("#list");
         
-        console.log("setup list");
         $list.empty();
         $ul   = $('<ul>').appendTo($list);
 
