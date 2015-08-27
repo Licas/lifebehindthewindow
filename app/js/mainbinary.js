@@ -21,17 +21,18 @@ $(document).ready(function () {
     client.on('stream', function (stream) {
         console.log("Client receiving streaming ");
         video.download(stream, function (err, src) {
-            var $video = $("#video");
-            var media  = $("#videogular-media");
-            
             console.log("client downloaded a file " + src);
             
-            $video.attr('src', src);
-//            media.attr('vg-src' , src);
+            var media  = $("#videogular-media");
+            media.attr('vg-src' , src);
             
             var sourceElement = angular.element("videogular video");
+            
             sourceElement[0].src = src;
             sourceElement[0].type = "video/mp4";
+           
+            var scope = $('#videogular-media').scope();
+            console.log(scope);
         });
     });
 

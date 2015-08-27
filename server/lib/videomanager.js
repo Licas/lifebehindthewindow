@@ -5,7 +5,11 @@
  */
 'use strict';
 
-var fs, uploadPath,publishedVideosPath, supportedTypes;
+var fs, 
+    uploadPath,
+    publishedVideosPath, 
+    supportedTypes,
+    supportedExtensions;
 
 fs = require('fs');
 
@@ -16,6 +20,9 @@ supportedTypes = [
     'video/mp4',
     'video/webm',
     'video/ogg'
+];
+supportedExtensions = [
+    'mp4', 'webm', 'ogg'
 ];
 
 module.exports = {
@@ -48,12 +55,27 @@ function _checkUploadDir(cb) {
     });
 }
 
+String.prototype.endsWith = function(suffix) {
+    return this.match(suffix+"$") == suffix;
+};
+
 /**
  */
 function list(stream, meta)  {
     _checkUploadDir(function () {
         fs.readdir( publishedVideosPath, function (err, files) {
-            stream.write({ files : files });
+           var newList = [];
+            
+           for( var i in files ) {
+            if(files[i].endsWith(supportedExtensions[0]) ||
+                files[i].endsWith(supportedExtensions[1]) ||
+                files[i].endsWith(supportedExtensions[2])) {
+                    newList.push(files[i]);  
+//                      console.log("Pushing back " + files[i]);
+                } 
+           }
+            console.log(newList);
+            stream.write({ files : newList });
         });
     });
 }
