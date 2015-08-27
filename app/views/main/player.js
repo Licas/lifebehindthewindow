@@ -26,12 +26,12 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
 //                    console.log("controller.videos[0] - "+controller.videos[0].sources);
 //                    console.log("controller.config.sources - " + controller.config.sources);
 //                    console.log(controller.API);
-                    console.log(controller.API);
+//                    console.log(controller.API);
                    if(controller.API.currentState == 'stop')
                         controller.onCompleteVideo();
                 },
                 function( msg ) { // error
-                    console.log('error in get video list ' + msg);
+                    console.log('!!! error in get video list ' + msg);
                     
                 });
         }
@@ -58,7 +58,7 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
         }
         
         controller.onCompleteVideo = function () {
-            console.log("ON COMPLETE VIDEO");
+//            console.log("ON COMPLETE VIDEO");
             controller.isCompleted = true;
             controller.currentVideo++;
 
@@ -121,10 +121,10 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
             controller.API.stop();
 
             controller.currentVideo = index;
-            if(controller.videos[index])
+            if(controller.videos.length>index)
                 controller.config.sources = controller.videos[index].sources;
             else
-                controller.config.sources = {};
+                controller.config.sources = null;
             
             $timeout(controller.API.play.bind(controller.API), 1000);
             

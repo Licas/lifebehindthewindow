@@ -28,7 +28,6 @@ _checkUploadDir();
 
 function _checkUploadDir(cb) {
     cb = cb || function () {};
-    console.log("_checkUploadDir");
     fs.stat(uploadPath, function (err, stats) {
         if (
             (err && err.errno === 34) ||
