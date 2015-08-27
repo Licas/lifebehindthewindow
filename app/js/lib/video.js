@@ -47,7 +47,7 @@ video = (function () {
 
         stream.on('end', function () {
             var src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
-
+            
             cb(null, src);
         });
     }

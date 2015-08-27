@@ -62,7 +62,7 @@ function list(stream, meta)  {
  */
 function request(client, meta) {
     var file = fs.createReadStream(publishedVideosPath + '/' + meta.name);
-
+    console.log("Sending file " + meta.name);
     client.send(file);
 }
 

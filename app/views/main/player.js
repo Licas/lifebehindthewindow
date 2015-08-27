@@ -5,27 +5,31 @@ var playerController = angular.module('controllers.player', []);
 playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interval", "UploadFactory",
                  function ($scope, $sce, $timeout, $interval, UploadFactory) {
 
+        var videoList = [];
+                     
         var getVideoList = function() {
             
             UploadFactory.getlist(
                 function( msg ) { // success
+                    console.log("PLayer controller reloaded list " + msg);
                     controller.videos = [];
-                    for(var idx in msg.published_videos) {
+                    for(var idx in msg) {
                         
-                        var aVideo = {
-                            sources: [{
-                                src:  $sce.trustAsResourceUrl( "/" + msg.published_videos[idx].name ),
-                                type: "video/mp4"
-                            }]        
-                        };
-                        
-                        controller.videos.push(aVideo);
+//                        var aVideo = {
+//                            sources: [{
+//                                src:  $sce.trustAsResourceUrl( "/" + msg.published_videos[idx].name ),
+//                                type: "video/mp4"
+//                            }]        
+//                        };
+                        console.log("Pushing " + msg[idx]);
+                        controller.videos.push(msg[idx]);
+                        videoList.push(msg[idx]);
                     }
+                    
 //                    controller.config.sources = controller.videos[0].sources;
 //                    console.log("controller.videos - "+controller.videos);
 //                    console.log("controller.videos[0] - "+controller.videos[0].sources);
 //                    console.log("controller.config.sources - " + controller.config.sources);
-//                    console.log(controller.API);
 //                    console.log(controller.API);
                    if(controller.API.currentState == 'stop')
                         controller.onCompleteVideo();
@@ -69,8 +73,7 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
         };
         
         getVideoList();
-        
-        $interval(getVideoList, 10000);
+        //$interval(getVideoList, 10000);
         
 //        controller.videos = [
 //            {
@@ -117,17 +120,18 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
         }
 
         controller.setVideo = function (index) {
-
+            console.log("Request a new video: " + controller.videos[index]);
+            video.request(controller.videos[index]);
             controller.API.stop();
-
+//
             controller.currentVideo = index;
-            if(controller.videos.length>index)
-                controller.config.sources = controller.videos[index].sources;
-            else
-                controller.config.sources = null;
-            
+//            if(controller.videos.length>index)
+//                controller.config.sources = controller.videos[index].sources;
+//            else
+//                controller.config.sources = null;
+//            
             $timeout(controller.API.play.bind(controller.API), 1000);
-            
+//            
             controller.API.play();
         };
      }]);

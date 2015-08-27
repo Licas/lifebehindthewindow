@@ -1,9 +1,6 @@
 $(document).ready(function () {
 
-    var $video    = $("#video");
-//    box      = $("#uploadbox");
-    var $progress = $("#progress");
-    var $list     = $("#list");
+    var $video    = $("#video");   
 
     
     $video.attr({
@@ -14,7 +11,6 @@ $(document).ready(function () {
     client.on('open', function () {
         var box = $("#uploadbox");
         console.log("client open connection");
-        console.log("box " + JSON.stringify(box));
         video.list(setupList);
         
         box.on('drop', setupDragDrop);
@@ -23,18 +19,27 @@ $(document).ready(function () {
     });
 
     client.on('stream', function (stream) {
+        console.log("Client receiving streaming ");
         video.download(stream, function (err, src) {
-            if(!$video) {
-                var $video    = $("#video");
-                console.log("Video was null");
-            }
+            var $video = $("#video");
+            var media  = $("#videogular-media");
+            
+            console.log("client downloaded a file " + src);
+            
             $video.attr('src', src);
+//            media.attr('vg-src' , src);
+            
+            var sourceElement = angular.element("videogular video");
+            sourceElement[0].src = src;
+            sourceElement[0].type = "video/mp4";
         });
     });
 
     function setupList(err, files) {
         var $ul, $li;
-
+        var $list     = $("#list");
+        
+        console.log("setup list");
         $list.empty();
         $ul   = $('<ul>').appendTo($list);
 
@@ -61,6 +66,8 @@ $(document).ready(function () {
         tx   = 0;
 
         video.upload(file, function (err, data) {
+            
+            var $progress = $("#progress");
             var msg;
 
             if (data.end) {
