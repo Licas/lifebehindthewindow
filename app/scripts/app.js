@@ -1,22 +1,32 @@
 'use strict';
 
-angular.module('lifebehindthewindowApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
+var app = angular.module('lifebehindthewindowApp', [
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
     'ngRoute',
-    "com.2fdevs.videogular",
-			"com.2fdevs.videogular.plugins.controls",
-			"com.2fdevs.videogular.plugins.overlayplay",
-			"com.2fdevs.videogular.plugins.poster"
+    
+    'controllers.player',
+    'controllers.stream',
+    
+    'com.2fdevs.videogular',
+	'com.2fdevs.videogular.plugins.controls',
+	'com.2fdevs.videogular.plugins.overlayplay',
+    'com.2fdevs.videogular.plugins.poster'
 ]);
-//  .config(function ($routeProvider) {
-//    $routeProvider
-//      .when('/', {
-//        templateUrl: 'views/main.html',
-//        controller: 'MainCtrl'
-//      })
-//      .otherwise({
-//        redirectTo: '/'
-//      });
-//  });
+
+app.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+        when('/', {
+             templateUrl: 'views/main/main.html'
+//            controller: 'HomeCtrl'
+        })
+        .when('/stream', {
+            templateUrl: 'views/stream/stream.html',
+            controller: 'StreamCtrl'
+        })
+        .otherwise({
+            redirectTo: '/'
+        });
+  }]);

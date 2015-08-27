@@ -8,8 +8,8 @@ var config = require('./lib/config');
 var routes = require('./routes/index');
 var videoRouter = require('./routes/video');
 
-var BinaryServer = require('binaryjs').BinaryServer;
-var videoManager = require('./lib/videomanager');
+BinaryServer = require('binaryjs').BinaryServer;
+videoManager = require('./lib/videomanager');
 
 var app = express();
 
@@ -71,24 +71,27 @@ app.use(function(err, req, res, next) {
 app.listen(process.env.PORT || config.port);
 console.log("Listening on port: " + (process.env.PORT || config.port));
 
-var bs = new BinaryServer({ port: 9000 });
+bs = new BinaryServer({ port: 9000 });
+
 bs.on('connection', function (client) {
+    console.log("connection from client");
     client.on('stream', function (stream, meta) {
         switch(meta.event) {
-        // list available videos
-        case 'list':
-            videoManager.list(stream, meta);
-            break;
- 
-        // request for a video
-        case 'request':
-            videoManager.request(client, meta);
-            break;
- 
-        // attempt an upload
-        case 'upload':
-        default:
-            videoManager.upload(stream, meta);
+            // list available videos
+            case 'list':
+                videoManager.list(stream, meta);
+                break;
+
+            // request for a video
+            case 'request':
+                videoManager.request(client, meta);
+                break;
+
+            // attempt an upload
+            case 'upload':
+            default:
+                console.log("Client uploading..");
+                videoManager.upload(stream, meta);
         }
     });
 });

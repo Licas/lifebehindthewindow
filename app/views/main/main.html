@@ -1,0 +1,50 @@
+
+            
+        <div ng-controller="HomeCtrl as controller">
+            
+            <videogular 
+                        vg-responsive="controller.config.responsive"
+                        vg-stretch="controler.config.stretch"
+                        vg-auto-play="controller.config.autoPlay" 
+                        vg-player-ready="controller.onPlayerReady($API)"
+                        vg-complete="controller.onCompleteVideo()" 
+                        vg-error="controller.onCompleteVideo()"
+                        vg-theme="controller.config.theme.url">
+                
+                    <vg-media vg-volume="0" vg-loop="controller.config.loop" vg-src="controller.config.sources" vg-tracks="controller.config.tracks">
+                    </vg-media>
+
+                    <vg-overlay-play></vg-overlay-play>
+                    <vg-buffering></vg-buffering>
+                    <!--vg-poster vg-url='controller.config.plugins.poster'></vg-poster-->
+
+                    <div class="custom-layer" ng-show="controller.API.currentState == 'play' || controller.API.currentState != 'play'">
+                        <form 
+                              name="upload"
+                              class="form"
+                              ng-controller="FormCtrl as formctrl">
+                            <input class="uploadButton" 
+                                   value="Upload" 
+                                   type="button"
+                                   onclick="$('input[type=file]').click()" 
+                                   />
+                            <input class="hidden-xs hidden-sm hidden-md hidden-lg"
+                                   type="file" 
+                                   name="file"
+                                   ng-model="videonew"
+                                   onchange="angular.element(this).scope().uploadedFile(this)"/>
+                        <!--angular.element(this).scope().uploadedFile(this)-->
+                        
+                        <div class="alert alert-success" ng-show="uploadSuccess">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <strong>Success!</strong> Your video has been sent successfully.
+                        </div>
+                        <div class="alert alert-danger" ng-show="uploadFailure">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <strong>Fail!</strong> Your video has not been uploaded.
+                        </div>
+                        </form>
+                    </div><!-- custom-layer -->
+                </videogular>
+            </div><!-- controller -->
+            

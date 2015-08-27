@@ -165,12 +165,12 @@ videogular my-stop-button a:visited {
 
     .mynav li a{
         color:white;
-
     }
-/*
-    .mynav li a:hover{
+
+    .mynav li a:hover, 
+    .mynav li a:link, 
+    .mynav li a:visited,
+    .mynav li a:active {
         text-decoration: none;
-    }*/
-    /* .mynav li a:active{
         background-color: black;
-     }*/
+    }
