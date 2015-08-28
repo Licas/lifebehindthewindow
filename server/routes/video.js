@@ -93,6 +93,15 @@ videoRouter.get('/delete/unpublished', function(req, res, next) {
     res.send( 'OK');
 });
 
+videoRouter.get('/approve/unpublished', function(req, res, next) {
+    if(req.query.videoname) {
+        console.log("request for approve " + req.query.videoname);
+        videomanager.approveUnpublished(req.query.videoname);
+    }
+    
+    res.send( 'OK');
+});
+
 /* upload handler */
 videoRouter.post('/upload', upload.single('file'), function(req, res, next) {
 //    log.info("/upload invocation");

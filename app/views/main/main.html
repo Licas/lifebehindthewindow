@@ -21,6 +21,53 @@
             <form name="upload" class="form" ng-controller="FormCtrl as formctrl">
                 <input class="uploadButton" value="Upload" type="button" onclick="$('input[type=file]').click()" />
                 <input class="hidden-xs hidden-sm hidden-md hidden-lg" type="file" name="file" ng-model="videonew" onchange="angular.element(this).scope().uploadedFile(this)" />
+                <br/>
+                <!-- user identification -->
+<!--
+                
+                <div role="alert">
+                  <span style="color:red" class="error" ng-show="upload.userName.$error.required && !upload.userName.$pristine">
+                   Required!</span>
+                </div>
+-->
+<!--
+                <div role="alert">
+                  <span  style="color:red" class="error" ng-show="myForm.lastName.$error.minlength">
+                    Too short!</span>
+                  <span  style="color:red" class="error" ng-show="myForm.lastName.$error.maxlength">
+                    Too long!</span>
+                </div>
+                
+-->
+
+        <!-- USERNAME -->
+        <div class="form-group">
+            <label style="color:white">Who are you</label>
+            <input type="text" name="username" class="form-control" ng-model="user.name" ng-minlength="3" ng-maxlength="50" placeholder="Name Surname">
+            <p ng-show="upload.username.$invalid && !upload.username.$pristine" class="help-block">You name is required.</p>
+        </div>
+        
+        <!-- EMAIL -->
+        <div class="form-group">
+            <label style="color:white">Where are you from</label>
+            <input type="text"
+                          name="userlocation" 
+                          class="form-control"
+                          ng-model="user.location"
+                          ng-minlength="2"
+                          ng-maxlength="100"
+                          placeholder="L'Aquila, Abruzzo, Italia">
+              <p ng-show="upload.userlocation.$error.minlength" class="help-block">Location is too short.</p>
+  <p ng-show="upload.userlocation.$error.maxlength" class="help-block">Location is too long.</p>
+        </div>
+         <div class="form-group">
+            <label style="color:white">Your email (optional)</label>
+            <input type="email" name="email" class="form-control" ng-model="user.email">
+        </div>
+        
+        <!-- SUBMIT BUTTON -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+                <!-- end user identification -->
             </form>
         </div>
     </videogular>

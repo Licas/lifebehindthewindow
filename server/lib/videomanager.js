@@ -161,6 +161,31 @@ function deleteUnpublished(file) {
     }
 }
 
+/**
+ */
+function approveUnpublished(file) {
+//    console.log("UPLOADING IN SERVER");
+    var fullPath = uploadPath + "/" + file;
+    if(fs.existsSync(fullPath)) {
+//        console.log("file exists, i'll delete asap."+fullPath);
+        var theFile = fs.readFileSync(fullPath);
+        if(theFile) {
+            var publishedPath = publishedVideosPath + "/" + file;
+            fs.writeFile(publishedPath, theFile, function(data,err){
+            
+                if(err) {
+                    console.log(err);
+                    return err;
+                }
+                fs.unlinkSync( fullPath);
+            });
+        }
+                        
+    } else {
+//        console.log("File doesn't exist");
+    }
+}
+
 /********************************
         Exports
 ********************************/
@@ -171,5 +196,6 @@ module.exports = {
     request             : request,
     requestUnpublished  : requestUnpublished,
     upload              : upload,
-    deleteUnpublished   : deleteUnpublished
+    deleteUnpublished   : deleteUnpublished,
+    approveUnpublished  : approveUnpublished
 };

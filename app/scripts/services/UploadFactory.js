@@ -67,6 +67,19 @@ angular.module('lifebehindthewindowApp')
                     console.log("Error in deleting " + err);
                     error(err);
                 });
+        },
+        
+        approveunpublished: function(name, success, error) {
+             var url = baseUrl + '/videos/approve/unpublished';
+            $http.get(url, { "params":{"videoname": name }})
+                .success(function(response) {
+                    console.log("Ok approve operation for video "  + name);
+                    success(response);
+                })
+                .error(function(err){
+                    console.log("Error in approving " + err);
+                    error(err);
+                });
         }
         
     };
