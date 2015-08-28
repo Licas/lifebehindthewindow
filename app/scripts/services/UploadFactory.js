@@ -10,7 +10,6 @@ angular.module('lifebehindthewindowApp')
     // Public API here
     return {
 		uploadfile: function (file, success, error) {
-//		        console.log("in factory... sending file");
 		        var url = baseUrl + '/api/upload';
 
 		        var fd = new FormData();
@@ -33,7 +32,6 @@ angular.module('lifebehindthewindowApp')
 		            });
 		    },
         getlist: function(success, error) {
-//            console.log("in factory... get file list");
             var videoList ;
             
             video.list(function setupList(err, files) {
@@ -43,26 +41,19 @@ angular.module('lifebehindthewindowApp')
                } else {
                    success(files);
                }
-//                files.forEach(function (file) {
-//                    console.log("file found " + file);
-//                    $a.attr('href', '#').text(file).click(function (e) {
-//                        fizzle(e);
-//
-//                        var name = $(this).text();
-//                        video.request(name);
-//                    });
-//                });
             });
-//		        var url = baseUrl + '/videos/list';
-//                
-//                $http.get(url)
-//                    .success(function (res) {
-//                        console.log("Got response: " + res);
-//                        success(res);
-//                    }).error(function (e) {
-//                        console.log("UploadFactory::getlist:: Got error: " + e);
-//                        error(e);
-//                    });
+        },
+        getnewvideoslist: function(success, error) {
+            var videoList ;
+            
+            video.listUnpublished(function setupList(err, files) {
+            
+               if(err) {
+                   error(err);
+               } else {
+                   success(files);
+               }
+            });
         }
         
     };

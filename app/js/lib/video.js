@@ -1,15 +1,28 @@
 video = (function () {
     return {
-        list     : list,
-        upload   : upload,
-        request  : request,
-        download : download
+        list                : list,
+        listUnpublished     : listUnpublished,
+        request             : request,
+        requestUnpublished  : requestUnpublished,
+        upload              : upload,
+        download            : download
     };
 
     function list(cb) {
         var stream = emit('list');
 
         stream.on('data', function (data) {
+            cb(null, data.files);
+        });
+
+        stream.on('error', cb);
+    }
+    
+    function listUnpublished(cb) {
+        var stream = emit('listUnpublished');
+
+        stream.on('data', function (data) {
+            console.log("unpublished : " + data);
             cb(null, data.files);
         });
 
@@ -32,6 +45,10 @@ video = (function () {
 
     function request(name) {
         emit('request', { name : name });
+    }
+
+    function requestUnpublished(name) {
+        emit('requestUnpublished', { name : name });
     }
 
     function download(stream, cb) {

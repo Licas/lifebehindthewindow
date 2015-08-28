@@ -69,3 +69,12 @@ fieldset {
     width: 320px;
     height: 240px;
 }
+
+
+tr.videolist {
+    color:white;
+
+}
+tr.videolist:hover {
+    color:black;
+}

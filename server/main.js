@@ -60,10 +60,11 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
+    res
+     .send('error', {
         message: err.message,
-        error: {}
+        error: err,
+        status: err.status || 500
     });
 });
 
@@ -77,6 +78,9 @@ bs.on('connection', function (client) {
     console.log("connection from client");
     client.on('stream', function (stream, meta) {
         switch(meta.event) {
+            case 'listUnpublished':
+                videoManager.listUnpublished(stream, meta);
+            break;
             // list available videos
             case 'list':
                 videoManager.list(stream, meta);
@@ -85,6 +89,10 @@ bs.on('connection', function (client) {
             // request for a video
             case 'request':
                 videoManager.request(client, meta);
+                break;
+            case 'requestUnpublished':
+                console.log("requestUnpublished#" + JSON.stringify(meta));
+                videoManager.requestUnpublished(client, meta);
                 break;
 
             // attempt an upload

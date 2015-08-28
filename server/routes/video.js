@@ -2,17 +2,21 @@
 'use strict';
 var express = require('express');
 var videoRouter = express.Router();
+
 var Lazy = require('lazy.js');
 var log = require('winston');
+
 var fs = require('fs');
-var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
-//var watch = require('node-watch');
 var jsonfile = require('jsonfile')
 
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+
 var watch = require('watch');
-var videoListFile =  __dirname +  "/publishedvideos.json";
 var watchedDir = 'videos/';
+var videoListFile =  __dirname +  "/publishedvideos.json";
+
+var util = require(__dirname + "/../lib/videomanager");
 
 var monitorOpts = {
     "ignoreDotFiles":true,
@@ -67,10 +71,6 @@ var monitorOpts = {
     //monitor.stop(); // Stop watching
   })
 
-
-
-
-
 videoRouter.get('/list', function(req, res, next) {
   //res.send( 'Check for new videos.' );
     var fileJSON = jsonfile.readFileSync(videoListFile);
@@ -79,14 +79,14 @@ videoRouter.get('/list', function(req, res, next) {
 });
 
 videoRouter.get('/get', function(req, res, next) {
-    console.log("required video " + req.query.videoid);
+//    console.log("required video " + req.query.videoid);
     
   res.send( 'Retrieving video ' + req.query.videoid );
 });
 
 /* upload handler */
 videoRouter.post('/upload', upload.single('file'), function(req, res, next) {
-    log.info("/upload invocation");
+//    log.info("/upload invocation");
     /*{
         "fieldname": "file",
     "originalname": "mod_pri_background_v3.1(1).zip",

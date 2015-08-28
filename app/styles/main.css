@@ -2,7 +2,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    overflow:hidden;
+/*    overflow:hidden;*/
     display: block;
 }
 body {
@@ -177,3 +177,18 @@ videogular my-stop-button a:visited {
         text-decoration: none;
         background-color: black;
     }
+
+
+/**********************************
+    Mgmt page
+**********************************/
+
+.mgmt-block {
+	width: 100%;
+    min-width: 100%;
+    height: auto;
+    min-height: 100%;
+    margin:70px auto auto auto;
+/*	overflow: hidden;*/
+    z-index: 10;
+}

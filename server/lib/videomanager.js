@@ -25,11 +25,6 @@ supportedExtensions = [
     'mp4', 'webm', 'ogg'
 ];
 
-module.exports = {
-    list    : list,
-    request : request,
-    upload  : upload
-};
 
 _checkUploadDir();
 
@@ -71,10 +66,26 @@ function list(stream, meta)  {
                 files[i].endsWith(supportedExtensions[1]) ||
                 files[i].endsWith(supportedExtensions[2])) {
                     newList.push(files[i]);  
-//                      console.log("Pushing back " + files[i]);
                 } 
            }
-            console.log(newList);
+         
+            stream.write({ files : newList });
+        });
+    });
+}
+
+function listUnpublished(stream, meta)  {
+    _checkUploadDir(function () {
+        fs.readdir( uploadPath, function (err, files) {
+           var newList = [];
+            
+           for( var i in files ) {
+            if(files[i].endsWith(supportedExtensions[0]) ||
+                files[i].endsWith(supportedExtensions[1]) ||
+                files[i].endsWith(supportedExtensions[2])) {
+                    newList.push(files[i]);  
+                } 
+           }
             stream.write({ files : newList });
         });
     });
@@ -84,16 +95,41 @@ function list(stream, meta)  {
  */
 function request(client, meta) {
     if(meta && meta.name) {
-        var file = fs.createReadStream(publishedVideosPath + '/' + meta.name);
-        console.log("Sending file " + meta.name);
+        var file = fs.createReadStream(
+                        publishedVideosPath + '/' + meta.name,
+                        { flags: 'r', autoClose: true });
+        file.on('error', function(err) {
+            console.log("Error in request: " + err);
+            client.send(null);
+        });
         client.send(file);
+    }
+}
+
+/**
+*/
+function requestUnpublished(client, meta) {
+    if(meta && meta.name) {
+        var file = fs.createReadStream(
+                        uploadPath + '/' + meta.name,
+                        { flags: 'r', autoClose: true });
+//        console.log("Sending file " + meta.name);
+        file.on('error', function(err) {
+            console.log("Error in requestUnpublished: " + err);
+            client.send(null);
+        });
+        if(file) {
+            client.send(file);
+        } else {
+            client.send(null);
+        }
     }
 }
 
 /**
  */
 function upload(stream, meta) {
-    console.log("UPLOADING IN SERVER");
+//    console.log("UPLOADING IN SERVER");
     if (!~supportedTypes.indexOf(meta.type)) {
         stream.write({ err: 'Unsupported type: ' + meta.type });
         stream.end();
@@ -111,3 +147,15 @@ function upload(stream, meta) {
         stream.write({ end: true });
     });
 }
+
+/********************************
+        Exports
+********************************/
+
+module.exports = {
+    list                : list,
+    listUnpublished     : listUnpublished,
+    request             : request,
+    requestUnpublished  : requestUnpublished,
+    upload              : upload
+};

@@ -1,13 +1,12 @@
 $(document).ready(function () {
 
-    var $video    = $("#video");   
-
+//    videomgmt.attr({
+//        controls : true,
+//        autoplay : true
+//    });
     
-    $video.attr({
-        controls : true,
-        autoplay : true
-    });
-
+    
+    
     client.on('open', function () {
         var box = $("#uploadbox");
         console.log("client open connection");
@@ -19,20 +18,34 @@ $(document).ready(function () {
     });
 
     client.on('stream', function (stream) {
-        console.log("Client receiving streaming ");
         video.download(stream, function (err, src) {
-            console.log("client downloaded a file " + src);
+            console.log("client received a stream " + src);
             
             var media  = $("#videogular-media");
             media.attr('vg-src' , src);
             
             var sourceElement = angular.element("videogular video");
             
-            sourceElement[0].src = src;
-            sourceElement[0].type = "video/mp4";
-           
-            var scope = $('#videogular-media').scope();
-            console.log(scope);
+            if(sourceElement) {
+                if(!sourceElement[0]) {
+                    sourceElement[0] = {}
+                }
+                sourceElement[0].src = src;
+                sourceElement[0].type = "video/mp4";
+            }
+            
+            var videomgmt = $("#videomgmt");   
+            
+            if(videomgmt) {
+                videomgmt.bind('ended', function() { 
+                    angular.element("#mgmtPage").scope().videoplaying = false;
+                    angular.element("#mgmtPage").scope().$apply();
+                });
+                
+                angular.element("#mgmtPage").scope().videoplaying = true;
+                angular.element("#mgmtPage").scope().$apply();
+                videomgmt.attr('src',src);                
+            }
         });
     });
 

@@ -1,25 +1,51 @@
-<h1  style="color:white;">BinaryJS File Upload and Streaming</h1>
+<div class="container">
+    <div class="mgmt-block">
+        <h2 style="color:white;">Pagina di amministrazione</h2>
+        <div ng-controller="StreamCtrl" id="mgmtPage">
+            <!--<section id="main">-->
+            <section id="main">
+                <fieldset>
+                    <legend style="color:white;">Drag n Drop</legend>
+                    <aside id="uploadbox">
+                        <article id="progress">Drop file here</article>
+                    </aside>
+                </fieldset>
 
-<!--<section id="main">-->
-<section id="main">
-    <fieldset>
-        <legend  style="color:white;">Drag n Drop</legend>
-        <aside id="uploadbox">
-            <article id="progress">Drop file here</article>
-        </aside>
-    </fieldset>
-   
-    <fieldset>
-        <legend>Select a Link</legend>
+<!--
+                <fieldset>
+                    <legend>Select a Link</legend>
 
-        <nav id="list" class="left"></nav>
-    </fieldset>
+                    <nav id="list" class="left"></nav>
+                </fieldset>
+-->
+                <div ng-show="videoplaying">
+                    <fieldset>
+                        <legend>Play the Video</legend>
+                        <button type="button" class="btn btn-default" ng-click="closeVideoBox()">Close</button>
+                        <section class="left">
+                            <video id="videomgmt" width="800" height="600" controls autoplay></video>
+                        </section>
+                    </fieldset>
+                </div>
+            </section>
+            <br />
+            <div>
+                
+                <table class="table table-hover table-condensed">
+                    <th style="color:white">Lista di video in upload non ancora pubblicati</th>
+                    <tr class="videolist" ng-repeat="videoEntry in uploadedVideos">
+                        <!--                <td>{{videoEntry.id}}</td>-->
+                        <td>{{videoEntry.name}}</td>
+                        <td>
+                            <button type="button" class="btn btn-default" ng-click="playvideo(videoEntry)">View</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger" ng-click="deletevideo(videoEntry)">Delete</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 
-    <fieldset>
-        <legend>Play the Video</legend>
-
-        <section class="left">
-            <video id="video"></video>
-        </section>
-    </fieldset>
-</section>
+    </div>
+</div>
