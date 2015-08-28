@@ -148,6 +148,19 @@ function upload(stream, meta) {
     });
 }
 
+/**
+ */
+function deleteUnpublished(file) {
+//    console.log("UPLOADING IN SERVER");
+    var fullPath = uploadPath + "/" + file;
+    if(fs.existsSync(fullPath)) {
+//        console.log("file exists, i'll delete asap."+fullPath);
+        fs.unlinkSync( fullPath);
+    } else {
+//        console.log("File doesn't exist");
+    }
+}
+
 /********************************
         Exports
 ********************************/
@@ -157,5 +170,6 @@ module.exports = {
     listUnpublished     : listUnpublished,
     request             : request,
     requestUnpublished  : requestUnpublished,
-    upload              : upload
+    upload              : upload,
+    deleteUnpublished   : deleteUnpublished
 };

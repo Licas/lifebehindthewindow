@@ -54,6 +54,19 @@ angular.module('lifebehindthewindowApp')
                    success(files);
                }
             });
+        },
+        
+        deleteunpublished: function(name, success, error) {
+             var url = baseUrl + '/videos/delete/unpublished';
+            $http.get(url, { "params":{"videoname": name }})
+                .success(function(response) {
+                    console.log("Ok delete operation for video "  + name);
+                    success(response);
+                })
+                .error(function(err){
+                    console.log("Error in deleting " + err);
+                    error(err);
+                });
         }
         
     };

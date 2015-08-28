@@ -21,9 +21,11 @@
                 <div ng-show="videoplaying">
                     <fieldset>
                         <legend>Play the Video</legend>
-                        <button type="button" class="btn btn-default" ng-click="closeVideoBox()">Close</button>
+                        
                         <section class="left">
-                            <video id="videomgmt" width="800" height="600" controls autoplay></video>
+                            <button type="button" class="btn btn-default btn-rounded" style="background-color:black;color:white;margin-bottom:10px;" ng-click="closeVideoBox(this)">Close</button>
+                            <video id="videomgmt" width="800" height="600" controls autoplay>
+                            </video>
                         </section>
                     </fieldset>
                 </div>
@@ -38,6 +40,9 @@
                         <td>{{videoEntry.name}}</td>
                         <td>
                             <button type="button" class="btn btn-default" ng-click="playvideo(videoEntry)">View</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-success" ng-click="approvevideo(videoEntry)">Approve</button>
                         </td>
                         <td>
                             <button type="button" class="btn btn-danger" ng-click="deletevideo(videoEntry)">Delete</button>

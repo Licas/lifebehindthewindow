@@ -16,7 +16,7 @@ var watch = require('watch');
 var watchedDir = 'videos/';
 var videoListFile =  __dirname +  "/publishedvideos.json";
 
-var util = require(__dirname + "/../lib/videomanager");
+var videomanager = require(__dirname + "/../lib/videomanager");
 
 var monitorOpts = {
     "ignoreDotFiles":true,
@@ -82,6 +82,15 @@ videoRouter.get('/get', function(req, res, next) {
 //    console.log("required video " + req.query.videoid);
     
   res.send( 'Retrieving video ' + req.query.videoid );
+});
+
+videoRouter.get('/delete/unpublished', function(req, res, next) {
+    if(req.query.videoname) {
+        console.log("request for delete " + req.query.videoname);
+        videomanager.deleteUnpublished(req.query.videoname);
+    }
+    
+    res.send( 'OK');
 });
 
 /* upload handler */
