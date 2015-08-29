@@ -28,7 +28,7 @@ var monitorOpts = {
     "ignoreNotPermitted":true
 };
 
-
+console.log("Check dir " + watchedDir);
 if (!fs.existsSync(watchedDir)){
     fs.mkdirSync(watchedDir);
 }
