@@ -13,7 +13,7 @@ var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
 var watch = require('watch');
-var watchedDir = './videos';
+var watchedDir = 'videos/';
 var videoListFile =  __dirname +  "/publishedvideos.json";
 
 var videomanager = require(__dirname + "/../lib/videomanager");
@@ -23,6 +23,11 @@ var monitorOpts = {
     "ignoreUnreadableDir":true,
     "ignoreNotPermitted":true
 };
+
+
+if (!fs.existsSync(watchedDir)){
+    fs.mkdirSync(watchedDir);
+}
 
   watch.createMonitor(watchedDir, monitorOpts, function (monitor) {
     //monitor.files['/home/mikeal/.zshrc'] // Stat object for my zshrc.
