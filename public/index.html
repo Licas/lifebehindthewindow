@@ -12,13 +12,11 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
         <!-- build:css(.tmp) styles/main.css -->
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles/style.css">
         <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
         <!-- endbuild:css -->
-      
-      
-</head>
+    </head>
   <body>
 	  
 	  <!-- NAVBAR -->
@@ -38,8 +36,6 @@
                   </li>
                   <li><a href="#/">Project</a>
                   </li>
-                  <li><a href="#/">About</a>
-                  </li>
                   <li><a href="#/">Contact</a>
                   </li>
                   <li><a href="#/stream">Stream</a>
@@ -57,9 +53,6 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <!--div class="container" ng-view=""></div-->
-      
          <div ng-view></div>
       
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -92,7 +85,7 @@
         <script src="bower_components/videogular-controls/vg-controls.min.js"></script>
         <script src="bower_components/videogular-overlay-play/vg-overlay-play.min.js"></script>
         <script src="bower_components/videogular-poster/vg-poster.min.js"></script>
-        <script src="/bower_components/videogular-buffering/vg-buffering.min.js"></script>
+        <script src="bower_components/videogular-buffering/vg-buffering.min.js"></script>
 
         <!-- endbuild -->
        <script src="js/lib/binary.js" type="text/javascript"></script>
@@ -103,13 +96,10 @@
       
       
         <script src="scripts/app.js"></script>
-        <script src="views/stream/stream.js"></script>
         <script src="views/main/player.js"></script>
-<!--        <script src="scripts/controllers/Home.js"></script>-->
+        <script src="views/stream/stream.js"></script>
         <script src="scripts/controllers/Form.js"></script>
-        <script src="scripts/services/UploadFactory.js"></script>
-        <script src="scripts/directives/myStopButton.js"></script>
-      
+        <script src="scripts/services/UploadFactory.js"></script>     
       
       <!-- endbuild -->
 </body>
