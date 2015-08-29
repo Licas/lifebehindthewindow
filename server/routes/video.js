@@ -3,17 +3,21 @@
 var express = require('express');
 var videoRouter = express.Router();
 
-var Lazy = require('lazy.js');
-var log = require('winston');
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
 
 var fs = require('fs');
 var jsonfile = require('jsonfile')
+
+var Lazy = require('lazy.js');
+var log = require('winston');
 
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
 var watch = require('watch');
-var watchedDir = 'videos/';
+var watchedDir = appDir+ '/videos';
+var uploadDir = appDir + '/uploads';
 var videoListFile =  __dirname +  "/publishedvideos.json";
 
 var videomanager = require(__dirname + "/../lib/videomanager");
@@ -27,6 +31,9 @@ var monitorOpts = {
 
 if (!fs.existsSync(watchedDir)){
     fs.mkdirSync(watchedDir);
+}
+if (!fs.existsSync(uploadDir)){
+    fs.mkdirSync(uploadDirso);
 }
 
   watch.createMonitor(watchedDir, monitorOpts, function (monitor) {
