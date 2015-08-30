@@ -5,14 +5,7 @@ angular.module('lifebehindthewindowApp')
 	'$scope',
     'UploadFactory',
     function ($scope, UploadFactory) {
-        $(document).ready(function() {
-    // show the alert
-window.setTimeout(function() {
-    $(".alert").fadeTo(1500, 0).slideUp(500, function(){
-        $(this).remove(); 
-    });
-}, 5000);});
-        
+      
             $scope.uploadSuccess = false;
             $scope.uploadFailure = false;
             $scope.model = {};
