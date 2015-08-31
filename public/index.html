@@ -20,7 +20,8 @@
   <body>
 	  
 	  <!-- NAVBAR -->
-      <div class="navbar navbar-fixed-top navbar-transparent" style="background-color:black">
+      <div class="navbar navbar-static-top navbar-transparent navbar-props">
+<!--      <div class="navbar navbar-fixed-top navbar-transparent" style="background-color:black">-->
           <div class="navbar-header"><a class="navbar-brand" href="#/" id="brand">Life Behind the Window</a>
               <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                   <span class="sr-only">Toggle navigation</span>
@@ -53,8 +54,9 @@
       <script src="bower_components/json3/lib/json3.min.js"></script>
     <![endif]-->
 
+      <div class="container">
          <div ng-view></div>
-      
+      </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <!--script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

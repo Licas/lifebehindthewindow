@@ -1,19 +1,44 @@
-/* app css stylesheet */
-html, body {
-    margin: 0;
-    padding: 0;
-/*    overflow:hidden;*/
-    display: block;
-}
-body {
+html {
+
+/*
+   width: 100%;
+    min-width: 100%;
+   height: auto;
+*/
+
     background-color: black;
+    background-repeat: repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
 }
+
+
+body{
+position: relative;
+   width: 100%;
+    min-width: 100%;
+   height: auto;
+   margin: 0; 
+    padding: 0; 
+    border: 0;
+    overflow: auto;
+    
+/*    margin: 0; */
+/*    padding-top: 60px; */
+/*    border: 0;*/
+    
+}
+
 .menu {
   list-style: none;
   border-bottom: 0.1em solid black;
   margin-bottom: 2em;
   padding: 0 0 0.5em;
 }
+/*
 
 .menu:before {
   content: "[";
@@ -36,40 +61,80 @@ body {
   content: "";
   padding: 0;
 }
+*/
 
 
 .videogular-container {
-	width: 100%;
-     min-width: 100%;
+ position: absolute;
+/*    padding-top: 60px;*/
+/*    top: 60px;*/
+    left: 0;
+    width: 100%;
+    min-width: 100%;
+    display: inline;
     height: auto;
-    min-height: 100%;
-    margin:70px auto auto auto;
-	overflow: hidden;
+    background-color: rgba(0,0,0,0.5);
     z-index: 10;
 }
 
-.container-full {
-    position: absolute;
-    display: block;
-  margin: 0 auto;
-  width: 100%;
-    height:auto;
-        -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-    background-color: black;
-    background-repeat: repeat-y;
+.custom-layer {
+/*    width: 300px;*/
+/*    height: 200px;*/
+/*    min-width: 20%;*/
+    position: fixed;
+    left: 50%;
+    top:60%;
+    background-color: transparent;
+    z-index: 50;
 }
- 
+#uploadModal{
+    width:100%;
+    height: auto;
+/*    top: calc(50% - 150px) !important;*/
+    top:50% !important;
+}
+/*
+
+.custom-layer img {
+    width: 150px;
+    height: auto;
+    padding-left: 20px;
+    padding-top: 20px;
+    opacity: 0.5;
+}
+*/
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
 
 @media (min-width: 1200px) {
 	.videogular-container {
 		width: 1170px;
 		height: 658.125px;
 	}
-}
- 
+} 
+
 @media (min-width: 992px) and (max-width: 1199px) {
 	.videogular-container {
 		width: 940px;
@@ -85,7 +150,7 @@ body {
 }
 
 #upload-file-container {
-   background: url(/public/img/circle_orange.png) no-repeat;
+   background: url(/img/circle_orange.png) no-repeat;
 }
 
 #upload-file-container input {
@@ -96,7 +161,7 @@ body {
 }
 
 .uploadButton {
-    background:url(/public/img/circle_orange.png) no-repeat;
+    background:url(/img/circle_orange.png) no-repeat;
     cursor:pointer;
     width: 80px;
     height: 80px;
@@ -106,43 +171,19 @@ body {
 }
 
 
-videogular div.custom-layer {
-    position: absolute;
-    left:50%;
-    top:50%;
-    /*margin:auto auto auto 70px;*/
-    z-index: 50;    
-}
-
-videogular div.custom-layer img {
-    width: 150px;
-    height: auto;
-    padding-left: 20px;
-    padding-top: 20px;
-    opacity: 0.5;
-}
-
-/* Custom button */
-videogular my-stop-button {
-    width: 50px;
-    vertical-align: middle;
-    text-align: center;
-    cursor: pointer;
-    margin-top: 180px;
-    margin-left: 70px;
-}
-
-videogular my-stop-button a,
-videogular my-stop-button a:hover,
-videogular my-stop-button a:visited {
-    color: white;
-    text-decoration: none;
-}
-
 
    /***************************************************************************
                         Navigation Bar
     ****************************************************************************/
+
+/*
+
+.navbar {
+    background-color: black;
+    
+}
+*/
+
 
     .navbar-header #brand{
         font-family: 'Georgia', Arial, sans-serif;
@@ -153,6 +194,10 @@ videogular my-stop-button a:visited {
         text-transform: uppercase;
     }
 
+.navbar-props {
+    margin: 0px !important;
+    background-color: black;
+}
    .mynav li 
    {
        font-family: 'Georgia', Arial, sans-serif;
@@ -184,11 +229,11 @@ videogular my-stop-button a:visited {
 **********************************/
 
 .mgmt-block {
+    background-color:black;
 	width: 100%;
-    min-width: 100%;
     height: auto;
     min-height: 100%;
-    margin:70px auto auto auto;
-/*	overflow: hidden;*/
-    z-index: 10;
+/*    margin:70px auto auto auto;*/
+
+    z-index: 60;
 }

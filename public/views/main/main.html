@@ -1,77 +1,144 @@
-<div class="container-full">
+<script>
+    $(document).on('change', '.btn-file :file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+    
+    $('#cancelUpload').on('click', function(event) {
+        var input = $('#fileInputText');
+        input.val('');
+    });
+    
+   
+     $('#hiddenFile').on('change', function(){
+        $(this).uploadedFile(this);
+        console.log(this);
+    });
 
-<div ng-controller="HomeCtrl as controller"  class="videogular-container" >
-    <videogular vg-responsive="controller.config.responsive" 
-                vg-stretch="controler.config.stretch"
-                vg-auto-play="controller.config.autoPlay" 
-                vg-player-ready="controller.onPlayerReady($API)" 
-                vg-complete="controller.onCompleteVideo()" 
-                vg-theme="controller.config.theme.url">
-
-        <vg-media id="videogular-media" 
-                  vg-volume="controller.config.volume"
-                  vg-loop="controller.config.loop" 
-                  vg-src="controller.config.sources"
-                  vg-tracks="controller.config.tracks">
-        </vg-media>
-
-        <vg-buffering></vg-buffering>
-
-        <div class="custom-layer">
-            <form name="upload" class="form" ng-controller="FormCtrl as formctrl">
-                <input class="uploadButton" value="Upload" type="button" onclick="$('input[type=file]').click()" />
-                <input class="hidden-xs hidden-sm hidden-md hidden-lg" type="file" name="file" ng-model="videonew" onchange="angular.element(this).scope().uploadedFile(this)" />
-                <br/>
-                <!-- user identification -->
-<!--
-                
-                <div role="alert">
-                  <span style="color:red" class="error" ng-show="upload.userName.$error.required && !upload.userName.$pristine">
-                   Required!</span>
-                </div>
--->
-<!--
-                <div role="alert">
-                  <span  style="color:red" class="error" ng-show="myForm.lastName.$error.minlength">
-                    Too short!</span>
-                  <span  style="color:red" class="error" ng-show="myForm.lastName.$error.maxlength">
-                    Too long!</span>
-                </div>
-                
--->
-
-        <!-- USERNAME -->
-        <div class="form-group">
-            <label style="color:white">Who are you</label>
-            <input type="text" name="username" class="form-control" ng-model="user.name" ng-minlength="3" ng-maxlength="50" placeholder="Name Surname">
-            <p ng-show="upload.username.$invalid && !upload.username.$pristine" class="help-block">You name is required.</p>
-        </div>
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
         
-        <!-- EMAIL -->
-        <div class="form-group">
-            <label style="color:white">Where are you from</label>
-            <input type="text"
-                          name="userlocation" 
-                          class="form-control"
-                          ng-model="user.location"
-                          ng-minlength="2"
-                          ng-maxlength="100"
-                          placeholder="L'Aquila, Abruzzo, Italia">
-              <p ng-show="upload.userlocation.$error.minlength" class="help-block">Location is too short.</p>
-  <p ng-show="upload.userlocation.$error.maxlength" class="help-block">Location is too long.</p>
-        </div>
-         <div class="form-group">
-            <label style="color:white">Your email (optional)</label>
-            <input type="email" name="email" class="form-control" ng-model="user.email">
-        </div>
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
         
-        <!-- SUBMIT BUTTON -->
-        <button type="submit" class="btn btn-primary">Submit</button>
-                <!-- end user identification -->
-            </form>
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+    });
+});
+</script>
+<!--<div class="row">-->
+<div ng-controller="HomeCtrl as controller">
+    
+    <div class="videogular-container">
+        <videogular vg-responsive="controller.config.responsive" 
+                    vg-stretch="controler.config.stretch"
+                    vg-auto-play="controller.config.autoPlay" 
+                    vg-player-ready="controller.onPlayerReady($API)" 
+                    vg-complete="controller.onCompleteVideo()" 
+                    vg-theme="controller.config.theme.url">
+
+            <vg-media id="videogular-media" 
+                      vg-volume="controller.config.volume"
+                      vg-loop="controller.config.loop" 
+                      vg-src="controller.config.sources"
+                      vg-tracks="controller.config.tracks">
+            </vg-media>
+
+            <vg-buffering></vg-buffering>
+        </videogular>
+    </div>
+<!--    <div style="clear:both;"></div>-->
+
+    <div class="custom-layer">
+        <div class="row">
+            <button type="button" class="uploadButton" data-toggle="modal" data-target="#uploadModal">Upload your video
+            </button>
         </div>
-    </videogular>
+    </div>
+    
+
+<!-- Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="uploadModalLabel">Upload Form</h4>
+      </div>
+      <div class="modal-body">
+<!--        <div class="well" style="background-color:#F2F6F7">-->
+            <div class="form-group" style="margin-bottom: 5px">
+            <label>Who are you</label>
+            <input 
+                   type="text"
+                   name="username" 
+                   class="form-control"
+                   ng-model="user.name" 
+                   ng-minlength="3"
+                   ng-maxlength="50" 
+                   placeholder="Name Surname">
+    <p ng-show="upload.username.$invalid && !upload.username.$pristine" class="help-block">You name is required.</p>
+            </div>
+            <div class="form-group" style="margin-bottom: 5px">
+                <label >Where are you from</label>
+                <input type="text"
+                  name="userlocation" 
+                  class="form-control"
+                  ng-model="user.location"
+                  ng-minlength="2"
+                  ng-maxlength="100"
+                  placeholder="L'Aquila, Abruzzo, Italia">
+                <p ng-show="upload.userlocation.$error.minlength" class="help-block">Location is too short.</p>
+                <p ng-show="upload.userlocation.$error.maxlength" class="help-block">Location is too long.</p>
+            </div>
+            <div class="form-group" style="margin-bottom: 10px">
+                <label>Your email (optional)</label>
+                <input type="email" name="email" class="form-control" ng-model="user.email">
+            </div>
+
+<!--            <button type="submit" class="btn btn-default ">Submit</button>-->
+<!--        </div>-->
+      </div>
+      <div class="modal-footer">
+     <div class="row" style="margin-bottom:5px">
+          <div class="col-xs-12">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input id="fileInput" type="file">
+                    </span>
+                </span>
+                <input id="fileInputText"  type="text" class="form-control" readonly>
+            </div>
+            
+        </div>
+          </div>
+          <span></span>
+         <div class="row">
+          <div class="col-xs-12">
+            <div class="btn-group">
+<!--
+                <a href="#" class="btn btn-default">Action 1</a>
+                <a href="#" class="btn btn-default">Action 2</a>
+-->
+                <button id="startUpload" type="button" class="btn btn-success">
+                        Upload
+                </button>
+                <button id="cancelUpload" type="button" class="btn btn-warning" >
+                        Cancel
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>      
+        </div><!--row-->
+      </div><!--modal-footer-->
+    </div><!--modal-content-->
+  </div><!--modal-dialog-->
+</div>
 </div>
 <!-- controller -->
-    
-</div>
