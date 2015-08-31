@@ -1,8 +1,8 @@
 dist
 .tmp
 .sass-cache
-/public/bower_components
-/bower_components
+public/bower_components
+bower_components
 logs/*
 node_modules/
 tmp
