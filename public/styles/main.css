@@ -24,7 +24,7 @@ position: relative;
    margin: 0; 
     padding: 0; 
     border: 0;
-    overflow: auto;
+    overflow: visible;
     
 /*    margin: 0; */
 /*    padding-top: 60px; */
@@ -68,7 +68,7 @@ position: relative;
  position: absolute;
 /*    padding-top: 60px;*/
 /*    top: 60px;*/
-    left: 0;
+    margin-left: 0;
     width: 100%;
     min-width: 100%;
     display: inline;
@@ -91,7 +91,8 @@ position: relative;
     width:100%;
     height: auto;
 /*    top: calc(50% - 150px) !important;*/
-    top:50% !important;
+    top:30% !important;
+    overflow: scroll !important;
 }
 /*
 
@@ -106,7 +107,6 @@ position: relative;
 
 .btn-file {
   position: relative;
-  overflow: hidden;
 }
 .btn-file input[type=file] {
   position: absolute;
