@@ -1,8 +1,8 @@
-var hostname, client, port,devhostname;
+var hostname, client, port;
 
 port = 9000;
-devhostname = window.location.hostname;//dev host
-hostname = "lifebehindthewindow.com";
+hostname = window.location.hostname;
+
 console.log("ws host:" + hostname);
 
 //console.log("Hostname " + hostname);

@@ -4,9 +4,9 @@ angular.module('lifebehindthewindowApp')
   .factory('UploadFactory', [ "$http", function ( $http) {
     
       var devhost = 'localhost';
-      var host = 'lifebehindthewindow.com';
-      var port = 3000;//dev
-      var prodport = 80;//production
+      var host = 'www.lifebehindthewindow.com';
+      var devport = 3000;//dev
+      var port = 8080;//production
       var baseUrl = 'http://' + host +':' + port;
 
     // Public API here
@@ -24,12 +24,12 @@ angular.module('lifebehindthewindowApp')
 		            })
 		            .success(function (data) {
 //                        console.log("success in posting data");
-		                console.log(data);
+		                console.log("success uploading data." + data);
                         success();
 		            })
 		            .error(function (data) {
 //                        console.log("error in posting data");
-		                console.log(data);
+		                console.log("error uploading data." + data);
                         error();
 		            });
 		    },
@@ -39,8 +39,10 @@ angular.module('lifebehindthewindowApp')
             video.list(function setupList(err, files) {
             
                if(err) {
+                   console.log("Error getlist " + err);
                    error(err);
                } else {
+                   console.log("Success getlist " + files);
                    success(files);
                }
             });
@@ -51,8 +53,10 @@ angular.module('lifebehindthewindowApp')
             video.listUnpublished(function setupList(err, files) {
             
                if(err) {
+                   console.log("Error listUnpublished " + err);
                    error(err);
                } else {
+                   console.log("Success listUnpublished " + files);
                    success(files);
                }
             });
