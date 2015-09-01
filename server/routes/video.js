@@ -18,17 +18,29 @@ var upload = multer({ dest: 'uploads/' })
 var watch = require('watch');
 
 var publishedVideosPath =   './videos';
-var watchedDir = appDir+ '/videos';
-var uploadDir = appDir + '/uploads';
+var watchedDir = appDir+ './videos';
+var uploadDir = appDir + './uploads';
 var videoListFile =  __dirname +  "/publishedvideos.json";
 
 var videomanager = require(__dirname + "/../lib/videomanager");
 
-var monitorOpts = {
-    "ignoreDotFiles":true,
-    "ignoreUnreadableDir":true,
-    "ignoreNotPermitted":true
-};
+var   supportedTypes,
+    supportedExtensions;
+
+supportedTypes = [
+    'video/mp4',
+    'video/webm',
+    'video/ogg'
+];
+supportedExtensions = [
+    'mp4', 'webm', 'ogg'
+];
+
+//var monitorOpts = {
+//    "ignoreDotFiles":true,
+//    "ignoreUnreadableDir":true,
+//    "ignoreNotPermitted":true
+//};
 
 console.log("Check dir " + watchedDir);
 if (!fs.existsSync(watchedDir)){
@@ -37,53 +49,53 @@ if (!fs.existsSync(watchedDir)){
 if (!fs.existsSync(uploadDir)){
     fs.mkdirSync(uploadDirso);
 }
-
-  watch.createMonitor(watchedDir, monitorOpts, function (monitor) {
-    //monitor.files['/home/mikeal/.zshrc'] // Stat object for my zshrc.
-    monitor.on("created", function (f, stat) {
-      // Handle new files
-        console.log("New file added " + f);
-        var fileJSON = jsonfile.readFileSync(videoListFile);
-        var newVideo = {
-            "name":f
-        }
-
-        fileJSON.published_videos.push(newVideo);
-        jsonfile.writeFileSync(videoListFile, fileJSON);
-    })
-    monitor.on("changed", function (f, curr, prev) {
-      // Handle file changes
-        
-        console.log("File " + f + " has changed");
-    })
-    monitor.on("removed", function (f, stat) {
-      // Handle removed files
-        console.log("File " + f + " has been removed");
-        var fileJSON = jsonfile.readFileSync(videoListFile);
-        
-        function filterRemovedVideo(element) {
-            if( element.name == f ) {
-                    console.log(JSON.stringify(element));
-                return true;
-            }
-            return false;
-        }        
-        var remElem = Lazy(fileJSON.published_videos)
-            .filter(filterRemovedVideo)
-            .first();
-        if(remElem) {
-            var index = Lazy(fileJSON.published_videos).indexOf(remElem);
-            
-            console.log("Rem elem [" + index + "] "+ JSON.stringify(remElem));
-            delete fileJSON.published_videos[index];
-            fileJSON.published_videos = fileJSON.published_videos.filter(function(el){
-                return el !== null;
-            });
-            jsonfile.writeFileSync(videoListFile, fileJSON);
-        }
-    })
-    //monitor.stop(); // Stop watching
-  })
+//
+//  watch.createMonitor(watchedDir, monitorOpts, function (monitor) {
+//    //monitor.files['/home/mikeal/.zshrc'] // Stat object for my zshrc.
+//    monitor.on("created", function (f, stat) {
+//      // Handle new files
+//        console.log("New file added " + f);
+//        var fileJSON = jsonfile.readFileSync(videoListFile);
+//        var newVideo = {
+//            "name":f
+//        }
+//
+//        fileJSON.published_videos.push(newVideo);
+//        jsonfile.writeFileSync(videoListFile, fileJSON);
+//    })
+//    monitor.on("changed", function (f, curr, prev) {
+//      // Handle file changes
+//        
+//        console.log("File " + f + " has changed");
+//    })
+//    monitor.on("removed", function (f, stat) {
+//      // Handle removed files
+//        console.log("File " + f + " has been removed");
+//        var fileJSON = jsonfile.readFileSync(videoListFile);
+//        
+//        function filterRemovedVideo(element) {
+//            if( element.name == f ) {
+//                    console.log(JSON.stringify(element));
+//                return true;
+//            }
+//            return false;
+//        }        
+//        var remElem = Lazy(fileJSON.published_videos)
+//            .filter(filterRemovedVideo)
+//            .first();
+//        if(remElem) {
+//            var index = Lazy(fileJSON.published_videos).indexOf(remElem);
+//            
+//            console.log("Rem elem [" + index + "] "+ JSON.stringify(remElem));
+//            delete fileJSON.published_videos[index];
+//            fileJSON.published_videos = fileJSON.published_videos.filter(function(el){
+//                return el !== null;
+//            });
+//            jsonfile.writeFileSync(videoListFile, fileJSON);
+//        }
+//    })
+//    //monitor.stop(); // Stop watching
+//  })
 
 videoRouter.get('/list', function(req, res, next) {
   //res.send( 'Check for new videos.' );
