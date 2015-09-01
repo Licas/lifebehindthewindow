@@ -1,7 +1,9 @@
 var hostname, client, port;
 
 port = 9000;
-hostname = window.location.hostname;
+devhostname = window.location.hostname;//dev host
+hostname = "lifebehindthewindow.com";
+console.log("ws host:" + hostname);
 
 //console.log("Hostname " + hostname);
 client   = new BinaryClient('ws://' + hostname + ':' + port);

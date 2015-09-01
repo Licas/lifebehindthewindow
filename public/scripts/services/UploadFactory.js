@@ -3,8 +3,10 @@
 angular.module('lifebehindthewindowApp')
   .factory('UploadFactory', [ "$http", function ( $http) {
     
-      var host = 'localhost';
-      var port = 3000;
+      var devhost = 'localhost';
+      var host = 'lifebehindthewindow.com';
+      var devport = 3000;//dev
+      var port = 80;//production
       var baseUrl = 'http://' + host +':' + port;
 
     // Public API here
