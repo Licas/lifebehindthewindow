@@ -12,9 +12,11 @@ var fs,
     supportedExtensions;
 
 fs = require('fs');
+var path = require('path');
+var appDir = path.dirname(require.main.filename);
 
-publishedVideosPath =   './videos';
-uploadPath = './uploads';
+publishedVideosPath =   appDir+'/videos';
+uploadPath = appDir+'/uploads';
 
 supportedTypes = [
     'video/mp4',
@@ -129,7 +131,7 @@ function requestUnpublished(client, meta) {
 /**
  */
 function upload(stream, meta) {
-//    console.log("UPLOADING IN SERVER");
+    console.log("UPLOADING IN SERVER");
     if (!~supportedTypes.indexOf(meta.type)) {
         stream.write({ err: 'Unsupported type: ' + meta.type });
         stream.end();

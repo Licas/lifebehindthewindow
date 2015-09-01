@@ -1,12 +1,11 @@
 'use strict';
 
 angular.module('lifebehindthewindowApp')
-  .factory('UploadFactory', [ "$http", function ( $http) {
+  .factory('UploadFactory', [ "$http", "ENV", function ( $http, ENV) {
+      
+      var host = ENV.backendEndpoint;
+      var port = ENV.backendPort;
     
-      var devhost = 'localhost';
-      var host = 'www.lifebehindthewindow.com';
-      var devport = 3000;//dev
-      var port = 8080;//production
       var baseUrl = 'http://' + host +':' + port;
 
     // Public API here

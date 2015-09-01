@@ -2,9 +2,8 @@
   "name": "lifebehindthewindow",
   "version": "0.0.1",
   "author": "morinimanuel@gmail.com",
-    "private":true,
+  "private": true,
   "dependencies": {
-    "bower": "^1.3.1",
     "binaryjs": "^0.2.1",
     "body-parser": "^1.13.3",
     "cookie-parser": "^1.3.5",
@@ -20,6 +19,11 @@
   },
   "devDependencies": {
     "bower": "^1.3.1",
+    "grunt": "^0.4.5",
+    "grunt-bower-install": "^1.6.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-ng-constant": "^1.1.0",
+    "grunt-replace": "^0.10.2",
     "http-server": "^0.6.1"
   },
   "engines": {
@@ -29,7 +33,7 @@
     "postinstall": "bower install",
     "prestart": "npm install",
     "pretest": "npm install",
-      "start":"node server.js",
+    "start": "node server.js",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run",
     "preupdate-webdriver": "npm install",

@@ -1,3 +1,7 @@
 {
-       "port": 8080
+    "host":"localhost",
+    "port": 80,
+    "wsport":9000,
+    "uploadPath":"",
+    "publishedVideos":""
 }
