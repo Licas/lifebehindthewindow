@@ -1,4 +1,4 @@
-var hostname, client, port;
+var hostname, client, port,devhostname;
 
 port = 9000;
 devhostname = window.location.hostname;//dev host
