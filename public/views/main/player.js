@@ -34,7 +34,7 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
             controller.API = API;
             controller.API.setVolume(0);
             controller.playerReady = true;
-            
+            console.log("get video list and load video");
             $interval(getVideoList, 3000);
             $interval(loadVideo,5000);
         }

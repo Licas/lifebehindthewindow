@@ -4,61 +4,34 @@
    {
         $("#file").click();
    }
-    
-    $(document).on('change', '.btn-file :file', function() {
-        var input = $(this),
-            numFiles = input.get(0).files ? input.get(0).files.length : 1,
-            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        input.trigger('fileselect', [numFiles, label]);
-    });
-    
+//    
+//    $(document).on('change', '.btn-file :file', function() {
+//        var input = $(this),
+//            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+//            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+//        input.trigger('fileselect', [numFiles, label]);
+//    });
+//    
     $('#cancelUpload').on('click', function(event) {
         var input = $('#fileInputText');
         input.val('');
-    });
-//    $('#startUpload').on('click', function(event) {
-//        var input = $('.btn-file :file ');
+    });    
+//   
+//
+//$(document).ready( function() {
+//    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
 //        
-//        var fileList = input.get(0).files;
-//        console.log(input.get(0).files);
-//        if(fileList.length >= 1) {
-//            //OK
-//            var file = fileList[0];
-//            console.log(file);
-//            
-//            /*
-//                lastModified: 1440447756000
-//                lastModifiedDate: Mon Aug 24 2015 22:22:36 GMT+0200 (CEST)
-//                name: "plg_jw_allvideos-v4.7.0_j1.5-3.x.zip"
-//                size: 373864
-//                type: "application/zip"
-//                webkitRelativePath: ""
-//            */
+//        var input = $(this).parents('.input-group').find(':text'),
+//            log = numFiles > 1 ? numFiles + ' files selected' : label;
+//        
+//        if( input.length ) {
+//            input.val(log);
+//            console.log(log);
 //        } else {
-//            //NOK
+//            if( log ) alert(log);
 //        }
 //    });
-    
-   
-     $('#hiddenFile').on('change', function(){
-        $(this).uploadedFile(this);
-        console.log(this);
-    });
-
-$(document).ready( function() {
-    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
-        
-        var input = $(this).parents('.input-group').find(':text'),
-            log = numFiles > 1 ? numFiles + ' files selected' : label;
-        
-        if( input.length ) {
-            input.val(log);
-            console.log(log);
-        } else {
-            if( log ) alert(log);
-        }
-    });
-});
+//});
 </script>
 <!--<div class="row">-->
 <div ng-controller="HomeCtrl as controller">
