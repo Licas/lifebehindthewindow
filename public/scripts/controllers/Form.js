@@ -8,13 +8,24 @@ angular.module('lifebehindthewindowApp')
       
             $scope.uploadSuccess = false;
             $scope.uploadFailure = false;
-            $scope.model = {};
-            $scope.selectedFile = [];
+//            $scope.model = {};
+//            $scope.selectedFile = [];
 
-            $scope.uploadedFile = function(element) {
-             $scope.$apply(function($scope) {
-                 $scope.files = element.files;         
-                 UploadFactory.uploadfile($scope.files[0],
+        $scope.fileNameChanged = function(element) {
+            $scope.selectedFile = element;
+            $scope.selectedFileName = $scope.selectedFile.files[0].name;
+            console.log($scope.selectedFile.files[0].name);
+        }
+            $scope.uploadedFile = function() {
+                 console.log("User name " + $scope.user_name);
+                 console.log("User location " + $scope.user_location);
+                 
+                if($scope.selectedFile.files && $scope.selectedFile.files.length >= 1) {
+                    var file2upload = $scope.selectedFile.files[0];
+                    
+                    console.log(file2upload);
+
+                    UploadFactory.uploadfile(file2upload,
                        function( msg ) // success
                        {
                         console.log('uploaded the file');
@@ -26,8 +37,8 @@ angular.module('lifebehindthewindowApp')
                         console.log('error');
                         $scope.uploadSuccess = false;
                         $scope.uploadFailure = true;
-                       });
-                });
+                    });
+                }                
             }
         }]
   );
