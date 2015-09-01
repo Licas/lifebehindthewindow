@@ -18,8 +18,8 @@ var upload = multer({ dest: 'uploads/' })
 var watch = require('watch');
 
 var publishedVideosPath =   './videos';
-var watchedDir = appDir+ 'videos';
-var uploadDir = appDir + 'uploads';
+var watchedDir = appDir+ '/videos';
+var uploadDir = appDir + '/uploads';
 var videoListFile =  __dirname +  "/publishedvideos.json";
 
 var videomanager = require(__dirname + "/../lib/videomanager");
