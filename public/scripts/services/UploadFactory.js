@@ -5,8 +5,8 @@ angular.module('lifebehindthewindowApp')
     
       var devhost = 'localhost';
       var host = 'lifebehindthewindow.com';
-      var devport = 3000;//dev
-      var port = 80;//production
+      var port = 3000;//dev
+      var prodport = 80;//production
       var baseUrl = 'http://' + host +':' + port;
 
     // Public API here
