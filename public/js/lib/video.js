@@ -15,7 +15,9 @@ video = (function () {
             cb(null, data.files);
         });
 
-        stream.on('error', cb);
+        stream.on('error', function(err) {
+            cb(err,null);
+        } );
     }
     
     function listUnpublished(cb) {
@@ -26,7 +28,9 @@ video = (function () {
             cb(null, data.files);
         });
 
-        stream.on('error', cb);
+       stream.on('error', function(err) {
+            cb(err,null);
+        } );
     }
 
     function upload(file, cb) {
@@ -40,7 +44,9 @@ video = (function () {
             cb(null, data);
         });
 
-        stream.on('error', cb);
+        stream.on('error', function(err) {
+            cb(err,null);
+        } );
     }
 
     function request(name) {
@@ -58,9 +64,9 @@ video = (function () {
             parts.push(data);
         });
 
-        stream.on('error', function (err) {
-            cb(err);
-        });
+       stream.on('error', function(err) {
+            cb(err,null);
+        } );
 
         stream.on('end', function () {
             var src = (window.URL || window.webkitURL).createObjectURL(new Blob(parts));
