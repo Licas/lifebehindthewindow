@@ -16,6 +16,8 @@ var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
 var watch = require('watch');
+
+var publishedVideosPath =   './videos';
 var watchedDir = appDir+ '/videos';
 var uploadDir = appDir + '/uploads';
 var videoListFile =  __dirname +  "/publishedvideos.json";
@@ -85,9 +87,23 @@ if (!fs.existsSync(uploadDir)){
 
 videoRouter.get('/list', function(req, res, next) {
   //res.send( 'Check for new videos.' );
-    var fileJSON = jsonfile.readFileSync(videoListFile);
-    
-    res.send(fileJSON);
+//    var fileJSON = jsonfile.readFileSync(videoListFile);
+//    {"published_videos":[{"name":"videos/Lego Hulk Buster.mp4"},{"name":"videos/Minecraft in 20 Seconds.mp4"},{"name":"/Users/manuelmorini/Documents/code/AngularJS/LifeBehindTheWindow2/videos/Minecraft in 20 Seconds.mp4"}]}
+    fs.readdir( publishedVideosPath, function (err, files) {
+           var newList = [];
+            if(err) {
+                res.status(500).send(err);
+            }
+           for( var i in files ) {
+            if(files[i].endsWith(supportedExtensions[0]) ||
+                files[i].endsWith(supportedExtensions[1]) ||
+                files[i].endsWith(supportedExtensions[2])) {
+                    newList.push(files[i]);  
+                } 
+           }
+         
+            res.send({ files : newList });
+        });
 });
 
 videoRouter.get('/get', function(req, res, next) {
