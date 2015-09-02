@@ -1,6 +1,6 @@
 {
     "host":"localhost",
-    "port": 80,
+    "port": 8080,
     "wsport":9000,
     "storageprefix":"/opt/lifestorage",
     "uploadFolderName":"uploads",
