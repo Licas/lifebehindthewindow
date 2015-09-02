@@ -1,22 +1,27 @@
-/**
- * Manages uploading and streaming of video files.
- *
- * @module video
- */
 'use strict';
 
-var fs, 
-    uploadPath,
+var uploadPath,
     publishedVideosPath, 
     supportedTypes,
     supportedExtensions;
 
-fs = require('fs');
+var config = require('./config');
+var fs = require('fs');
 var path = require('path');
-var appDir = path.dirname(require.main.filename);
+var appDir = "";
+var uploadFolder = config.uploadFolderName;
+var videosFolder = config.videosFolderName;
 
-publishedVideosPath =   appDir+'/videos';
-uploadPath = appDir+'/uploads';
+if(config.storageprefix) {
+    appDir = config.storageprefix;
+} else {
+    appDir = path.dirname(require.main.filename);
+}
+
+publishedVideosPath = appDir +  "/" + videosFolder;
+uploadPath = appDir + "/" + uploadFolder;
+//publishedVideosPath = appDir+'/videos';
+//uploadPath = appDir+'/uploads';
 
 supportedTypes = [
     'video/mp4',
@@ -153,10 +158,19 @@ function upload(stream, meta) {
 /**
  */
 function deleteUnpublished(file) {
-//    console.log("UPLOADING IN SERVER");
     var fullPath = uploadPath + "/" + file;
+
     if(fs.existsSync(fullPath)) {
-//        console.log("file exists, i'll delete asap."+fullPath);
+        fs.unlinkSync( fullPath);
+    } else {
+//        console.log("File doesn't exist");
+    }
+}
+
+function deletePublished(file) {
+    var fullPath = publishedVideosPath + "/" + file;
+
+    if(fs.existsSync(fullPath)) {
         fs.unlinkSync( fullPath);
     } else {
 //        console.log("File doesn't exist");
@@ -199,5 +213,8 @@ module.exports = {
     requestUnpublished  : requestUnpublished,
     upload              : upload,
     deleteUnpublished   : deleteUnpublished,
-    approveUnpublished  : approveUnpublished
+    deletePublished     : deletePublished,
+    approveUnpublished  : approveUnpublished,
+    supportedTypes      : supportedTypes,
+    supportedExtensions : supportedExtensions
 };

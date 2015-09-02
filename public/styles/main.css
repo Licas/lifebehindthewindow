@@ -229,11 +229,12 @@ input[readonly] {
 **********************************/
 
 .mgmt-block {
-    background-color:black;
-	width: 100%;
+    position: absolute;
+/*    padding-top: 60px;*/
+/*    top: 60px;*/
+    margin-left: 0;
+    width: 100%;
+    min-width: 100%;
+    display: inline;
     height: auto;
-    min-height: 100%;
-/*    margin:70px auto auto auto;*/
-
-    z-index: 60;
 }

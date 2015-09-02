@@ -3,9 +3,8 @@
 var express = require('express');
 var videoRouter = express.Router();
 
+var config = require('../lib/config');
 var path = require('path');
-var appDir = path.dirname(require.main.filename);
-
 var fs = require('fs');
 var jsonfile = require('jsonfile')
 
@@ -17,24 +16,41 @@ var upload = multer({ dest: 'uploads/' })
 
 var watch = require('watch');
 
-var publishedVideosPath =   './videos';
-var watchedDir = appDir+ '/videos';
-var uploadDir = appDir + '/uploads';
-var videoListFile =  __dirname +  "/publishedvideos.json";
+var appDir = "";
+var uploadFolder = config.uploadFolderName;
+var videosFolder = config.videosFolderName;
+
+if(config.storageprefix) {
+    appDir = config.storageprefix;
+} else {
+    appDir = path.dirname(require.main.filename);
+}
+
+
+var publishedVideosPath =  appDir + "/" + videosFolder;
+var watchedDir = publishedVideosPath;
+var uploadDir = appDir + "/" + uploadFolder;
+
+console.log("publishedVideosPath " + publishedVideosPath);
+console.log("uploadDir " + uploadDir);
+//var publishedVideosPath =   './videos';
+//var watchedDir = appDir+ '/videos';
+//var uploadDir = appDir + '/uploads';
+//var videoListFile =  __dirname +  "/publishedvideos.json";
 
 var videomanager = require(__dirname + "/../lib/videomanager");
-
-var   supportedTypes,
-    supportedExtensions;
-
-supportedTypes = [
-    'video/mp4',
-    'video/webm',
-    'video/ogg'
-];
-supportedExtensions = [
-    'mp4', 'webm', 'ogg'
-];
+//
+//var supportedTypes,
+//    supportedExtensions;
+//
+//supportedTypes = [
+//    'video/mp4',
+//    'video/webm',
+//    'video/ogg'
+//];
+//supportedExtensions = [
+//    'mp4', 'webm', 'ogg'
+//];
 
 //var monitorOpts = {
 //    "ignoreDotFiles":true,
@@ -94,22 +110,20 @@ if (!fs.existsSync(uploadDir)){
 //            jsonfile.writeFileSync(videoListFile, fileJSON);
 //        }
 //    })
-//    //monitor.stop(); // Stop watching
+//    // Stop watching
+//    //monitor.stop();
 //  })
 
 videoRouter.get('/list', function(req, res, next) {
-  //res.send( 'Check for new videos.' );
-//    var fileJSON = jsonfile.readFileSync(videoListFile);
-//    {"published_videos":[{"name":"videos/Lego Hulk Buster.mp4"},{"name":"videos/Minecraft in 20 Seconds.mp4"},{"name":"/Users/manuelmorini/Documents/code/AngularJS/LifeBehindTheWindow2/videos/Minecraft in 20 Seconds.mp4"}]}
     fs.readdir( publishedVideosPath, function (err, files) {
            var newList = [];
             if(err) {
                 res.status(500).send(err);
             }
            for( var i in files ) {
-            if(files[i].endsWith(supportedExtensions[0]) ||
-                files[i].endsWith(supportedExtensions[1]) ||
-                files[i].endsWith(supportedExtensions[2])) {
+            if(files[i].endsWith(videomanager.supportedExtensions[0]) ||
+                files[i].endsWith(videomanager.supportedExtensions[1]) ||
+                files[i].endsWith(videomanager.supportedExtensions[2])) {
                     newList.push(files[i]);  
                 } 
            }
@@ -128,6 +142,15 @@ videoRouter.get('/delete/unpublished', function(req, res, next) {
     if(req.query.videoname) {
         console.log("request for delete " + req.query.videoname);
         videomanager.deleteUnpublished(req.query.videoname);
+    }
+    
+    res.send( 'OK');
+});
+
+videoRouter.get('/delete/published', function(req, res, next) {
+    if(req.query.videoname) {
+        console.log("request for delete " + req.query.videoname);
+        videomanager.deletePublished(req.query.videoname);
     }
     
     res.send( 'OK');

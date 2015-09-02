@@ -1,5 +1,8 @@
 {
     "host":"localhost",
     "port": 3000,
-    "wsport":9000
+    "wsport":9000,
+    "storageprefix":".",
+    "uploadFolderName":"uploads",
+    "videosFolderName":"videos"
 }

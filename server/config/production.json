@@ -2,6 +2,7 @@
     "host":"localhost",
     "port": 80,
     "wsport":9000,
-    "uploadPath":"",
-    "publishedVideos":""
+    "storageprefix":"/opt/lifestorage",
+    "uploadFolderName":"uploads",
+    "videosFolderName":"videos"
 }
