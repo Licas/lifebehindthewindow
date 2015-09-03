@@ -64,7 +64,7 @@ videoRouter.get('/list', function(req, res, next) {
 videoRouter.get('/get', function(req, res, next) {
 //    console.log("required video " + req.query.videoid);
     
-  res.send( 'Retrieving video ' + req.query.videoid );
+  res.status(200).send( 'Retrieving video ' + req.query.videoid );
 });
 
 videoRouter.get('/delete/unpublished', function(req, res, next) {
@@ -73,7 +73,7 @@ videoRouter.get('/delete/unpublished', function(req, res, next) {
         videomanager.deleteUnpublished(req.query.videoname);
     }
     
-    res.send( 'OK');
+    res.status(200).send('OK');
 });
 
 videoRouter.get('/delete/published', function(req, res, next) {
@@ -82,7 +82,7 @@ videoRouter.get('/delete/published', function(req, res, next) {
         videomanager.deletePublished(req.query.videoname);
     }
     
-    res.send( 'OK');
+    res.status(200).send( 'OK');
 });
 
 videoRouter.get('/approve/unpublished', function(req, res, next) {
@@ -91,50 +91,37 @@ videoRouter.get('/approve/unpublished', function(req, res, next) {
         videomanager.approveUnpublished(req.query.videoname);
     }
     
-    res.send( 'OK');
+    res.status(200).send( 'OK');
 });
 
 /* upload handler */
 videoRouter.post('/upload', upload.single('file'), function(req, res, next) {
-//    log.info("/upload invocation");
-    /*{
-        "fieldname": "file",
-    "originalname": "mod_pri_background_v3.1(1).zip",
-    "encoding": "7bit",
-    "mimetype": "application/zip",
-    "destination": "uploads/",
-    "filename": "83f36edfdfba53db3d2a6a6d8bf1c225",
-    "path": "uploads/83f36edfdfba53db3d2a6a6d8bf1c225",
-    "size": 40714
-    }*/
     if(req.file) {
-         
-        
         log.info(' file: %s - size: %d (%s) - located in: %s',  
                     req.file.originalname, 
                     req.file.size,
                     req.file.mimetype,
-                    req.file.path
-        );
+                    req.file.path);
         
         if(!Lazy(req.file.mimetype).startsWith('video')) {
-            fs.unlink(req.file.path, function (err) {
-              if (err) 
-                  res.status(500).send("Error: "+ err);
-              console.log('successfully deleted ' +req.file.path);
+            fs.unlink(req.file.path, 
+                      function (err) {
+                          if (err) 
+                              res.status(500).send("Error: "+ err);
+                          console.log('successfully deleted ' +req.file.path);
             });
 
             res.status(500).send("Error in file format");
         }
     
-        fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err) {
-            if ( err ) {
-                console.log('ERROR: ' + err);
-                res.status(500).send("Error: "+ err);
-            }
-        });
+        fs.rename(req.file.path, 
+                  req.file.destination + req.file.originalname, 
+                  function(err) {
+                    if ( err ) {
+                        console.log('ERROR: ' + err);
+                        res.status(500).send("Error: "+ err);
+                    }});
         
-       
         res.status(200).send("OK");
     } else {
         res.status(500).send("No file found");

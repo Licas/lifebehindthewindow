@@ -8,8 +8,10 @@ var fs = require('fs');
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
+var VideoModel = require(__dirname + "/../model/VideoModel");
+var db = require(__dirname + "/../controller/videodb");
 
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Upload Integration Data Layer Object' });
 });
@@ -19,14 +21,17 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
     log.info("/api/upload invocation");
     /*{
         "fieldname": "file",
-    "originalname": "mod_pri_background_v3.1(1).zip",
-    "encoding": "7bit",
-    "mimetype": "application/zip",
-    "destination": "uploads/",
-    "filename": "83f36edfdfba53db3d2a6a6d8bf1c225",
-    "path": "uploads/83f36edfdfba53db3d2a6a6d8bf1c225",
-    "size": 40714
+        "originalname": "mod_pri_background_v3.1(1).zip",
+        "encoding": "7bit",
+        "mimetype": "application/zip",
+        "destination": "uploads/",
+        "filename": "83f36edfdfba53db3d2a6a6d8bf1c225",
+        "path": "uploads/83f36edfdfba53db3d2a6a6d8bf1c225",
+        "size": 40714
     }*/
+    
+    var originalName = req.file.originalname;
+    
     if(req.file) {
         log.info(' file: %s - size: %d (%s) - located in: %s',  
                     req.file.originalname, 
@@ -48,23 +53,33 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
         fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err) {
             if ( err ) {
                 console.log('ERROR: ' + err);
-    //            res.status(500).send("Error: "+ err);
             }
         });
-    
+        
+        var username = "";
+        var userlocation = "";
+        
+        if(req.body.username) 
+            username = req.body.username;
+        
+        if(req.body.userlocation) 
+            userlocation = req.body.userlocation;
+        
         db.createVideo({
-            "title":"title",
-            "username":"username",
-            "userlocation":"userlocation"
+            "title": originalName,
+            "username": username,
+            "userlocation": userlocation
+            
         }, function(msg){
-            console.log("success in saving video on db: "+msg);
+            console.log("success in saving video on db: " + msg);
         }, function(error){
-            console.log("error in saving video on db: " +error);
+            console.log("error in saving video on db: " + error);
         });
         
-        res.send(req.file);
+        res.status(200).send("upload done");
+        
       } else {
-        res.status(500).send("No file found");
+        res.status(500).send("upload not done");
       }
 });
             

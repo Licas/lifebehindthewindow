@@ -17,57 +17,25 @@ html {
 
 
 body{
-position: relative;
-   width: 100%;
+    position: relative;
+    width: 100%;
     min-width: 100%;
-   height: auto;
-   margin: 0; 
+    height: auto;
+    margin: 0; 
     padding: 0; 
     border: 0;
     overflow: visible;
-    
-/*    margin: 0; */
-/*    padding-top: 60px; */
-/*    border: 0;*/
-    
 }
 
 .menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+    list-style: none;
+    border-bottom: 0.1em solid black;
+    margin-bottom: 2em;
+    padding: 0 0 0.5em;
 }
-/*
-
-.menu:before {
-  content: "[";
-}
-
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
-}
-*/
-
 
 .videogular-container {
- position: absolute;
-/*    padding-top: 60px;*/
-/*    top: 60px;*/
+    position: absolute;
     margin-left: 0;
     width: 100%;
     min-width: 100%;
@@ -78,53 +46,53 @@ position: relative;
 }
 
 .custom-layer {
-/*    width: 300px;*/
-/*    height: 200px;*/
-/*    min-width: 20%;*/
+    width: auto;
     position: fixed;
     left: 50%;
     top:60%;
     background-color: transparent;
     z-index: 50;
 }
+.custom-layer-messages {
+     position: fixed;
+    
+    text-align: center;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top:75%;
+    background-color: transparent;
+    z-index: 50;
+}
+
 #uploadModal{
     width:100%;
     height: auto;
-/*    top: calc(50% - 150px) !important;*/
     top:30% !important;
     overflow: scroll !important;
 }
-/*
-
-.custom-layer img {
-    width: 150px;
-    height: auto;
-    padding-left: 20px;
-    padding-top: 20px;
-    opacity: 0.5;
-}
-*/
 
 .btn-file {
   position: relative;
 }
+
 .btn-file input[type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  background: red;
-  cursor: inherit;
-  display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
 }
+
 input[readonly] {
-  background-color: white !important;
-  cursor: text !important;
+    background-color: white !important;
+    cursor: text !important;
 }
 
 
@@ -150,12 +118,12 @@ input[readonly] {
 }
 
 #upload-file-container {
-   background: url(/img/circle_orange.png) no-repeat;
+    background: url(/img/circle_orange.png) no-repeat;
 }
 
 #upload-file-container input {
-   filter: alpha(opacity=0);
-   opacity: 0;
+    filter: alpha(opacity=0);
+    opacity: 0;
     text-align: center;
     color: beige;
 }
@@ -171,35 +139,25 @@ input[readonly] {
 }
 
 
-
-   /***************************************************************************
+/************************************************************
                         Navigation Bar
-    ****************************************************************************/
+*************************************************************/
 
-/*
-
-.navbar {
-    background-color: black;
-    
+.navbar-header #brand {
+    font-family: 'Georgia', Arial, sans-serif;
+    color: white;
+    font-size: 16pt;
+    margin-top: 10px;
+    margin-left: 20px;
+    text-transform: uppercase;
 }
-*/
-
-
-    .navbar-header #brand{
-        font-family: 'Georgia', Arial, sans-serif;
-        color: white;
-        font-size: 16pt;
-        margin-top: 10px;
-        margin-left: 20px;
-        text-transform: uppercase;
-    }
 
 .navbar-props {
     margin: 0px !important;
     background-color: black;
 }
-   .mynav li 
-   {
+  
+.mynav li {
        font-family: 'Georgia', Arial, sans-serif;
        font-size: 12pt;
        list-style: none;
@@ -209,19 +167,20 @@ input[readonly] {
         padding-left: 5px;
         padding-right: 10px;
         margin-top: 10px;
-   }
+}
 
-    .mynav li a{
-        color:white;
-    }
+.mynav li a{
+    color:white;
+}
 
-    .mynav li a:hover, 
-    .mynav li a:link, 
-    .mynav li a:visited,
-    .mynav li a:active {
-        text-decoration: none;
-        background-color: black;
-    }
+.mynav li a:hover, 
+.mynav li a:link, 
+.mynav li a:visited,
+.mynav li a:active 
+{
+    text-decoration: none;
+    background-color: black;
+}
 
 
 /**********************************
@@ -230,8 +189,6 @@ input[readonly] {
 
 .mgmt-block {
     position: absolute;
-/*    padding-top: 60px;*/
-/*    top: 60px;*/
     margin-left: 0;
     width: 100%;
     min-width: 100%;

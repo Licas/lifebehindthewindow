@@ -6,9 +6,10 @@ var app = angular.module('lifebehindthewindowApp', [
     'ngSanitize',
     'ngRoute',
     
-    'controllers.player',
-    'controllers.stream',
     'config',
+    'controllers.player',
+    'controllers.uploadform',
+    'controllers.stream',
     
     'com.2fdevs.videogular',
 	'com.2fdevs.videogular.plugins.controls',
@@ -16,14 +17,12 @@ var app = angular.module('lifebehindthewindowApp', [
     'com.2fdevs.videogular.plugins.poster'
 ]);
 
-
-
 app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
         when('/', {
-             templateUrl: 'views/main/main.html'
-//            controller: 'HomeCtrl'
+             templateUrl: 'views/main/main.html',
+            controller: 'HomeCtrl'
         })
         .when('/stream', {
             templateUrl: 'views/stream/stream.html',

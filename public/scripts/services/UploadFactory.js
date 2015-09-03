@@ -10,26 +10,26 @@ angular.module('lifebehindthewindowApp')
 
     // Public API here
     return {
-		uploadfile: function (file, success, error) {
+		uploadfile: function (fileData, success, error) {
 		        var url = baseUrl + '/api/upload';
 
 		        var fd = new FormData();
-		        fd.append("file", file);
-
-		        $http.post(url, fd, {
+		        fd.append("file", fileData.file);
+		        fd.append("username", fileData.username);
+		        fd.append("userlocation", fileData.userlocation);
+               
+                $http.post(url, fd, {
 		                withCredentials: false,
 		                headers: {'Content-Type': undefined},
 		                transformRequest: angular.identity
 		            })
 		            .success(function (data) {
-//                        console.log("success in posting data");
 		                console.log("success uploading data." + data);
-                        success();
+                        success(data);
 		            })
 		            .error(function (data) {
-//                        console.log("error in posting data");
 		                console.log("error uploading data." + data);
-                        error();
+                        error(data);
 		            });
 		    },
         getlist: function(success, error) {
