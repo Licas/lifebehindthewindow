@@ -52,6 +52,10 @@ video = (function () {
     function request(name) {
         emit('request', { name : name });
     }
+    
+    function requestDownload(name) {
+        emit('requestDownload', { name : name });
+    }
 
     function requestUnpublished(name) {
         emit('requestUnpublished', { name : name });

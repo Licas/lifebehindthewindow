@@ -7,6 +7,8 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
     $scope.uploadedVideos = [];
     $scope.publishedVideos = [];
     $scope.videoplaying = false;
+    $scope.view=false;
+    $scope.download=false;
     
     var successGetList = function(list) {
         for( var i in list ) {
@@ -50,14 +52,15 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
     
     $scope.playpubvideo = function(videoElement) {
         var name = videoElement.name;
-        
+        $scope.view=true;
         video.request(name);
         $scope.videoplaying = true;
     }
     
     $scope.downloadpubvideo = function(videoElement) {
-//        var name = videoElement.name;
-//        video.request(name);
+        var name = videoElement.name;
+        $scope.download=true;
+        video.request(name);
 //        $scope.videoplaying = true;
     }
     

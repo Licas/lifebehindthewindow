@@ -37,14 +37,31 @@ $(document).ready(function () {
             var videomgmt = $("#videomgmt");   
             
             if(videomgmt) {
-                videomgmt.bind('ended', function() { 
-                    angular.element("#mgmtPage").scope().videoplaying = false;
+                if(angular.element("#mgmtPage").scope().view) {
+                    angular.element("#mgmtPage").scope().view=false;
+                    
+                    videomgmt.bind('ended', function() { 
+                        angular.element("#mgmtPage").scope().videoplaying = false;
+                        angular.element("#mgmtPage").scope().$apply();
+                    });
+
+                    videomgmt.attr('src',src);  
+                    
+                    angular.element("#mgmtPage").scope().videoplaying = true;
                     angular.element("#mgmtPage").scope().$apply();
-                });
+                }
                 
-                angular.element("#mgmtPage").scope().videoplaying = true;
-                angular.element("#mgmtPage").scope().$apply();
-                videomgmt.attr('src',src);                
+                if(angular.element("#mgmtPage").scope().download) {
+                    angular.element("#mgmtPage").scope().download = false;
+                    
+                    var link = document.getElementById("lnkDownload");
+  
+                    link.setAttribute("target","_self");
+                    link.setAttribute("href", src);
+                    link.setAttribute("download","video.mp4");
+                    link.click();
+                    link.setAttribute("href","");                    
+                }
             }
         });
     });

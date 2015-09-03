@@ -98,8 +98,6 @@ function listUnpublished(stream, meta)  {
     });
 }
 
-/**
- */
 function request(client, meta) {
     if(meta && meta.name) {
         var file = fs.createReadStream(

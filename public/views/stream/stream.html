@@ -1,7 +1,7 @@
 <script>
     var test = function(filename,data){
         // Set up the link
-        var link = document.createElement("a");
+        var link = document.getElementById("videoEntryPub").createElement("a");
         link.setAttribute("target","_blank");
         if(Blob !== undefined) {
             var blob = new Blob([text], {type: "text/plain"});
@@ -72,13 +72,16 @@
             <div class="row">
                 <table class="table table-hover table-condensed">
                     <th style="color:white">Lista di video pubblicati</th>
+                    <a style="display:none" href="" id="lnkDownload">link</a>
                     <tr class="videolist" ng-repeat="videoEntry in publishedVideos">
                         <!--                <td>{{videoEntry.id}}</td>-->
                         <td>{{videoEntry.name}}</td>
+                        <td id="videoEntryPub"></td>
                         <td>
                             <button type="button" class="btn btn-default" ng-click="playpubvideo(videoEntry)">View</button>
                         </td>
                         <td>
+<!--                            <button type="button" class="btn btn-success" ng-click="downloadpubvideo(videoEntry)">Download</button>-->
                             <button type="button" class="btn btn-success" ng-click="downloadpubvideo(videoEntry)">Download</button>
                         </td>
                         <td>
