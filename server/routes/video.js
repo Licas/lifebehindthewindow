@@ -11,10 +11,12 @@ var jsonfile = require('jsonfile')
 var Lazy = require('lazy.js');
 var log = require('winston');
 
+var VideoModel = require('../model/VideoModel');
+var db = require(__dirname + "/../controller/videodb");
+var videomanager = require(__dirname + "/../lib/videomanager");
+
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
-
-var watch = require('watch');
 
 var appDir = "";
 var uploadFolder = config.uploadFolderName;
@@ -26,93 +28,20 @@ if(config.storageprefix) {
     appDir = path.dirname(require.main.filename);
 }
 
-
 var publishedVideosPath =  appDir + "/" + videosFolder;
-var watchedDir = publishedVideosPath;
 var uploadDir = appDir + "/" + uploadFolder;
 
 console.log("publishedVideosPath " + publishedVideosPath);
 console.log("uploadDir " + uploadDir);
-//var publishedVideosPath =   './videos';
-//var watchedDir = appDir+ '/videos';
-//var uploadDir = appDir + '/uploads';
-//var videoListFile =  __dirname +  "/publishedvideos.json";
 
-var videomanager = require(__dirname + "/../lib/videomanager");
-//
-//var supportedTypes,
-//    supportedExtensions;
-//
-//supportedTypes = [
-//    'video/mp4',
-//    'video/webm',
-//    'video/ogg'
-//];
-//supportedExtensions = [
-//    'mp4', 'webm', 'ogg'
-//];
 
-//var monitorOpts = {
-//    "ignoreDotFiles":true,
-//    "ignoreUnreadableDir":true,
-//    "ignoreNotPermitted":true
-//};
 
-console.log("Check dir " + watchedDir);
-if (!fs.existsSync(watchedDir)){
-    fs.mkdirSync(watchedDir);
+if (!fs.existsSync(publishedVideosPath)){
+    fs.mkdirSync(publishedVideosPath);
 }
 if (!fs.existsSync(uploadDir)){
     fs.mkdirSync(uploadDirso);
 }
-//
-//  watch.createMonitor(watchedDir, monitorOpts, function (monitor) {
-//    //monitor.files['/home/mikeal/.zshrc'] // Stat object for my zshrc.
-//    monitor.on("created", function (f, stat) {
-//      // Handle new files
-//        console.log("New file added " + f);
-//        var fileJSON = jsonfile.readFileSync(videoListFile);
-//        var newVideo = {
-//            "name":f
-//        }
-//
-//        fileJSON.published_videos.push(newVideo);
-//        jsonfile.writeFileSync(videoListFile, fileJSON);
-//    })
-//    monitor.on("changed", function (f, curr, prev) {
-//      // Handle file changes
-//        
-//        console.log("File " + f + " has changed");
-//    })
-//    monitor.on("removed", function (f, stat) {
-//      // Handle removed files
-//        console.log("File " + f + " has been removed");
-//        var fileJSON = jsonfile.readFileSync(videoListFile);
-//        
-//        function filterRemovedVideo(element) {
-//            if( element.name == f ) {
-//                    console.log(JSON.stringify(element));
-//                return true;
-//            }
-//            return false;
-//        }        
-//        var remElem = Lazy(fileJSON.published_videos)
-//            .filter(filterRemovedVideo)
-//            .first();
-//        if(remElem) {
-//            var index = Lazy(fileJSON.published_videos).indexOf(remElem);
-//            
-//            console.log("Rem elem [" + index + "] "+ JSON.stringify(remElem));
-//            delete fileJSON.published_videos[index];
-//            fileJSON.published_videos = fileJSON.published_videos.filter(function(el){
-//                return el !== null;
-//            });
-//            jsonfile.writeFileSync(videoListFile, fileJSON);
-//        }
-//    })
-//    // Stop watching
-//    //monitor.stop();
-//  })
 
 videoRouter.get('/list', function(req, res, next) {
     fs.readdir( publishedVideosPath, function (err, files) {
@@ -178,35 +107,38 @@ videoRouter.post('/upload', upload.single('file'), function(req, res, next) {
     "path": "uploads/83f36edfdfba53db3d2a6a6d8bf1c225",
     "size": 40714
     }*/
-      if(req.file) {
-    log.info(' file: %s - size: %d (%s) - located in: %s',  
-                req.file.originalname, 
-                req.file.size,
-                req.file.mimetype,
-                req.file.path
-    );
+    if(req.file) {
+         
         
-    if(!Lazy(req.file.mimetype).startsWith('video')) {
-        fs.unlink(req.file.path, function (err) {
-          if (err) 
-              res.status(500).send("Error: "+ err);
-          console.log('successfully deleted ' +req.file.path);
+        log.info(' file: %s - size: %d (%s) - located in: %s',  
+                    req.file.originalname, 
+                    req.file.size,
+                    req.file.mimetype,
+                    req.file.path
+        );
+        
+        if(!Lazy(req.file.mimetype).startsWith('video')) {
+            fs.unlink(req.file.path, function (err) {
+              if (err) 
+                  res.status(500).send("Error: "+ err);
+              console.log('successfully deleted ' +req.file.path);
+            });
+
+            res.status(500).send("Error in file format");
+        }
+    
+        fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err) {
+            if ( err ) {
+                console.log('ERROR: ' + err);
+                res.status(500).send("Error: "+ err);
+            }
         });
         
-        res.status(500).send("Error in file format");
-    }
-    
-    fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err) {
-        if ( err ) {
-            console.log('ERROR: ' + err);
-            res.status(500).send("Error: "+ err);
-        }
-    });
-    
-    res.send(req.file);
-      } else {
+       
+        res.status(200).send("OK");
+    } else {
         res.status(500).send("No file found");
-      }
+    }
 });
             
 

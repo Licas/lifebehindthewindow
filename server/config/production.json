@@ -4,5 +4,8 @@
     "wsport":9000,
     "storageprefix":"/opt/lifestorage",
     "uploadFolderName":"uploads",
-    "videosFolderName":"videos"
+    "videosFolderName":"videos",
+    "dbhost":"localhost",
+    "dbport":"27017",
+    "dbname":"lifebehindthewindow"
 }

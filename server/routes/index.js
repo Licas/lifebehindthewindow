@@ -27,32 +27,42 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
     "path": "uploads/83f36edfdfba53db3d2a6a6d8bf1c225",
     "size": 40714
     }*/
-      if(req.file) {
-    log.info(' file: %s - size: %d (%s) - located in: %s',  
-                req.file.originalname, 
-                req.file.size,
-                req.file.mimetype,
-                req.file.path
-    );
+    if(req.file) {
+        log.info(' file: %s - size: %d (%s) - located in: %s',  
+                    req.file.originalname, 
+                    req.file.size,
+                    req.file.mimetype,
+                    req.file.path
+        );
         
-    if(!Lazy(req.file.mimetype).startsWith('video')) {
-        fs.unlink(req.file.path, function (err) {
-          if (err) 
-              res.status(500).send("Error: "+ err);
-          console.log('successfully deleted ' +req.file.path);
+        if(!Lazy(req.file.mimetype).startsWith('video')) {
+            fs.unlink(req.file.path, function (err) {
+              if (err) 
+                  res.status(500).send("Error: "+ err);
+              console.log('successfully deleted ' +req.file.path);
+            });
+
+            res.status(500).send("Error in file format");
+        }
+
+        fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err) {
+            if ( err ) {
+                console.log('ERROR: ' + err);
+    //            res.status(500).send("Error: "+ err);
+            }
+        });
+    
+        db.createVideo({
+            "title":"title",
+            "username":"username",
+            "userlocation":"userlocation"
+        }, function(msg){
+            console.log("success in saving video on db: "+msg);
+        }, function(error){
+            console.log("error in saving video on db: " +error);
         });
         
-        res.status(500).send("Error in file format");
-    }
-    
-    fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err) {
-        if ( err ) {
-            console.log('ERROR: ' + err);
-//            res.status(500).send("Error: "+ err);
-        }
-    });
-    
-    res.send(req.file);
+        res.send(req.file);
       } else {
         res.status(500).send("No file found");
       }
