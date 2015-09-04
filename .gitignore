@@ -4,6 +4,8 @@ dist
 public/bower_components
 bower_components
 logs/*
+uploads/
+videos/
 node_modules/
 tmp
 .DS_Store
