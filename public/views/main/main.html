@@ -7,19 +7,20 @@
         var input = $('#fileInputText');
         input.val('');
     });   
-    
-    var fade = function(success) {
-        if(success) {
-            $(".alert-success").fadeTo(1000, 500).slideUp(500, function(){
-                $(".alert-success").alert('close');
-            });
-        } else {
-            $(".alert-danger").fadeTo(1000, 500).slideUp(500, function(){
-                $(".alert-danger").alert('close');
-            });
-        
-        }
-    };
+//    
+//    var fade = function(success) {
+//       window.setTimeout(function(){
+//            if(success==true) {
+//                $(".alert-success").fadeTo(500, 500).slideUp(500, function(){
+//                    $(".alert-success").alert('close');
+//                });
+//            } else {
+//                $(".alert-danger").fadeTo(500, 500).slideUp(500, function(){
+//                    $(".alert-danger").alert('close');
+//                });
+//            }
+//        }, 2000);
+//    };
 </script>
 
 <div ng-controller="HomeCtrl as controller">
@@ -51,15 +52,30 @@
             </div>
        <div class="custom-layer-messages">
         <div class="row">  
+            <div ng-if="uploadSuccess || uploadError">
+                <script type="text/javascript">
+                    window.setTimeout(function(){
+                        if(angular.element($('.alert')).scope().uploadSuccess==true) {
+                            $(".alert-success").fadeTo(500, 500).slideUp(500, function(){
+                                $(".alert-success").alert('close');
+                            });
+                        } else {
+                            $(".alert-danger").fadeTo(500, 500).slideUp(500, function(){
+                                $(".alert-danger").alert('close');
+                            });
+                        }
+                    }, 2000);
+                </script>
+            </div>
             <div class="modal-body">
                 <div class="alert alert-success "  ng-show="uploadSuccess">
-                    <button type="button" class="close" onclick="fade(this)">x</button>
+                    <button type="button" class="close" />
                     <strong>Done!</strong> {{succmsg}}
                 </div>
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger" ng-show="uploadError">
-                    <button type="button" class="close" data-ng-click="close(result)" >x</button>
+                    <button type="button" class="close" />
                     <strong>Error!</strong> {{errmsg}}
                 </div>
             </div>

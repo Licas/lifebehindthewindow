@@ -27,9 +27,9 @@ angular.module('lifebehindthewindowApp')
 		                console.log("success uploading data." + data);
                         success(data);
 		            })
-		            .error(function (data) {
-		                console.log("error uploading data." + data);
-                        error(data);
+		            .error(function (err) {
+		                console.log("error uploading data." + err);
+                        error(err);
 		            });
 		    },
         getlist: function(success, error) {
