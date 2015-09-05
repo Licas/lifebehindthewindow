@@ -31,6 +31,9 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
     }*/
     
     var originalName = req.file.originalname;
+    var extension = "";
+    
+    extension = req.file.mimetype.substr(req.file.mimetype.indexOf("/")+1);
     
     if(req.file) {
         log.info(' file: %s - size: %d (%s) - located in: %s',  
@@ -39,22 +42,7 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
                     req.file.mimetype,
                     req.file.path
         );
-        
-        if(!Lazy(req.file.mimetype).startsWith('video')) {
-            fs.unlink(req.file.path, function (err) {
-              if (err) 
-                  res.status(500).send("Error: "+ err);
-              console.log('successfully deleted ' +req.file.path);
-            });
-
-            res.status(500).send("Error in file format");
-        }
-
-        fs.rename(req.file.path, req.file.destination+req.file.originalname, function(err) {
-            if ( err ) {
-                console.log('ERROR: ' + err);
-            }
-        });
+        log.info(JSON.stringify(req.file));
         
         var username = "";
         var userlocation = "";
@@ -70,16 +58,36 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
             "username": username,
             "userlocation": userlocation
             
-        }, function(msg){
-            console.log("success in saving video on db: " + msg);
-        }, function(error){
-            console.log("error in saving video on db: " + error);
+        }, function(data){
+            console.log("success in saving video on db: " + data);
+            var objectID = data;
+            
+            if(!Lazy(req.file.mimetype).startsWith('video')) {
+                fs.unlink(req.file.path, function (err) {
+                  if (err) 
+                      res.status(500).send("Error: "+ err);
+                  console.log('successfully deleted ' +req.file.path);
+                });
+
+                res.status(500).send("Error in file format");
+            }
+            
+            fs.rename(req.file.path, req.file.destination + objectID + "." + extension,
+                  function(err) {
+                    if ( err ) {
+                        res.status(500).send("upload not done." +err);
+                    }
+            });
+            
+            res.status(200).send("upload done");
+            
+        }, function(err){
+            console.log("error in saving video on db: " + err);
+            res.status(500).send("upload not done." +err);
         });
         
-        res.status(200).send("upload done");
-        
       } else {
-        res.status(500).send("upload not done");
+          res.status(500).send("upload not done");
       }
 });
             

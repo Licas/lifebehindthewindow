@@ -13,20 +13,25 @@ mongoose.connect('mongodb://'+config.dbhost+':'+config.dbport+'/'+config.dbname)
  * Create a video
  */
 var createVid = function(data, success, error) {
-    console.log("DB; " + JSON.stringify(data));
-        var video = new Video(data);
-        video.title = data.title;
-        video.username = data.username;
-        video.userlocation = data.userlocation;
+        var video           = new Video(data);
+        video.title         = data.title;
+        video.username      = data.username;
+        video.userlocation  = data.userlocation;
+        video.published     = false;
     
         video.save(function(err) {
-                if (err) {
+            if (err) 
+                error(errorHandler.getErrorMessage(err));
+            
+            Video.findById(video, function (err, doc) {
+                if (err) 
                     error(errorHandler.getErrorMessage(err));
-                } else {
-                    success("OK");
-                }
+            
+                success(doc._id); 
+            });
         });
 };
+
 
 /**
  * Show the current video
@@ -34,7 +39,6 @@ var createVid = function(data, success, error) {
 var readVid = function(req, res) {
         res.json(req.video);
 };
-
 
 
 /**
@@ -59,18 +63,23 @@ var updateVid = function(req, res) {
 /**
  * Delete an video
  */
-var deleteVid = function(req, res) {
-        var video = req.video;
-
-        video.remove(function(err) {
-                if (err) {
-                        return res.status(400).send({
-                                message: errorHandler.getErrorMessage(err)
-                        });
-                } else {
-                        res.json(video);
-                }
-        });
+var deleteVid = function(data, successCb, errorCb) {
+    var video = new Video({
+        "title": data.title,
+        "username": data.username,
+        "userlocation": data.userlocation,
+        "published": data.published
+    });
+        
+    video.remove(function(err) {
+            if (err) {
+                    return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                    });
+            } else {
+                    res.json(video);
+            }
+    });
 };
 
 

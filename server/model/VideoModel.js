@@ -28,6 +28,10 @@ var VideoSchema = new Schema({
         userlocation: {
             type: String,
             defatul: ''
+        },
+        published: {
+            type: Boolean,
+            default: false
         }
 });
 

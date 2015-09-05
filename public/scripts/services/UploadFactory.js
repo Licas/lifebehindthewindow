@@ -24,11 +24,11 @@ angular.module('lifebehindthewindowApp')
 		                transformRequest: angular.identity
 		            })
 		            .success(function (data) {
-		                console.log("success uploading data." + data);
+//		                console.log("success uploading data." + data);
                         success(data);
 		            })
 		            .error(function (err) {
-		                console.log("error uploading data." + err);
+//		                console.log("error uploading data." + err);
                         error(err);
 		            });
 		    },
@@ -38,10 +38,10 @@ angular.module('lifebehindthewindowApp')
             video.list(function setupList(err, files) {
             
                if(err) {
-                   console.log("Error getlist " + err);
+//                   console.log("Error getlist " + err);
                    error(err);
                } else {
-                   console.log("Success getlist " + files);
+//                   console.log("Success getlist " + files);
                    success(files);
                }
             });

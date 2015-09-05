@@ -11,6 +11,8 @@ var path = require('path');
 var appDir = "";
 var uploadFolder = config.uploadFolderName;
 var videosFolder = config.videosFolderName;
+var videodb = require(__dirname + "/../controller/videodb");
+
 
 if(config.storageprefix) {
     appDir = config.storageprefix;
@@ -141,27 +143,55 @@ function upload(stream, meta) {
         return;
     }
 
-    var file = fs.createWriteStream(uploadPath + '/' + meta.name);
-    stream.pipe(file);
+    var videoModel = {
+        "title": meta.name,
+        "username": "",
+        "userlocation": ""
+    };
+    
+    console.log(JSON.stringify(meta));
+    
+    videodb.createVid(
+        videoModel,
+        function(res) {
+            var objectID = res;
+            
+            console.log("ObjectID: " + objectID);
+        
+            var file = fs.createWriteStream(uploadPath + '/' + objectID + ".mp4");
+            stream.pipe(file);
 
-    stream.on('data', function (data) {
-        stream.write({ rx : data.length / meta.size });
-    });
+            stream.on('data', function (data) {
+                stream.write({ rx : data.length / meta.size });
+            });
 
-    stream.on('end', function () {
-        stream.write({ end: true });
-    });
+            stream.on('end', function () {
+                stream.write({ end: true });
+            });
+        },
+        function(err) {
+            self.emit('error', err);
+        });
 }
 
 /**
  */
-function deleteUnpublished(file) {
+function deleteUnpublished(file, successCb, errorCb) {
     var fullPath = uploadPath + "/" + file;
 
     if(fs.existsSync(fullPath)) {
-        fs.unlinkSync( fullPath);
+        fs.unlinkSync(fullPath);
+        
+        videodb.deleteVid(
+            data, 
+            function(msg) { //success
+                successCb(msg);
+            },
+            function(err) { //error
+                errorCb(err);
+            });
     } else {
-//        console.log("File doesn't exist");
+        console.log("File doesn't exist [" + file + "]");
     }
 }
 
