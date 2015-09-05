@@ -40,22 +40,27 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
     
     $scope.playvideo = function(videoElement) {
         var id = videoElement.id;
-
-        video.requestUnpublished(id);
+        
         $scope.videoplaying = true;
+        $scope.view=true;
+        
+        video.requestUnpublished(id);
     }
     
     $scope.playpubvideo = function(videoElement) {
         var id = videoElement.id;
-        
-        video.request(id);
+    
         $scope.view=true;
         $scope.videoplaying = true;
+        
+        video.request(id);
     }
     
     $scope.downloadpubvideo = function(videoElement) {
         var id = videoElement.id;
+        
         $scope.download=true;
+        
         video.request(id);
     }
     

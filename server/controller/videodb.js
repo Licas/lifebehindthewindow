@@ -68,17 +68,17 @@ var deleteVid = function(data, successCb, errorCb) {
         "title": data.title,
         "username": data.username,
         "userlocation": data.userlocation,
+        "extension": data.extension,
         "published": data.published
     });
         
-    video.remove(function(err) {
-            if (err) {
-                    return res.status(400).send({
-                            message: errorHandler.getErrorMessage(err)
-                    });
-            } else {
-                    res.json(video);
-            }
+    VideoModel.findByIdAndRemove( 
+        data.id, 
+        function(err, result) {
+            if (err) 
+                return errorCb(errorHandler.getErrorMessage(err));
+            
+            return successCb(result);
     });
 };
 

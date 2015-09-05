@@ -97,12 +97,19 @@ videoRouter.get('/delete/published', function(req, res, next) {
 });
 
 videoRouter.get('/approve/unpublished', function(req, res, next) {
-    if(req.query.videoname) {
-        console.log("request for approve " + req.query.videoname);
-        videomanager.approveUnpublished(req.query.videoname);
+    if(req.query.id) {
+        console.log("request for approve " + req.query.id);
+        videomanager.approveUnpublished(
+            req.query.id,
+            function(result) {
+                return res.status(200).send( 'OK');
+            },
+            function(error) {
+                return res.status(500).send(error);
+            });
+    } else {
+        res.status(500).send("Video id cannot be null");
     }
-    
-    res.status(200).send( 'OK');
 });
 
 /* upload handler */

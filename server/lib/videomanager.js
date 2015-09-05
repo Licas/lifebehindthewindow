@@ -13,6 +13,8 @@ var uploadFolder = config.uploadFolderName;
 var videosFolder = config.videosFolderName;
 var videodb = require(__dirname + "/../controller/videodb");
 
+var mongoose = require('mongoose')
+var VideoModel = mongoose.model('Video');
 
 if(config.storageprefix) {
     appDir = config.storageprefix;
@@ -75,10 +77,11 @@ function list(stream, meta)  {
             var currEl = {};
             
             for( var i in listOfVid ) {
-                currEl.id = listOfVid[i]._id;
-                currEl.username = listOfVid[i].username;
+                currEl.id           = listOfVid[i]._id;
+                currEl.title        = listOfVid[i].title;
+                currEl.username     = listOfVid[i].username;
                 currEl.userlocation = listOfVid[i].userlocation;
-                currEl.title = listOfVid[i].title;
+                currEl.extension    = listOfVid[i].extension;
                 
                 newList.push(JSON.stringify(currEl));
             }
@@ -99,10 +102,11 @@ function listUnpublished(stream, meta)  {
             var currEl = {};
             
             for( var i in listOfVid ) {
-                currEl.id = listOfVid[i]._id;
-                currEl.username = listOfVid[i].username;
+                currEl.id           = listOfVid[i]._id;
+                currEl.title        = listOfVid[i].title;
+                currEl.username     = listOfVid[i].username;
                 currEl.userlocation = listOfVid[i].userlocation;
-                currEl.title = listOfVid[i].title;
+                currEl.extension    = listOfVid[i].extension;
                 
                 newList.push(JSON.stringify(currEl));
             }
@@ -115,11 +119,14 @@ function listUnpublished(stream, meta)  {
         });
 }
 
+/**
+* Get a video published
+*/
 function request(client, meta) {
     //IMPREOVEMENT : CHECK EXTENSION
-    if(meta && meta.name) {
+    if(meta && meta.id) {
         var file = fs.createReadStream(
-                        publishedVideosPath + '/' + meta.name + '.mp4',
+                        publishedVideosPath + '/' + meta.id + '.mp4',
                         { flags: 'r', autoClose: true });
         file.on('error', function(err) {
             console.log("Error in request: " + err);
@@ -130,12 +137,13 @@ function request(client, meta) {
 }
 
 /**
+* Get a video not yet published
 */
 function requestUnpublished(client, meta) {
     //IMPREOVEMENT : CHECK EXTENSION
-    if(meta && meta.name) {
+    if(meta && meta.id) {
         var file = fs.createReadStream(
-                        uploadPath + '/' + meta.name + '.mp4',
+                        uploadPath + '/' + meta.id + '.mp4',
                         { flags: 'r', autoClose: true });
 
         file.on('error', function(err) {
@@ -144,6 +152,7 @@ function requestUnpublished(client, meta) {
         });
         
         if(file) {
+//            console.log("sending file " + JSON.stringify(file));
             client.send(file);
         } else {
             client.send(null);
@@ -215,7 +224,7 @@ function deleteUnpublished(file, successCb, errorCb) {
     }
 }
 
-function deletePublished(file) {
+function deletePublished(videoId) {
     var fullPath = publishedVideosPath + "/" + file;
 
     if(fs.existsSync(fullPath)) {
@@ -227,27 +236,42 @@ function deletePublished(file) {
 
 /**
  */
-function approveUnpublished(file) {
-//    console.log("UPLOADING IN SERVER");
-    var fullPath = uploadPath + "/" + file;
-    if(fs.existsSync(fullPath)) {
-//        console.log("file exists, i'll delete asap."+fullPath);
-        var theFile = fs.readFileSync(fullPath);
-        if(theFile) {
-            var publishedPath = publishedVideosPath + "/" + file;
-            fs.writeFile(publishedPath, theFile, function(data,err){
+function approveUnpublished(videoId, successCb, errorCb) {
+    console.log("here we are");
+    VideoModel.findByIdAndUpdate(
+        videoId,
+        { "published": true },
+        function(err, result) {
             
-                if(err) {
-                    console.log(err);
-                    return err;
-                }
-                fs.unlinkSync( fullPath);
-            });
-        }
+            if(err)
+                return errorCb(err);
+            
+            var fullName =  result.id + "." + result.extension;
+            var fullPath = uploadPath + "/" + fullName;
+            
+            if(fs.existsSync(fullPath)) {
+                var theFile = fs.readFileSync(fullPath);
+                
+                if(theFile) {
+                    var publishedPath = publishedVideosPath + "/" + fullName;
+                    
+                    fs.writeFile(publishedPath, theFile, function(data,err){
+
+                        if(err) {
+                            return errorCb(err);
+                        }
                         
-    } else {
-//        console.log("File doesn't exist");
-    }
+                        fs.unlinkSync(fullPath);
+                        
+                        return successCb("Video approved");
+                    });
+                } else {
+                    return errorCb("Cannot approve video, file doesn't exists");   
+                }
+            } else {
+                return errorCb("Cannot approve video, file doesn't exists");
+            }
+        });
 }
 
 /********************************

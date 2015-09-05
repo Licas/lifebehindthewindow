@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 
 var config = require('./server/lib/config');
 
-var routes = require('./server/routes/index');
+var routes = require('./server/routes/uploadHandler');
 var videoRouter = require('./server/routes/video');
 
 BinaryServer = require('binaryjs').BinaryServer;
@@ -70,12 +70,8 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res
-     .send('error', {
-        message: err.message,
-        error: err,
-        status: err.status || 500
-    });
+    res.status(err.status || 500)
+     .send( err.message +". " +err);
 });
 
 

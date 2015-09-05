@@ -29,6 +29,10 @@ var VideoSchema = new Schema({
             type: String,
             defatul: ''
         },
+        extension: {
+            type: String,
+            defatul: 'mp4'
+        },
         published: {
             type: Boolean,
             default: false

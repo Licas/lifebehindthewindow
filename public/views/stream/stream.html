@@ -22,12 +22,14 @@
         <div ng-controller="StreamCtrl" id="mgmtPage">
             <!--<section id="main">-->
             <section id="main">
+<!--
                 <fieldset>
                     <legend style="color:white;">Drag n Drop</legend>
                     <aside id="uploadbox">
                         <article id="progress">Drop file here</article>
                     </aside>
                 </fieldset>
+-->
 
                 <div ng-show="videoplaying">
                     <fieldset>
@@ -47,7 +49,6 @@
                 <table class="table table-hover table-condensed">
                     <th style="color:white">Lista di video in upload non ancora pubblicati</th>
                     <tr class="videolist" ng-repeat="videoEntry in uploadedVideos">
-                        <td hidden>{{videoEntry.id}}</td>
                         <td>{{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}</td>
                         <td>
                             <button type="button" class="btn btn-default" ng-click="playvideo(videoEntry)">View</button>
@@ -67,9 +68,8 @@
                     <th style="color:white">Lista di video pubblicati</th>
                     <a style="display:none" href="" id="lnkDownload">link</a>
                     <tr class="videolist" ng-repeat="videoEntry in publishedVideos">
-                        <!--                <td>{{videoEntry.id}}</td>-->
-                        <td>{{videoEntry.title}}</td>
-                        <td id="videoEntryPub"></td>
+                        <td>{{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}</td>
+                        <div id="videoEntryPub"></div>
                         <td>
                             <button type="button" class="btn btn-default" ng-click="playpubvideo(videoEntry)">View</button>
                         </td>

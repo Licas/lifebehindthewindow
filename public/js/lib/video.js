@@ -49,16 +49,16 @@ video = (function () {
         } );
     }
 
-    function request(name) {
-        emit('request', { name : name });
+    function request(id) {
+        emit('request', { id : id });
     }
     
-    function requestDownload(name) {
-        emit('requestDownload', { name : name });
+    function requestDownload(id) {
+        emit('requestDownload', { id : id });
     }
 
-    function requestUnpublished(name) {
-        emit('requestUnpublished', { name : name });
+    function requestUnpublished(id) {
+        emit('requestUnpublished', { id : id });
     }
 
     function download(stream, cb) {

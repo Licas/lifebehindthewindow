@@ -34,32 +34,30 @@ angular.module('lifebehindthewindowApp')
 		    },
         getlist: function(success, error) {
             video.list(function callService(err, files) {
-            
-               if(err) {
-                   error(err);
-               } else {
-                   var list = [];
-                   
-                   for(var i in files) {
-                        list.push(JSON.parse(files[i]));
-                   }
-                   success(list);
-               }
+                if(err) 
+                    return error(err);
+                
+                var list = [];
+                
+                for(var i in files) {
+                    list.push(JSON.parse(files[i]));
+                }
+                
+                return success(list);
             });
         },
         getnewvideoslist: function(success, error) {
             video.listUnpublished(function callService(err, files) {
-            
-               if(err) {
-                   error(err);
-               } else {
-                   var list = [];
-                   
-                   for(var i in files) {
-                        list.push(JSON.parse(files[i]));
-                   }
-                   success(list);
-               }
+                if(err) 
+                    return error(err);
+                
+                var list = [];
+                
+                for(var i in files) {
+                    list.push(JSON.parse(files[i]));
+                }
+                
+                return success(list);
             });
         },
         
@@ -77,9 +75,9 @@ angular.module('lifebehindthewindowApp')
                 });
         },
         
-        approveunpublished: function(name, success, error) {
+        approveunpublished: function(id, success, error) {
              var url = baseUrl + '/videos/approve/unpublished';
-            $http.get(url, { "params":{"videoname": name }})
+            $http.get( url, { "params": { "id": id }})
                 .success(function(response) {
                     console.log("Ok approve operation for video "  + name);
                     success(response);

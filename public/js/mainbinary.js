@@ -5,8 +5,6 @@ $(document).ready(function () {
 //        autoplay : true
 //    });
     
-    
-    
     client.on('open', function () {
         var box = $("#uploadbox");
         console.log("client open connection");
@@ -38,6 +36,7 @@ $(document).ready(function () {
             
             if(videomgmt) {
                 if(angular.element("#mgmtPage").scope().view) {
+                    console.log("gonna view");
                     angular.element("#mgmtPage").scope().view=false;
                     
                     videomgmt.bind('ended', function() { 
@@ -52,6 +51,7 @@ $(document).ready(function () {
                 }
                 
                 if(angular.element("#mgmtPage").scope().download) {
+                    console.log("gonna download");
                     angular.element("#mgmtPage").scope().download = false;
                     
                     var link = document.getElementById("lnkDownload");
