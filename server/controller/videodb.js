@@ -82,21 +82,18 @@ var deleteVid = function(data, successCb, errorCb) {
     });
 };
 
-
-
 /**
  * List of Videos
  */
-var listVid = function(req, res) {
-        Video.find().sort('-created').populate('user', 'displayName').exec(function(err, videos) {
-                if (err) {
-                        return res.status(400).send({
-                                message: errorHandler.getErrorMessage(err)
-                        });
-                } else {
-                        res.json(videos);
-                }
-        });
+var listVid = function(published, successCb, errorCb) {
+    
+    Video.find({ "published": published })
+        .sort('-created')
+        .exec(function(err, videos) {
+            if (err) 
+                    return errorCb(errorHandler.getErrorMessage(err));
+            return successCb(videos);
+    });
 };
 
 var videoByID = function(req, res, next, id) {

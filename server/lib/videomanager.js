@@ -64,46 +64,62 @@ String.prototype.endsWith = function(suffix) {
 };
 
 /**
+ * Lists published videos 
  */
 function list(stream, meta)  {
-    _checkUploadDir(function () {
-        fs.readdir( publishedVideosPath, function (err, files) {
-           var newList = [];
+    
+    videodb.videoList(
+        true , 
+        function(listOfVid) {
+            var newList = [];
+            var currEl = {};
             
-           for( var i in files ) {
-            if(files[i].endsWith(supportedExtensions[0]) ||
-                files[i].endsWith(supportedExtensions[1]) ||
-                files[i].endsWith(supportedExtensions[2])) {
-                    newList.push(files[i]);  
-                } 
-           }
-         
-            stream.write({ files : newList });
+            for( var i in listOfVid ) {
+                currEl.id = listOfVid[i]._id;
+                currEl.username = listOfVid[i].username;
+                currEl.userlocation = listOfVid[i].userlocation;
+                currEl.title = listOfVid[i].title;
+                
+                newList.push(JSON.stringify(currEl));
+            }
+            
+            stream.write({ files: newList });
+        }, 
+        function(err) {
+            stream.emit('error', err);
         });
-    });
 }
 
 function listUnpublished(stream, meta)  {
-    _checkUploadDir(function () {
-        fs.readdir( uploadPath, function (err, files) {
-           var newList = [];
+
+    videodb.videoList(
+        false , 
+        function(listOfVid) {
+            var newList = [];
+            var currEl = {};
             
-           for( var i in files ) {
-            if(files[i].endsWith(supportedExtensions[0]) ||
-                files[i].endsWith(supportedExtensions[1]) ||
-                files[i].endsWith(supportedExtensions[2])) {
-                    newList.push(files[i]);  
-                } 
-           }
-            stream.write({ files : newList });
+            for( var i in listOfVid ) {
+                currEl.id = listOfVid[i]._id;
+                currEl.username = listOfVid[i].username;
+                currEl.userlocation = listOfVid[i].userlocation;
+                currEl.title = listOfVid[i].title;
+                
+                newList.push(JSON.stringify(currEl));
+            }
+            
+            stream.write({ files: newList });
+            
+        }, 
+        function(err) {
+            stream.emit('error', err);
         });
-    });
 }
 
 function request(client, meta) {
+    //IMPREOVEMENT : CHECK EXTENSION
     if(meta && meta.name) {
         var file = fs.createReadStream(
-                        publishedVideosPath + '/' + meta.name,
+                        publishedVideosPath + '/' + meta.name + '.mp4',
                         { flags: 'r', autoClose: true });
         file.on('error', function(err) {
             console.log("Error in request: " + err);
@@ -116,15 +132,17 @@ function request(client, meta) {
 /**
 */
 function requestUnpublished(client, meta) {
+    //IMPREOVEMENT : CHECK EXTENSION
     if(meta && meta.name) {
         var file = fs.createReadStream(
-                        uploadPath + '/' + meta.name,
+                        uploadPath + '/' + meta.name + '.mp4',
                         { flags: 'r', autoClose: true });
-//        console.log("Sending file " + meta.name);
+
         file.on('error', function(err) {
             console.log("Error in requestUnpublished: " + err);
             client.send(null);
         });
+        
         if(file) {
             client.send(file);
         } else {
@@ -153,6 +171,7 @@ function upload(stream, meta) {
     
     videodb.createVid(
         videoModel,
+        
         function(res) {
             var objectID = res;
             
@@ -169,6 +188,7 @@ function upload(stream, meta) {
                 stream.write({ end: true });
             });
         },
+        
         function(err) {
             self.emit('error', err);
         });

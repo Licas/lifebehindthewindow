@@ -29,13 +29,6 @@
                     </aside>
                 </fieldset>
 
-<!--
-                <fieldset>
-                    <legend>Select a Link</legend>
-
-                    <nav id="list" class="left"></nav>
-                </fieldset>
--->
                 <div ng-show="videoplaying">
                     <fieldset>
                         <legend>Play the Video</legend>
@@ -54,8 +47,8 @@
                 <table class="table table-hover table-condensed">
                     <th style="color:white">Lista di video in upload non ancora pubblicati</th>
                     <tr class="videolist" ng-repeat="videoEntry in uploadedVideos">
-                        <!--                <td>{{videoEntry.id}}</td>-->
-                        <td>{{videoEntry.name}}</td>
+                        <td hidden>{{videoEntry.id}}</td>
+                        <td>{{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}</td>
                         <td>
                             <button type="button" class="btn btn-default" ng-click="playvideo(videoEntry)">View</button>
                         </td>
@@ -75,7 +68,7 @@
                     <a style="display:none" href="" id="lnkDownload">link</a>
                     <tr class="videolist" ng-repeat="videoEntry in publishedVideos">
                         <!--                <td>{{videoEntry.id}}</td>-->
-                        <td>{{videoEntry.name}}</td>
+                        <td>{{videoEntry.title}}</td>
                         <td id="videoEntryPub"></td>
                         <td>
                             <button type="button" class="btn btn-default" ng-click="playpubvideo(videoEntry)">View</button>

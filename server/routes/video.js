@@ -12,7 +12,7 @@ var Lazy = require('lazy.js');
 var log = require('winston');
 
 var VideoModel = require('../model/VideoModel');
-var db = require(__dirname + "/../controller/videodb");
+var videodb = require(__dirname + "/../controller/videodb");
 var videomanager = require(__dirname + "/../lib/videomanager");
 
 var multer  = require('multer')
@@ -43,7 +43,11 @@ if (!fs.existsSync(uploadDir)){
     fs.mkdirSync(uploadDirso);
 }
 
+/**
+*   Retrieve published videos list
+*/
 videoRouter.get('/list', function(req, res, next) {
+    
     fs.readdir( publishedVideosPath, function (err, files) {
            var newList = [];
             if(err) {

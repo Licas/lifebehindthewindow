@@ -10,33 +10,28 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
     $scope.view=false;
     $scope.download=false;
     
-    var successGetList = function(list) {
-        for( var i in list ) {
-            $scope.uploadedVideos.push({ "name":list[i] });
-        }
-        $scope.$apply();
-    }
     
-    var errorGetList = function(err) {
-        console.log("Error in streamCtrl " + err);
-    }
+    UploadFactory.getnewvideoslist(
+        function(list) {
+            $scope.uploadedVideos = list;
+            $scope.$apply();
+        }, 
+        function(err) {
+            console.log("Error in streamCtrl " + err);
+        });
     
-    var successGetPubList = function(list) {
-        for( var i in list ) {
-            $scope.publishedVideos.push({ "name":list[i] });
-        }
-        $scope.$apply();
-    }
-    
-    var errorGetPubList = function(err) {
-        console.log("Error in streamCtrl " + err);
-    }
-    
-    UploadFactory.getnewvideoslist(successGetList, errorGetList);
-    UploadFactory.getlist(successGetPubList, errorGetPubList);
+    UploadFactory.getlist(
+        function(list) {
+            $scope.publishedVideos = list;
+            $scope.$apply();
+        }, 
+        function(err) {
+            console.log("Error in streamCtrl " + err);
+        });
     
     $scope.closeVideoBox = function(element) {
         $scope.videoplaying = false;
+        
         var el  = angular.element($('#videomgmt'))[0];
         
         if(el)
@@ -44,34 +39,34 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
     }
     
     $scope.playvideo = function(videoElement) {
-        var name = videoElement.name;
+        var id = videoElement.id;
 
-        video.requestUnpublished(name);
+        video.requestUnpublished(id);
         $scope.videoplaying = true;
     }
     
     $scope.playpubvideo = function(videoElement) {
-        var name = videoElement.name;
+        var id = videoElement.id;
+        
+        video.request(id);
         $scope.view=true;
-        video.request(name);
         $scope.videoplaying = true;
     }
     
     $scope.downloadpubvideo = function(videoElement) {
-        var name = videoElement.name;
+        var id = videoElement.id;
         $scope.download=true;
-        video.request(name);
-//        $scope.videoplaying = true;
+        video.request(id);
     }
     
     $scope.approvevideo = function(videoElement) {
-        var name = videoElement.name;
+        var id = videoElement.id;
 
         function succ(data) {
             console.log("APPROVE OK: " + JSON.stringify(data));
 //            $timeout(function() { $scope.done = true; },2000);
             for ( var i in $scope.uploadedVideos ) {
-                if( $scope.uploadedVideos[i].name === name ) {
+                if( $scope.uploadedVideos[i].id === id ) {
                     delete $scope.uploadedVideos[i];
                     break;
                 }
@@ -82,17 +77,18 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
             console.log("APPROVE ERR: " + err);
         }
         
-        UploadFactory.approveunpublished(name, succ, error)
+        UploadFactory.approveunpublished(id, succ, error)
     }
     
     $scope.deletevideo = function(videoElement) {
     
         console.log("Delete " + JSON.stringify(videoElement));
-        var name = videoElement.name;
+        var id = videoElement.id;
+        
         function succ(data) {
             console.log("DELETE OK: " + JSON.stringify(data));
             for ( var i in $scope.uploadedVideos ) {
-                if( $scope.uploadedVideos[i].name === name ) {
+                if( $scope.uploadedVideos[i].id === id ) {
                     delete $scope.uploadedVideos[i];
                     break;
                 }
@@ -103,18 +99,18 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
             console.log("DELETE ERR: " + err);
         }
         
-        UploadFactory.deleteunpublished(name, succ, error);
+        UploadFactory.deleteunpublished(id, succ, error);
     }
     
     $scope.deletepubvideo = function(videoElement) {    
         console.log("Delete " + JSON.stringify(videoElement));
-        var name = videoElement.name;
+        var id = videoElement.id;
         
         function succ(data) {
             console.log("DELETE OK: " + JSON.stringify(data));
             
             for ( var i in $scope.publishedVideos ) {
-                if( $scope.publishedVideos[i].name === name ) {
+                if( $scope.publishedVideos[i].id === id ) {
                     delete $scope.publishedVideos[i];
                     break;
                 }
@@ -125,6 +121,6 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
             console.log("DELETE ERR: " + err);
         }
         
-        UploadFactory.deletepublished(name, succ, error);
+        UploadFactory.deletepublished(id, succ, error);
     }
 }]);

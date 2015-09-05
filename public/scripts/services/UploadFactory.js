@@ -33,36 +33,39 @@ angular.module('lifebehindthewindowApp')
 		            });
 		    },
         getlist: function(success, error) {
-            var videoList ;
-            
-            video.list(function setupList(err, files) {
+            video.list(function callService(err, files) {
             
                if(err) {
-//                   console.log("Error getlist " + err);
                    error(err);
                } else {
-//                   console.log("Success getlist " + files);
-                   success(files);
+                   var list = [];
+                   
+                   for(var i in files) {
+                        list.push(JSON.parse(files[i]));
+                   }
+                   success(list);
                }
             });
         },
         getnewvideoslist: function(success, error) {
-            var videoList ;
-            
-            video.listUnpublished(function setupList(err, files) {
+            video.listUnpublished(function callService(err, files) {
             
                if(err) {
-                   console.log("Error listUnpublished " + err);
                    error(err);
                } else {
-                   console.log("Success listUnpublished " + files);
-                   success(files);
+                   var list = [];
+                   
+                   for(var i in files) {
+                        list.push(JSON.parse(files[i]));
+                   }
+                   success(list);
                }
             });
         },
         
         deleteunpublished: function(name, success, error) {
-             var url = baseUrl + '/videos/delete/unpublished';
+            var url = baseUrl + '/videos/delete/unpublished';
+            
             $http.get(url, { "params":{"videoname": name }})
                 .success(function(response) {
                     console.log("Ok delete operation for video "  + name);

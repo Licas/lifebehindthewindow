@@ -10,7 +10,7 @@ video = (function () {
 
     function list(cb) {
         var stream = emit('list');
-
+        
         stream.on('data', function (data) {
             cb(null, data.files);
         });
