@@ -63,17 +63,10 @@ var updateVid = function(req, res) {
 /**
  * Delete an video
  */
-var deleteVid = function(data, successCb, errorCb) {
-    var video = new Video({
-        "title": data.title,
-        "username": data.username,
-        "userlocation": data.userlocation,
-        "extension": data.extension,
-        "published": data.published
-    });
+var deleteVid = function(videoId, successCb, errorCb) {
         
     VideoModel.findByIdAndRemove( 
-        data.id, 
+        videoId, 
         function(err, result) {
             if (err) 
                 return errorCb(errorHandler.getErrorMessage(err));

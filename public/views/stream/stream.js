@@ -68,14 +68,16 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
         var id = videoElement.id;
 
         function succ(data) {
-            console.log("APPROVE OK: " + JSON.stringify(data));
-//            $timeout(function() { $scope.done = true; },2000);
-            for ( var i in $scope.uploadedVideos ) {
-                if( $scope.uploadedVideos[i].id === id ) {
-                    delete $scope.uploadedVideos[i];
+            var vids = $scope.uploadedVideos;
+            
+            for ( var i in vids ) {
+                if( vids[i].id === id ) {
+                    delete vids[i];
                     break;
                 }
             }
+            
+            $scope.uploadedVideos = vids;
         }
         
         function error(err) {
@@ -87,17 +89,21 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
     
     $scope.deletevideo = function(videoElement) {
     
-        console.log("Delete " + JSON.stringify(videoElement));
+//        console.log("Delete " + JSON.stringify(videoElement));
         var id = videoElement.id;
         
         function succ(data) {
             console.log("DELETE OK: " + JSON.stringify(data));
-            for ( var i in $scope.uploadedVideos ) {
-                if( $scope.uploadedVideos[i].id === id ) {
-                    delete $scope.uploadedVideos[i];
+            var vids = $scope.uploadedVideos;
+            
+            for ( var i in vids ) {
+                if( vids[i].id === id ) {
+                    delete vids[i];
                     break;
                 }
             }
+            
+            $scope.uploadedVideos = vids;
         }
         
         function error(err) {
@@ -108,18 +114,20 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
     }
     
     $scope.deletepubvideo = function(videoElement) {    
-        console.log("Delete " + JSON.stringify(videoElement));
         var id = videoElement.id;
         
         function succ(data) {
             console.log("DELETE OK: " + JSON.stringify(data));
-            
-            for ( var i in $scope.publishedVideos ) {
-                if( $scope.publishedVideos[i].id === id ) {
-                    delete $scope.publishedVideos[i];
+            var vids = $scope.uploadedVideos;
+                        
+            for ( var i in vids ) {
+                if( vids[i].id === id ) {
+                    delete vids[i];
                     break;
                 }
             }
+            
+            $scope.uploadedVideos = vids;
         }
         
         function error(err) {

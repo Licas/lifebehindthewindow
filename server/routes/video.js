@@ -72,10 +72,9 @@ videoRouter.get('/get', function(req, res, next) {
 });
 
 videoRouter.get('/delete/unpublished', function(req, res, next) {
-    if(req.query.videoname) {
-        console.log("request for delete " + req.query.videoname);
+    if(req.query.id) {
         videomanager.deleteUnpublished(
-            req.query.videoname, 
+            req.query.id, 
             function(msg) { //success
                 res.status(200).send('OK ' + msg);
             },
@@ -84,16 +83,23 @@ videoRouter.get('/delete/unpublished', function(req, res, next) {
             });
     }
     
-    res.status(200).send('OK');
+    res.status(500).send('Video id cannot be null');
 });
 
 videoRouter.get('/delete/published', function(req, res, next) {
-    if(req.query.videoname) {
-        console.log("request for delete " + req.query.videoname);
-        videomanager.deletePublished(req.query.videoname);
+    if(req.query.id) {
+        console.log("request for delete " + req.query.id);
+        videomanager.deletePublished(
+            req.query.id, 
+            function(msg) { //success
+                res.status(200).send('OK ' + msg);
+            },
+            function(err) { //error
+                res.status(500).send('ERROR ' + err);
+            });
     }
     
-    res.status(200).send( 'OK');
+    res.status(500).send('Video id cannot be null');
 });
 
 videoRouter.get('/approve/unpublished', function(req, res, next) {

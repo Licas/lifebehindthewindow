@@ -61,20 +61,6 @@ angular.module('lifebehindthewindowApp')
             });
         },
         
-        deleteunpublished: function(name, success, error) {
-            var url = baseUrl + '/videos/delete/unpublished';
-            
-            $http.get(url, { "params":{"videoname": name }})
-                .success(function(response) {
-                    console.log("Ok delete operation for video "  + name);
-                    success(response);
-                })
-                .error(function(err){
-                    console.log("Error in deleting " + err);
-                    error(err);
-                });
-        },
-        
         approveunpublished: function(id, success, error) {
              var url = baseUrl + '/videos/approve/unpublished';
             $http.get( url, { "params": { "id": id }})
@@ -88,11 +74,26 @@ angular.module('lifebehindthewindowApp')
                 });
         },
         
-        deletepublished: function(name, success, error) {
-             var url = baseUrl + '/videos/delete/published';
-            $http.get(url, { "params":{"videoname": name }})
+        deletepublished: function(id, success, error) {
+            var url = baseUrl + '/videos/delete/published';
+            
+            $http.get(url, { "params": { "id": id }})
                 .success(function(response) {
-                    console.log("Ok delete operation for video "  + name);
+                    console.log("Ok delete operation for video "  + id);
+                    success(response);
+                })
+                .error(function(err){
+                    console.log("Error in deleting " + err);
+                    error(err);
+                });
+        },
+        
+        deleteunpublished: function(name, success, error) {
+            var url = baseUrl + '/videos/delete/unpublished';
+            
+            $http.get(url, { "params": { "id": name }})
+                .success(function(response) {
+                    console.log("Ok delete operation for video "  + id);
                     success(response);
                 })
                 .error(function(err){
@@ -100,7 +101,6 @@ angular.module('lifebehindthewindowApp')
                     error(err);
                 });
         }
-        
     };
   }]);
 

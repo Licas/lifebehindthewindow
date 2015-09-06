@@ -205,39 +205,52 @@ function upload(stream, meta) {
 
 /**
  */
-function deleteUnpublished(file, successCb, errorCb) {
-    var fullPath = uploadPath + "/" + file;
+function deleteUnpublished(videoId, successCb, errorCb) {
+     
+    videodb.deleteVid(
+        videoId, 
+        function(result) {
+            
+            var fullPath = uploadPath + "/" + result.title + "." + result.extension;
 
-    if(fs.existsSync(fullPath)) {
-        fs.unlinkSync(fullPath);
-        
-        videodb.deleteVid(
-            data, 
-            function(msg) { //success
-                successCb(msg);
-            },
-            function(err) { //error
-                errorCb(err);
-            });
-    } else {
-        console.log("File doesn't exist [" + file + "]");
-    }
+            if(fs.existsSync(fullPath)) {
+                fs.unlinkSync(fullPath);
+                
+                successCb("Video removed");
+            } else {
+                successCb("Video removed from db. It doesn't exist on filesystem");
+            }
+        },
+        function(error) {
+            errorCb(error);
+        });
 }
 
-function deletePublished(videoId) {
-    var fullPath = publishedVideosPath + "/" + file;
+function deletePublished(videoId, successCb, errorCb) {
+    
+    videodb.deleteVid(
+        videoId, 
+        function(result) {
+            
+            var fullPath = publishedVideosPath + "/" + result.title + "." + result.extension;
 
-    if(fs.existsSync(fullPath)) {
-        fs.unlinkSync( fullPath);
-    } else {
-//        console.log("File doesn't exist");
-    }
+            if(fs.existsSync(fullPath)) {
+                fs.unlinkSync(fullPath);
+                
+                successCb("Video removed");
+            } else {
+                successCb("Video removed from db. It doesn't exist on filesystem");
+            }
+        },
+        function(error) {
+            errorCb(error);
+        });
 }
 
 /**
  */
 function approveUnpublished(videoId, successCb, errorCb) {
-    console.log("here we are");
+
     VideoModel.findByIdAndUpdate(
         videoId,
         { "published": true },
@@ -247,30 +260,31 @@ function approveUnpublished(videoId, successCb, errorCb) {
                 return errorCb(err);
             
             var fullName =  result.id + "." + result.extension;
-            var fullPath = uploadPath + "/" + fullName;
+            var fullUploadPath = uploadPath + "/" + fullName;
+            var fullPublishedPath = publishedVideosPath + "/" + fullName;
             
-            if(fs.existsSync(fullPath)) {
-                var theFile = fs.readFileSync(fullPath);
-                
-                if(theFile) {
-                    var publishedPath = publishedVideosPath + "/" + fullName;
-                    
-                    fs.writeFile(publishedPath, theFile, function(data,err){
+            // Read File
+            fs.createReadStream(fullUploadPath)
+                .on('error', function(e){
+                    console.log(e);
+                    return errorCb(e);
+                })
+                // Write File
+                .pipe(fs.createWriteStream(fullPublishedPath))
+                .on('error', function(e){
+                    console.log(e);
+                    return errorCb(e);
+                });
 
-                        if(err) {
-                            return errorCb(err);
-                        }
-                        
-                        fs.unlinkSync(fullPath);
-                        
-                        return successCb("Video approved");
-                    });
-                } else {
-                    return errorCb("Cannot approve video, file doesn't exists");   
-                }
-            } else {
-                return errorCb("Cannot approve video, file doesn't exists");
-            }
+            fs.unlink(fullUploadPath, function(err) {
+                if(err)
+                    return errorCb(err);
+            });
+
+            return successCb("Video approved");
+//            } else {
+//                return errorCb("Cannot approve video, file doesn't exists");
+//            }
         });
 }
 
