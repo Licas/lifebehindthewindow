@@ -2,7 +2,7 @@
 
 var streamController = angular.module('controllers.stream', []);
 
-streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout", function($scope, UploadFactory, $timeout) {
+streamController.controller('StreamCtrl', ['$scope', 'UploadFactory', '$timeout', function($scope, UploadFactory, $timeout) {
     
     $scope.uploadedVideos = [];
     $scope.publishedVideos = [];

@@ -53,6 +53,16 @@ body{
     background-color: transparent;
     z-index: 50;
 }
+
+.loginform {
+     position: fixed;
+    width:200px;
+    height: auto;
+    left:40% !important;
+    top:30% !important;
+    overflow: scroll !important;
+    background-color: black;
+}
 .custom-layer-messages {
      position: fixed;
     

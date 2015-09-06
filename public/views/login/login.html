@@ -1,0 +1,66 @@
+<div class="loginform">
+    <form name="loginForm" class="form">
+
+            <div class="form-group" style="margin-bottom: 5px"
+                 ng-class="{ 'has-error' : loginForm.username.$invalid && !loginForm.username.$pristine }">
+                <label style="color:white;font-size:16px">Username</label>
+                <input type="text"
+                       name="username" 
+                       class="form-control"
+                       ng-model="username" 
+                       placeholder="username"
+                       required>
+                <p ng-show="loginForm.username.$invalid && !loginForm.username.$pristine" class="help-block">Username is required.</p>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 5px">
+                <label style="color:white;font-size:16px">Password</label>
+                <input type="password"
+                       name="password" 
+                       class="form-control"
+                       ng-model="password"
+                       ng-class="{ 'has-error' : loginForm.password.$invalid  && !loginForm.password.$pristine }"
+                       required>
+                <p ng-show="loginForm.password.$invalid && !loginForm.password.$pristine" class="help-block">Password is required</p>
+            </div>
+            <div class="form-group" style="margin-bottom: 5px">
+                <div class="btn-group">
+                    <button id="login" type="submit" class="btn btn-success" ng-click="login()" ng-disabled="loginForm.$invalid" data-dismiss="modal">Login</button>
+                    <button id="clearlogin" type="button" class="btn btn-warning" ng-click="clearLogin()">Clear</button>
+                </div>
+            </div>
+      </form>            
+</div>
+
+
+<div class="custom-layer-messages">
+    <div class="row">  
+        <div ng-if="loginSuccess || loginError">
+            <script type="text/javascript">
+                window.setTimeout(function(){
+                    if(angular.element($('.alert')).scope().loginSuccess == true) {
+                        $(".alert-success").fadeTo(500, 500).slideUp(500, function(){
+                            $(".alert-success").alert('close');
+                        });
+                    } else {
+                        $(".alert-danger").fadeTo(500, 500).slideUp(500, function(){
+                            $(".alert-danger").alert('close');
+                        });
+                    }
+                }, 2000);
+            </script>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-success "  ng-show="loginSuccess">
+                <button type="button" class="close" />
+                <strong>Done!</strong> {{succmsg}}
+            </div>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger" ng-show="loginError">
+                <button type="button" class="close" />
+                <strong>Error!</strong> {{errmsg}}
+            </div>
+        </div>
+    </div>
+</div>
