@@ -24,7 +24,7 @@ video = (function () {
         var stream = emit('listUnpublished');
 
         stream.on('data', function (data) {
-            console.log("unpublished : " + data);
+//            console.log("unpublished : " + data);
             cb(null, data.files);
         });
 

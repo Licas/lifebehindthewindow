@@ -59,81 +59,50 @@ streamController.controller('StreamCtrl', ["$scope", "UploadFactory", "$timeout"
     $scope.downloadpubvideo = function(videoElement) {
         var id = videoElement.id;
         
-        $scope.download=true;
+        $scope.download = true;
         
         video.request(id);
     }
     
-    $scope.approvevideo = function(videoElement) {
-        var id = videoElement.id;
-
+    $scope.approvevideo = function(videoId, idx) {
+        
         function succ(data) {
-            var vids = $scope.uploadedVideos;
-            
-            for ( var i in vids ) {
-                if( vids[i].id === id ) {
-                    delete vids[i];
-                    break;
-                }
-            }
-            
-            $scope.uploadedVideos = vids;
+            var elem = $scope.uploadedVideos[idx];
+            console.log(JSON.stringify(elem));
+            $scope.publishedVideos.push(elem);
+            $scope.uploadedVideos.splice(idx, 1);
         }
         
         function error(err) {
             console.log("APPROVE ERR: " + err);
         }
-        
-        UploadFactory.approveunpublished(id, succ, error)
+        console.log("approving");
+        UploadFactory.approveunpublished(videoId, succ, error)
     }
     
-    $scope.deletevideo = function(videoElement) {
-    
-//        console.log("Delete " + JSON.stringify(videoElement));
-        var id = videoElement.id;
+    $scope.deletevideo = function(videoId, idx) {
         
         function succ(data) {
-            console.log("DELETE OK: " + JSON.stringify(data));
-            var vids = $scope.uploadedVideos;
-            
-            for ( var i in vids ) {
-                if( vids[i].id === id ) {
-                    delete vids[i];
-                    break;
-                }
-            }
-            
-            $scope.uploadedVideos = vids;
+            $scope.uploadedVideos.splice(idx, 1);
         }
         
         function error(err) {
             console.log("DELETE ERR: " + err);
         }
         
-        UploadFactory.deleteunpublished(id, succ, error);
+        UploadFactory.deleteunpublished(videoId, succ, error);
     }
     
-    $scope.deletepubvideo = function(videoElement) {    
-        var id = videoElement.id;
+    $scope.deletepubvideo = function(videoId, idx) {    
         
         function succ(data) {
-            console.log("DELETE OK: " + JSON.stringify(data));
-            var vids = $scope.uploadedVideos;
-                        
-            for ( var i in vids ) {
-                if( vids[i].id === id ) {
-                    delete vids[i];
-                    break;
-                }
-            }
-            
-            $scope.uploadedVideos = vids;
+            $scope.publishedVideos.splice(idx, 1);
         }
         
         function error(err) {
             console.log("DELETE ERR: " + err);
         }
         
-        UploadFactory.deletepublished(id, succ, error);
+        UploadFactory.deletepublished(videoId, succ, error);
     }
 }]);

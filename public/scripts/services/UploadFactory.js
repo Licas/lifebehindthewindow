@@ -24,11 +24,9 @@ angular.module('lifebehindthewindowApp')
 		                transformRequest: angular.identity
 		            })
 		            .success(function (data) {
-//		                console.log("success uploading data." + data);
                         success(data);
 		            })
 		            .error(function (err) {
-//		                console.log("error uploading data." + err);
                         error(err);
 		            });
 		    },
@@ -48,28 +46,27 @@ angular.module('lifebehindthewindowApp')
         },
         getnewvideoslist: function(success, error) {
             video.listUnpublished(function callService(err, files) {
-                if(err) 
+                if(err) {
                     return error(err);
-                
-                var list = [];
-                
-                for(var i in files) {
-                    list.push(JSON.parse(files[i]));
+                } else {
+                    var list = [];
+
+                    for(var i in files)
+                        list.push(JSON.parse(files[i]));
+
+                    return success(list);
                 }
-                
-                return success(list);
             });
         },
         
         approveunpublished: function(id, success, error) {
-             var url = baseUrl + '/videos/approve/unpublished';
+            var url = baseUrl + '/videos/approve/unpublished';
+            
             $http.get( url, { "params": { "id": id }})
                 .success(function(response) {
-                    console.log("Ok approve operation for video "  + name);
                     success(response);
                 })
                 .error(function(err){
-                    console.log("Error in approving " + err);
                     error(err);
                 });
         },
@@ -79,29 +76,25 @@ angular.module('lifebehindthewindowApp')
             
             $http.get(url, { "params": { "id": id }})
                 .success(function(response) {
-                    console.log("Ok delete operation for video "  + id);
                     success(response);
                 })
                 .error(function(err){
-                    console.log("Error in deleting " + err);
                     error(err);
                 });
         },
         
-        deleteunpublished: function(name, success, error) {
+        deleteunpublished: function(id, success, error) {
             var url = baseUrl + '/videos/delete/unpublished';
             
-            $http.get(url, { "params": { "id": name }})
+            $http.get(url, { "params": { "id": id }})
                 .success(function(response) {
-                    console.log("Ok delete operation for video "  + id);
                     success(response);
                 })
                 .error(function(err){
-                    console.log("Error in deleting " + err);
                     error(err);
                 });
         }
     };
-  }]);
+}]);
 
 

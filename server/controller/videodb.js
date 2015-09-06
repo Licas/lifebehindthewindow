@@ -40,6 +40,22 @@ var readVid = function(req, res) {
         res.json(req.video);
 };
 
+/**
+ * Approve an unpublished video
+ */
+var approveVid = function(videoId, successCb, errorCb) {
+     
+    Video.findByIdAndUpdate(
+        videoId,
+        { "published": true },
+        function(err, result) {            
+            if(err) {
+                return errorCb(err);
+            } else {
+                return successCb(result);
+            }
+        });
+};
 
 /**
  * Update a video
@@ -64,8 +80,7 @@ var updateVid = function(req, res) {
  * Delete an video
  */
 var deleteVid = function(videoId, successCb, errorCb) {
-        
-    VideoModel.findByIdAndRemove( 
+    Video.findByIdAndRemove( 
         videoId, 
         function(err, result) {
             if (err) 
@@ -119,6 +134,7 @@ module.exports = {
     videoList: listVid,
     deleteVideo: deleteVid,
     updateVideo: updateVid,
+    approveVideo: approveVid,
     readVideo:  readVid,
     createVideo: createVid
 }

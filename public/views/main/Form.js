@@ -19,7 +19,7 @@ formController.controller('FormCtrl', [
             $scope.uploadedFile = function() {
                 if($scope.selectedFile.files && $scope.selectedFile.files.length >= 1) {
                     var file2upload = $scope.selectedFile.files[0];
-                    // console.log(file2upload);
+                    
                     UploadFactory.uploadfile(
                         { 
                             file: file2upload,
@@ -28,14 +28,12 @@ formController.controller('FormCtrl', [
                         },
                        function( msg ) // success
                        {
-                           console.log('uploaded the file');
                            $scope.uploadSuccess = true;
                            $scope.uploadError = false;
                            $scope.succmsg = "Your video has been uploaded!";
                        },
                        function( msg ) // error
                        {
-                            console.log('error:' + msg);
                             $scope.uploadSuccess = false;
                             $scope.uploadError = true;
                             $scope.errmsg = "An error occurred, please try again.";

@@ -23,9 +23,7 @@ if(config.storageprefix) {
 }
 
 publishedVideosPath = appDir +  "/" + videosFolder;
-uploadPath = appDir + "/" + uploadFolder;
-//publishedVideosPath = appDir+'/videos';
-//uploadPath = appDir+'/uploads';
+uploadPath          = appDir + "/" + uploadFolder;
 
 supportedTypes = [
     'video/mp4',
@@ -162,63 +160,69 @@ function requestUnpublished(client, meta) {
 
 /**
  */
-function upload(stream, meta) {
-    console.log("UPLOADING IN SERVER");
-    if (!~supportedTypes.indexOf(meta.type)) {
-        stream.write({ err: 'Unsupported type: ' + meta.type });
-        stream.end();
-        return;
-    }
-
-    var videoModel = {
-        "title": meta.name,
-        "username": "",
-        "userlocation": ""
-    };
-    
-    console.log(JSON.stringify(meta));
-    
-    videodb.createVid(
-        videoModel,
-        
-        function(res) {
-            var objectID = res;
-            
-            console.log("ObjectID: " + objectID);
-        
-            var file = fs.createWriteStream(uploadPath + '/' + objectID + ".mp4");
-            stream.pipe(file);
-
-            stream.on('data', function (data) {
-                stream.write({ rx : data.length / meta.size });
-            });
-
-            stream.on('end', function () {
-                stream.write({ end: true });
-            });
-        },
-        
-        function(err) {
-            self.emit('error', err);
-        });
-}
+//function upload(stream, meta) {
+//    console.log("UPLOADING IN SERVER");
+//    if (!~supportedTypes.indexOf(meta.type)) {
+//        stream.write({ err: 'Unsupported type: ' + meta.type });
+//        stream.end();
+//        return;
+//    }
+//
+//    var videoModel = {
+//        "title": meta.name,
+//        "username": "",
+//        "userlocation": ""
+//    };
+//    
+//    console.log(JSON.stringify(meta));
+//    
+//    videodb.createVid(
+//        videoModel,
+//        
+//        function(res) {
+//            var objectID = res;
+//            
+//            var file = fs.createWriteStream(uploadPath + '/' + objectID + ".mp4");
+//            stream.pipe(file);
+//
+//            stream.on('data', function (data) {
+//                stream.write({ rx : data.length / meta.size });
+//            });
+//
+//            stream.on('end', function () {
+//                stream.write({ end: true });
+//            });
+//        },
+//        
+//        function(err) {
+//            self.emit('error', err);
+//        });
+//}
 
 /**
  */
 function deleteUnpublished(videoId, successCb, errorCb) {
      
-    videodb.deleteVid(
+    videodb.deleteVideo(
         videoId, 
         function(result) {
             
-            var fullPath = uploadPath + "/" + result.title + "." + result.extension;
-
+            var fullPath = uploadPath + "/" + result.id + "." + result.extension;
+            
             if(fs.existsSync(fullPath)) {
-                fs.unlinkSync(fullPath);
+                try {
+                    fs.unlinkSync(fullPath);
+                } catch(e) {
+                    if (e.code === 'ENOENT') {
+                        return errorCb('File not found!');
+                    } else {
+                        return errorCb(e);
+                    }
+                }
                 
-                successCb("Video removed");
+                return successCb("Video removed");
             } else {
-                successCb("Video removed from db. It doesn't exist on filesystem");
+                return successCb("Video removed from db. It doesn't exist on filesystem");
             }
         },
         function(error) {
@@ -228,22 +232,29 @@ function deleteUnpublished(videoId, successCb, errorCb) {
 
 function deletePublished(videoId, successCb, errorCb) {
     
-    videodb.deleteVid(
+    videodb.deleteVideo(
         videoId, 
         function(result) {
+            var fullPath = publishedVideosPath + "/" + result.id + "." + result.extension;
             
-            var fullPath = publishedVideosPath + "/" + result.title + "." + result.extension;
-
             if(fs.existsSync(fullPath)) {
-                fs.unlinkSync(fullPath);
+                try {
+                    fs.unlinkSync(fullPath);
+                } catch(e) {
+                    if (e.code === 'ENOENT') {
+                        return errorCb('File not found!');
+                    } else {
+                        return errorCb(e);
+                    }
+                }
                 
-                successCb("Video removed");
+                return successCb("Video removed");
             } else {
-                successCb("Video removed from db. It doesn't exist on filesystem");
+                return successCb("Video removed from db. It doesn't exist on filesystem");
             }
         },
         function(error) {
-            errorCb(error);
+            return errorCb(error);
         });
 }
 
@@ -251,41 +262,32 @@ function deletePublished(videoId, successCb, errorCb) {
  */
 function approveUnpublished(videoId, successCb, errorCb) {
 
-    VideoModel.findByIdAndUpdate(
-        videoId,
-        { "published": true },
-        function(err, result) {
-            
-            if(err)
-                return errorCb(err);
-            
-            var fullName =  result.id + "." + result.extension;
+   videodb.approveVideo(
+       videoId,
+       function(data){
+           
+            var fullName =  data.id + "." + data.extension;
             var fullUploadPath = uploadPath + "/" + fullName;
             var fullPublishedPath = publishedVideosPath + "/" + fullName;
             
-            // Read File
-            fs.createReadStream(fullUploadPath)
-                .on('error', function(e){
-                    console.log(e);
-                    return errorCb(e);
-                })
+            fs.createReadStream(fullUploadPath) // Read File
+                .on('error', function(e){ return errorCb(e); })
                 // Write File
-                .pipe(fs.createWriteStream(fullPublishedPath))
-                .on('error', function(e){
-                    console.log(e);
-                    return errorCb(e);
+                .pipe(fs.createWriteStream(fullPublishedPath)) 
+                .on('error', function(e){ return errorCb(e); })
+                .on('finish', function() {
+                    fs.unlink(fullUploadPath, function(err) {
+                        if(err) {
+                            return errorCb(err);
+                        } else {
+                            return successCb("OK");
+                        }
+                    });
                 });
-
-            fs.unlink(fullUploadPath, function(err) {
-                if(err)
-                    return errorCb(err);
-            });
-
-            return successCb("Video approved");
-//            } else {
-//                return errorCb("Cannot approve video, file doesn't exists");
-//            }
-        });
+       },
+       function(error){
+           return errorCb(error);
+       });
 }
 
 /********************************
@@ -297,7 +299,7 @@ module.exports = {
     listUnpublished     : listUnpublished,
     request             : request,
     requestUnpublished  : requestUnpublished,
-    upload              : upload,
+//    upload              : upload,
     deleteUnpublished   : deleteUnpublished,
     deletePublished     : deletePublished,
     approveUnpublished  : approveUnpublished,

@@ -1,18 +1,8 @@
 $(document).ready(function () {
-
-//    videomgmt.attr({
-//        controls : true,
-//        autoplay : true
-//    });
     
     client.on('open', function () {
-        var box = $("#uploadbox");
         console.log("client open connection");
         video.list(setupList);
-        
-        box.on('drop', setupDragDrop);
-        box.on('dragenter', fizzle);
-        box.on('dragover', fizzleOver);
     });
 
     client.on('stream', function (stream) {
@@ -83,45 +73,6 @@ $(document).ready(function () {
                 var name = $(this).text();
                 video.request(name);
             });
-        });
-    }
-
-    function setupDragDrop(e) {
-        
-        fizzle(e);
-
-        var file, tx;
-
-        file = e.originalEvent.dataTransfer.files[0];
-        tx   = 0;
-
-        video.upload(file, function (err, data) {
-            
-            var $progress = $("#progress");
-            var msg;
-
-            if (data.end) {
-                msg = "Upload complete: " + file.name;
-console.log(msg);
-                video.list(setupList);
-            } else if (data.rx) {
-                msg = Math.round(tx += data.rx * 100) + '% complete';
-                console.log(msg);
-            } else {
-                // assume error
-                msg = data.err;
-                console.log(msg);
-            }
-
-            $progress.text(msg);
-            
-            if (data.end || data.err) {
-                setTimeout(function () {
-                    $progress.fadeOut(function () {
-                        $progress.text('Drop file here');
-                    }).fadeIn();
-                }, 5000);
-            }
         });
     }
 });
