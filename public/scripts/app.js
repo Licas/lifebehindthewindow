@@ -28,6 +28,9 @@ app.config(['$routeProvider',
         .when('/stream', {
             templateUrl: 'views/stream/stream.html',
             controller: 'StreamCtrl'
+        }) 
+        .when('/cookie-policy', {
+            templateUrl: 'views/main/cookie-policy.html',
         })
         .when('/login', {
             templateUrl: 'views/login/login.html',

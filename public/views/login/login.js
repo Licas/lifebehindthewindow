@@ -13,17 +13,40 @@ loginController.controller('LoginCtrl',
             AuthenticationService.ClearCredentials();
         })();
          
-        function login() {
-            this.dataLoading = true;
-            AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.success) {
-                    AuthenticationService.SetCredentials(vm.username, vm.password);
-                    $location.path('/');
-                } else {
-                    FlashService.Error(response.message);
-                    vm.dataLoading = false;
-                }
-            });
+        $scope.login = function() {
+            var username = $scope.username;
+            var password = $scope.password;
+            
+            if(!username) {
+                $scope.loginError = true;
+                $scope.loginSuccess = false;
+                $scope.errmsg = 'Username is required.';
+            }
+            else if(!password) {
+                $scope.loginError = true;
+                $scope.loginSuccess = false;
+                $scope.errmsg = 'Password is required.';
+            }
+            else {
+                AuthenticationService.Login(
+                    username, password, 
+                    function (response) {
+                        if (response.success) {
+                            AuthenticationService.SetCredentials( username, password);
+                            $location.path('/');
+                        } else {
+                            $scope.loginError = true;
+                            $scope.loginSuccess = false;
+                            $scope.errmsg = 'User cannot be authenticated.';                            
+                        }
+                    },
+                    function(error) {
+                        console.log("Error occurred in login: "+error);
+                        $scope.loginError = true;
+                        $scope.loginSuccess = false;
+                        $scope.errmsg = error;
+                    });
+            }
         };
          
         $scope.clearLogin = function() {
