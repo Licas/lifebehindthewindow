@@ -54,6 +54,8 @@ loginController.controller('LoginCtrl',
         $scope.logout = function logout() {
             if (AuthenticationService.IsLogged) {
                 AuthenticationService.Logout();
+                $rootScope.isloggedin = false;
+                            
                 $location.path("/");
             }
         }
