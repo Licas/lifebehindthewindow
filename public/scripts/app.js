@@ -35,10 +35,10 @@ app.config(['$routeProvider',
         .when('/login', {
             templateUrl: 'views/login/login.html',
             controller: 'LoginCtrl'
-//        ,
-//            access: {
-//                isFree: true
-//            }
+        })
+        .when('/logout', {
+            templateUrl: 'views/login/login.html',
+            controller: 'LoginCtrl'
         })
         .otherwise({
             redirectTo: '/'
@@ -64,7 +64,6 @@ app.run(['$rootScope', '$location', '$cookies', function($rootScope, $location, 
         }
         
         if (restrictedPage && !loggedIn) {
-            console.log("Restricted page");
             $location.path('/login');
         }
     });

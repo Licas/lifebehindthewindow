@@ -8,6 +8,7 @@ var config = require('./server/lib/config');
 
 var routes = require('./server/routes/uploadHandler');
 var videoRouter = require('./server/routes/video');
+var authRouter = require('./server/routes/auth');
 
 BinaryServer = require('binaryjs').BinaryServer;
 videoManager = require('./server/lib/videomanager');
@@ -20,31 +21,26 @@ var app = express();
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({
-		extended: true
-	}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'html');
 app.use(express.static(__dirname));
 
-
-
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods",['OPTIONS ','DELETE', 'GET', 'POST']);
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept,  Authorization");
     next();
 });
 
 
 app.use('/', routes);
 app.use('/videos', videoRouter);
-
-
+app.use('/api', authRouter);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

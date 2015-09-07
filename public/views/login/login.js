@@ -3,11 +3,10 @@
 var loginController = angular.module('controllers.login', []);
 
 loginController.controller('LoginCtrl', 
-    ['$scope', '$location', 'AuthenticationService', 
-     function ($scope, $location, AuthenticationService) {
+    ['$scope', '$rootScope', '$location', 'AuthenticationService', 
+     function ($scope, $rootScope, $location, AuthenticationService) {
 
-         this.dataLoading = false;
-         
+ 
          (function initController() {
             // reset login status
             AuthenticationService.ClearCredentials();
@@ -28,12 +27,15 @@ loginController.controller('LoginCtrl',
                 $scope.errmsg = 'Password is required.';
             }
             else {
+               
                 AuthenticationService.Login(
                     username, password, 
                     function (response) {
-                        if (response.success) {
-                            AuthenticationService.SetCredentials( username, password);
-                            $location.path('/');
+                        if (response) {
+                            AuthenticationService.SetCredentials(username, password);
+                            
+                            $rootScope.isloggedin = true;
+                            $location.path('/stream');
                         } else {
                             $scope.loginError = true;
                             $scope.loginSuccess = false;
@@ -49,9 +51,17 @@ loginController.controller('LoginCtrl',
             }
         };
          
+        $scope.logout = function logout() {
+            if (AuthenticationService.IsLogged) {
+                AuthenticationService.Logout();
+                $location.path("/");
+            }
+        }
+         
         $scope.clearLogin = function() {
             $scope.username = '';
             $scope.password = '';
         }
          
 }]);
+
