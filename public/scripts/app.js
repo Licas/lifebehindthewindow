@@ -60,10 +60,10 @@ app.run(['$rootScope', '$location', '$cookies', function($rootScope, $location, 
         var loggedIn = $rootScope.globals.currentUser;
         
         if(!loggedIn) {
-            loggedIn = false;
+            $rootScope.isloggedin = false;
         }
         
-        if (restrictedPage && !loggedIn) {
+        if (restrictedPage && !$rootScope.isloggedin) {
             $location.path('/login');
         }
     });

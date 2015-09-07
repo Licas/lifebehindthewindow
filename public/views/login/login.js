@@ -34,7 +34,6 @@ loginController.controller('LoginCtrl',
                         if (response) {
                             AuthenticationService.SetCredentials(username, password);
                             
-                            $rootScope.isloggedin = true;
                             $location.path('/stream');
                         } else {
                             $scope.loginError = true;
@@ -52,9 +51,9 @@ loginController.controller('LoginCtrl',
         };
          
         $scope.logout = function logout() {
-            if (AuthenticationService.IsLogged) {
+            console.log("loggin out");
+            if (AuthenticationService.IsLogged()) {
                 AuthenticationService.Logout();
-                $rootScope.isloggedin = false;
                             
                 $location.path("/");
             }

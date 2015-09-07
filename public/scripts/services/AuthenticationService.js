@@ -42,14 +42,14 @@ angular.module('lifebehindthewindowApp')
 
             SetCredentials: function(username, password) {
                 var authdata = Base64Service.encode(username + ':' + password);
-                console.log("encoding: " + authdata);
+//                console.log("encoding: " + authdata);
                 $rootScope.globals = {
                     currentUser: {
                         username: username,
                         authdata: authdata
                     }
                 };
-
+                $rootScope.isloggedin = true;
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
                 $cookies.put('globals', $rootScope.globals);
                 this.SetLogged(true);
@@ -57,9 +57,11 @@ angular.module('lifebehindthewindowApp')
 
             ClearCredentials: function() {
                 $rootScope.globals = {};
+                $rootScope.isloggedin = false;
                 $cookies.remove('globals');
+                delete $http.defaults.headers.common['Authorization'];
+                
                 this.SetLogged(false);
-                $http.defaults.headers.common.Authorization = 'Basic ';
             }
         };
 }]);
