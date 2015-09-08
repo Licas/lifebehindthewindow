@@ -2,25 +2,6 @@
     var selectFile = function() {
         $("#file").click();
     }
-
-    $('#cancelUpload').on('click', function(event) {
-        var input = $('#fileInputText');
-        input.val('');
-    });   
-//    
-//    var fade = function(success) {
-//       window.setTimeout(function(){
-//            if(success==true) {
-//                $(".alert-success").fadeTo(500, 500).slideUp(500, function(){
-//                    $(".alert-success").alert('close');
-//                });
-//            } else {
-//                $(".alert-danger").fadeTo(500, 500).slideUp(500, function(){
-//                    $(".alert-danger").alert('close');
-//                });
-//            }
-//        }, 2000);
-//    };
 </script>
 
 <div ng-controller="HomeCtrl as controller">
@@ -150,10 +131,10 @@
                          </button>
                          <input type="file" style="display:none" id="file" name="file" onchange="angular.element(this).scope().fileNameChanged(this)"  accept="video/*" />
 
-                         <button id="cancelUpload" type="button" class="btn btn-warning" >
+                         <button id="cancelUpload" type="button" class="btn btn-warning" ng-click="clearForm()">
                             Cancel
                          </button>
-                         <button type="button" class="btn btn-default" data-dismiss="modal">
+                         <button type="button" class="btn btn-default" ng-click="clearForm()" data-dismiss="modal">
                             Close
                          </button>
                      </div>

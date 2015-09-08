@@ -2,13 +2,13 @@
 
 var streamController = angular.module('controllers.stream', []);
 
-streamController.controller('StreamCtrl', ['$scope', 'UploadFactory', '$timeout', function($scope, UploadFactory, $timeout) {
+streamController.controller('StreamCtrl', ['$scope', '$rootScope', 'UploadFactory', '$timeout', function($scope, $rootScope, UploadFactory, $timeout) {
     
     $scope.uploadedVideos = [];
     $scope.publishedVideos = [];
     $scope.videoplaying = false;
-    $scope.view=false;
-    $scope.download=false;
+    $scope.view = false;
+    $scope.download = false;
     
     
     UploadFactory.getnewvideoslist(
@@ -17,7 +17,7 @@ streamController.controller('StreamCtrl', ['$scope', 'UploadFactory', '$timeout'
             $scope.$apply();
         }, 
         function(err) {
-            console.log("Error in streamCtrl " + err);
+            $rootScope.err = "Error in retrieving not published videos: " + err;
         });
     
     UploadFactory.getlist(
@@ -26,7 +26,7 @@ streamController.controller('StreamCtrl', ['$scope', 'UploadFactory', '$timeout'
             $scope.$apply();
         }, 
         function(err) {
-            console.log("Error in streamCtrl " + err);
+            $rootScope.err = "Error in retrieving published videos list: " + err;
         });
     
     $scope.closeVideoBox = function(element) {
@@ -68,15 +68,15 @@ streamController.controller('StreamCtrl', ['$scope', 'UploadFactory', '$timeout'
         
         function succ(data) {
             var elem = $scope.uploadedVideos[idx];
-            console.log(JSON.stringify(elem));
+            
             $scope.publishedVideos.push(elem);
             $scope.uploadedVideos.splice(idx, 1);
         }
         
         function error(err) {
-            console.log("APPROVE ERR: " + err);
+            $rootScope.err = "Error in approval: " + err;
         }
-        console.log("approving");
+        
         UploadFactory.approveunpublished(videoId, succ, error)
     }
     
@@ -87,7 +87,7 @@ streamController.controller('StreamCtrl', ['$scope', 'UploadFactory', '$timeout'
         }
         
         function error(err) {
-            console.log("DELETE ERR: " + err);
+            $rootScope.err = "Error in delete: " + err;
         }
         
         UploadFactory.deleteunpublished(videoId, succ, error);
@@ -100,7 +100,7 @@ streamController.controller('StreamCtrl', ['$scope', 'UploadFactory', '$timeout'
         }
         
         function error(err) {
-            console.log("DELETE ERR: " + err);
+            $rootScope.err = "Error in delete: " + err;
         }
         
         UploadFactory.deletepublished(videoId, succ, error);
