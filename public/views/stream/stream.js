@@ -60,8 +60,14 @@ streamController.controller('StreamCtrl', ['$scope', '$rootScope', 'UploadFactor
         var id = videoElement.id;
         
         $scope.download = true;
-        
         video.request(id);
+    }
+    
+    $scope.downloadvideo = function(videoElement) {
+        var id = videoElement.id;
+        
+        $scope.download = true;
+        video.requestUnpublished(id);
     }
     
     $scope.approvevideo = function(videoId, idx) {

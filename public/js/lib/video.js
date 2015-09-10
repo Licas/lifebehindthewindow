@@ -53,6 +53,10 @@ video = (function () {
         emit('request', { id : id });
     }
     
+    function requestUnpublished(id) {
+        emit('requestUnpublished', { id : id });
+    }
+    
     function requestDownload(id) {
         emit('requestDownload', { id : id });
     }

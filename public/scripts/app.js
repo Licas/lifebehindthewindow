@@ -40,30 +40,30 @@ app.config(['$routeProvider',
             templateUrl: 'views/login/login.html',
             controller: 'LoginCtrl'
         })
+        .when('/contact', {
+            templateUrl: 'views/main/contact.html'
+        })
         .otherwise({
             redirectTo: '/'
         });
   }]);
 
-app.run(['$rootScope', '$location', '$cookies', function($rootScope, $location, $cookies) {
+app.run(['$http', '$rootScope', '$location', '$cookies', function($http, $rootScope, $location, $cookies) {
     // keep user logged in after page refresh
-    $rootScope.globals = $cookies.get('globals') || {};
-    
-    if ($rootScope.globals.currentUser) {
-        var authdata = $rootScope.globals.currentUser.authdata;
+    if ($cookies.get('loggedin')) {
+        
+        var authdata = $cookies.getObject('globals').currentUser.authdata;
         $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
     }
- 
+    
+    $rootScope.isloggedin = $cookies.get('loggedin');
+    
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // redirect to login page if not logged in and trying to access a restricted page
         var restrictedPage = $location.path() != '/' && ($.inArray($location.path(), ["/login", "/stream"]) !== -1);
-        var loggedIn = $rootScope.globals.currentUser;
+        $rootScope.isloggedin = $cookies.get('loggedin');
         
-        if(!loggedIn) {
-            $rootScope.isloggedin = false;
-        }
-        
-        if (restrictedPage && !$rootScope.isloggedin) {
+        if (restrictedPage && !$cookies.get('loggedin')) {
             $location.path('/login');
         }
     });

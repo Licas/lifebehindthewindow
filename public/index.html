@@ -15,7 +15,9 @@
         <link rel="stylesheet" href="/styles/style.css">
         <link rel="stylesheet" href="/styles/main.css">
         <link rel="stylesheet" href="/styles/cookie.css">
+        <link rel="stylesheet" href="/styles/cards">
         <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <!-- endbuild:css -->
       
       
@@ -48,11 +50,11 @@
               <ul class="nav navbar-nav mynav">
                   <li><a href="#/">Home</a></li>
                   <li><a href="#/">Project</a></li>
-                  <li><a href="#/">Contact</a></li>
+                  <li><a href="#/contact">Contact</a></li>
                   
-                  <li ng-show="!isloggedin"><a href="#/login">Login</a></li>
+                  <li ng-hide="isloggedin"><a href="#/login">Login</a></li>
                   <li ng-show="isloggedin"><a href="#/stream">Stream</a></li>
-                  <li ng-show="isloggedin"><a href="#/" ng-click="logout()">Logout</a></li>
+                  <li ng-show="isloggedin"><a href="#/login" ng-click="logout()">Logout</a></li>
               </ul>
           </div>
       </div>	  

@@ -51,14 +51,12 @@ loginController.controller('LoginCtrl',
         };
          
         $scope.logout = function logout() {
-            if (AuthenticationService.IsLogged()) {
-                AuthenticationService.Logout();
-                            
-                $location.path("/");
-            }
+            AuthenticationService.Logout();
+                        
+            $location.path("/");
         }
          
-        $rootScope.logout = $scope.logout;
+//        $rootScope.logout = $scope.logout;
          
         $scope.clearLogin = function() {
             $scope.username = '';

@@ -94,7 +94,6 @@ bs.on('connection', function (client) {
                 break;
                 // request for a video
             case 'requestUnpublished':
-                console.log("requestUnpublished#" + JSON.stringify(meta));
                 videoManager.requestUnpublished(client, meta);
                 break;
 

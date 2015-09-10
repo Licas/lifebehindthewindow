@@ -12,7 +12,12 @@ angular.module('lifebehindthewindowApp')
 
         return {
             SetLogged: function(logged) {
-                $cookies.put('loggedin', logged);
+                var d = new Date();
+                d.setDate(d.getDate() + 1);
+                
+                $cookies.put('loggedin', logged, {
+                    expires: d
+                });
             },
             IsLogged: function() {
                 return $cookies.get('loggedin');
@@ -42,26 +47,35 @@ angular.module('lifebehindthewindowApp')
 
             SetCredentials: function(username, password) {
                 var authdata = Base64Service.encode(username + ':' + password);
-//                console.log("encoding: " + authdata);
-                $rootScope.globals = {
+                var glob = {
                     currentUser: {
                         username: username,
                         authdata: authdata
                     }
                 };
-                $rootScope.isloggedin = true;
+                $rootScope.globals = glob;
+                $rootScope.isloggedin = this.IsLogged();
                 $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-                $cookies.put('globals', $rootScope.globals);
+                
+                var d = new Date();
+                d.setDate(d.getDate() + 1);
+                
+                $cookies.putObject('globals', glob, {
+                    expires: d
+                });
+                
                 this.SetLogged(true);
             },
 
             ClearCredentials: function() {
-                $rootScope.globals = {};
-                $rootScope.isloggedin = false;
+                
                 $cookies.remove('globals');
+                $cookies.remove('loggedin');
                 delete $http.defaults.headers.common['Authorization'];
                 
-                this.SetLogged(false);
+                
+                $rootScope.globals = {};
+                $rootScope.isloggedin = this.IsLogged();
             }
         };
 }]);

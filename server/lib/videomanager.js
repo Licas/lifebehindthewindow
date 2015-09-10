@@ -121,7 +121,7 @@ function listUnpublished(stream, meta)  {
 * Get a video published
 */
 function request(client, meta) {
-    //IMPREOVEMENT : CHECK EXTENSION
+    //IMPREOVEMENT : CHECK EXTENSION/ STREAM FILE
     if(meta && meta.id) {
         var file = fs.createReadStream(
                         publishedVideosPath + '/' + meta.id + '.mp4',
@@ -138,19 +138,18 @@ function request(client, meta) {
 * Get a video not yet published
 */
 function requestUnpublished(client, meta) {
-    //IMPREOVEMENT : CHECK EXTENSION
+    //IMPREOVEMENT : CHECK EXTENSION/ STREAM FILE
     if(meta && meta.id) {
         var file = fs.createReadStream(
                         uploadPath + '/' + meta.id + '.mp4',
                         { flags: 'r', autoClose: true });
-
         file.on('error', function(err) {
-            console.log("Error in requestUnpublished: " + err);
+            console.log("Error in request: " + err);
             client.send(null);
         });
+
         
         if(file) {
-//            console.log("sending file " + JSON.stringify(file));
             client.send(file);
         } else {
             client.send(null);
