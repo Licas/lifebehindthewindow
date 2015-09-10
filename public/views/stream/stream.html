@@ -45,41 +45,44 @@
             </section>
             <br />
             <div class="row">
-                
-                <table class="table table-hover table-condensed">
-                    <th style="color:white">Lista di video in upload non ancora pubblicati</th>
-                    <tr class="videolist" ng-repeat="videoEntry in uploadedVideos">
-                        <td align="left">
-                            {{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}
-                        </td>
-                        <td align="left">
-                           <div class="btn-group">
-                                <button type="button" class="btn btn-primary" ng-click="playvideo(videoEntry)">View</button>
-                                <button type="button" class="btn btn-info" ng-click="downloadvideo(videoEntry)">Download</button>
-                                <button type="button" class="btn btn-success" ng-click="approvevideo(videoEntry.id, $index)">Approve</button>
-                                <button type="button" class="btn btn-danger" ng-click="deletevideo(videoEntry.id, $index)">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed">
+                        <caption style="color:white;font-size:14pt">Lista di video in upload non ancora pubblicati</caption>
+                        <tr class="videolist" ng-repeat="videoEntry in uploadedVideos">
+                            <td align="left">
+                                {{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}
+                            </td>
+                            <td align="left">
+                               <div class="btn-group">
+                                    <button type="button" class="btn btn-primary" ng-click="playvideo(videoEntry)">View</button>
+                                    <button type="button" class="btn btn-info" ng-click="downloadvideo(videoEntry)">Download</button>
+                                    <button type="button" class="btn btn-success" ng-click="approvevideo(videoEntry.id, $index)">Approve</button>
+                                    <button type="button" class="btn btn-danger" ng-click="deletevideo(videoEntry.id, $index)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             
             <div class="row">
-                <table class="table table-hover table-condensed">
-                    <th style="color:white">Lista di video pubblicati</th>
-                    <tr class="videolist" ng-repeat="videoEntry in publishedVideos">
-                        <td align="left">
-                            {{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}
-                        </td>
-                        <td align="left">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary" ng-click="playpubvideo(videoEntry)">View</button>
-                                <button type="button" class="btn btn-info" ng-click="downloadpubvideo(videoEntry)">Download</button>
-                                <button type="button" class="btn btn-danger" ng-click="deletepubvideo(videoEntry.id, $index)">Delete</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed">
+                        <caption style="color:white;font-size:14pt">Lista di video pubblicati</caption>
+                        <tr class="videolist" ng-repeat="videoEntry in publishedVideos">
+                            <td align="left">
+                                {{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}
+                            </td>
+                            <td align="left">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary" ng-click="playpubvideo(videoEntry)">View</button>
+                                    <button type="button" class="btn btn-info" ng-click="downloadpubvideo(videoEntry)">Download</button>
+                                    <button type="button" class="btn btn-danger" ng-click="deletepubvideo(videoEntry.id, $index)">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
              <a style="display:none" href="" id="lnkDownload">link</a>
         </div>
