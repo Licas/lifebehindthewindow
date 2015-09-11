@@ -1,3 +1,4 @@
-# robotstxt.org
-
 User-agent: *
+Disallow: /js/
+Disallow: /views/stream/
+Disallow: /scripts/
