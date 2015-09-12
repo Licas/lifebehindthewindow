@@ -73,13 +73,9 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
         
         controller.setVideo = function (index) {
             if(controller.videos[index]) {
-    //            console.log("Request a new video: " + controller.videos[index]);
+//                console.log("Request a new video: " + JSON.stringify(controller.videos[index]));
                 controller.API.stop();
-                video.request(controller.videos[index]);
-    //             var newSource = [{
-    //                    src: $sce.trustAsResourceUrl(controller.videos[index]),
-    //                    type: "video/mp4"
-    //                }];
+                video.request(controller.videos[index].id);
                 controller.currentVideo = index;
                 $timeout(controller.API.play.bind(controller.API), 2000);
             }
