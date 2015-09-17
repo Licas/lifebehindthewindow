@@ -43,6 +43,9 @@ app.config(['$routeProvider',
         .when('/contact', {
             templateUrl: 'views/main/contact.html'
         })
+        .when('/project', {
+            templateUrl: 'views/main/project.html'
+        })
         .otherwise({
             redirectTo: '/'
         });

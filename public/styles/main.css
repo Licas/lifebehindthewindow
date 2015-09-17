@@ -45,6 +45,18 @@ body{
     z-index: 10;
 }
 
+
+.project-container {
+    position: absolute;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: auto;
+    
+    display: inline;
+    height: auto;
+/*    background-color: rgba(0,0,0,0.5);*/
+}
+
 .custom-layer {
     width: auto;
     position: fixed;
@@ -209,4 +221,46 @@ input[readonly] {
     min-width: 100%;
     display: inline;
     height: auto;
+}
+
+
+/********************************/
+/******** Text Queries **********/
+/********************************/
+
+/* responsive text queries */
+@media screen and (max-width: 992px) {
+  p,.btn,input,div,span,h4 {
+    font-size: 95%;
+  }
+  h1 {
+    font-size: 24px;  
+  }
+  h2 {
+    font-size: 22px;  
+  }
+  h3 {
+    font-size: 18px;  
+  }
+  p {
+    font-size: 14px;  
+  }
+}
+
+@media screen and (max-width: 768px) {
+  p,.btn,input,div,span,h4 {
+    font-size: 90%;
+  }
+  h1 {
+    font-size: 20px;  
+  }
+  h2 {
+    font-size: 18px;  
+  }
+  h3 {
+    font-size: 16px;  
+  }
+    p {
+    font-size: 12px;  
+  }
 }
