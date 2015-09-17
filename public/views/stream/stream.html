@@ -15,35 +15,33 @@
         document.body.removeChild(link);
     }
 </script>
-
-
+<style>
+#videomgmt {  
+   width:100%; 
+   max-width:500px; 
+   height:auto; 
+}
+</style>
+<div class="container">
     <div class="mgmt-block">
         <h2 style="color:white;">Pagina di amministrazione</h2>
         <div ng-controller="StreamCtrl" id="mgmtPage">
-            <!--<section id="main">-->
-            <section id="main">
-<!--
-                <fieldset>
-                    <legend style="color:white;">Drag n Drop</legend>
-                    <aside id="uploadbox">
-                        <article id="progress">Drop file here</article>
-                    </aside>
-                </fieldset>
--->
+            <div class="row">
+                <section id="main">
+                    <div ng-show="videoplaying">
+                        <fieldset>
+                            <legend>Play the Video</legend>
 
-                <div ng-show="videoplaying">
-                    <fieldset>
-                        <legend>Play the Video</legend>
-                        
-                        <section class="left">
-                            <button type="button" class="btn btn-default btn-rounded" style="background-color:black;color:white;margin-bottom:10px;" ng-click="closeVideoBox(this)">Close</button>
-                            <video id="videomgmt" width="800" height="600" controls autoplay>
-                            </video>
-                        </section>
-                    </fieldset>
-                </div>
-            </section>
-            <br />
+                            <section class="left">
+                                <button type="button" class="btn btn-default btn-rounded" style="background-color:black;color:white;margin-bottom:10px;" ng-click="closeVideoBox(this)">Close</button>
+                                <video id="videomgmt" width="800" height="600" controls autoplay>
+                                </video>
+
+                            </section>
+                        </fieldset>
+                    </div>
+                </section>
+            </div>
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
@@ -87,3 +85,4 @@
              <a style="display:none" href="" id="lnkDownload">link</a>
         </div>
     </div>
+</div>

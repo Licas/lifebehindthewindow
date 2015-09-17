@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     client.on('stream', function (stream) {
         video.download(stream, function (err, src) {
-            console.log("client received a stream " + src);
+//            console.log("client received a stream " + src);
             
             var media  = $("#videogular-media");
             media.attr('vg-src' , src);
@@ -26,7 +26,6 @@ $(document).ready(function () {
             
             if(videomgmt) {
                 if(angular.element("#mgmtPage").scope().view) {
-                    console.log("gonna view");
                     angular.element("#mgmtPage").scope().view=false;
                     
                     videomgmt.bind('ended', function() { 
