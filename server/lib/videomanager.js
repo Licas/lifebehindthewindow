@@ -25,6 +25,9 @@ if(config.storageprefix) {
 publishedVideosPath = appDir +  "/" + videosFolder;
 uploadPath          = appDir + "/" + uploadFolder;
 
+console.log("#videomanager# vid path : " +publishedVideosPath);
+console.log("#videomanager# up path : " +uploadPath);
+
 supportedTypes = [
     'video/mp4',
     'video/webm',
