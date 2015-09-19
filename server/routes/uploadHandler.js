@@ -5,8 +5,20 @@ var router = express.Router();
 var Lazy = require('lazy.js');
 var log = require('winston');
 var fs = require('fs');
+
+var config = require('../lib/config');
+var appDir = "";
+var uploadFolder = config.uploadFolderName;
+var videosFolder = config.videosFolderName;
+
+if(config.storageprefix) {
+    appDir = config.storageprefix;
+} else {
+    appDir = path.dirname(require.main.filename);
+}
+
 var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+var upload = multer({ dest: appDir + "/" + uploadFolder +"/"})
 
 var VideoModel = require(__dirname + "/../model/VideoModel");
 var db = require(__dirname + "/../controller/videodb");
@@ -48,7 +60,8 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
             userlocation = req.body.userlocation;
         
         if(req.file.mimetype.indexOf("/") > 0)
-            extension = req.file.mimetype.substr(req.file.mimetype.indexOf("/")+1);
+            extension = req.file.originalname.substr(req.file.originalname.indexOf(".")+1);
+//            extension = req.file.mimetype.substr(req.file.mimetype.indexOf("/")+1);
         
         db.createVideo({
             "title": originalName,

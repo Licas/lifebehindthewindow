@@ -15,8 +15,8 @@ var VideoModel = require('../model/VideoModel');
 var videodb = require(__dirname + "/../controller/videodb");
 var videomanager = require(__dirname + "/../lib/videomanager");
 
-var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+//var multer  = require('multer')
+//var upload = multer({ dest: 'uploads/' })
 
 var appDir = "";
 var uploadFolder = config.uploadFolderName;
@@ -65,11 +65,11 @@ videoRouter.get('/list', function(req, res, next) {
         });
 });
 
-videoRouter.get('/get', function(req, res, next) {
-//    console.log("required video " + req.query.videoid);
-    
-  res.status(200).send( 'Retrieving video ' + req.query.videoid );
-});
+//videoRouter.get('/get', function(req, res, next) {
+////    console.log("required video " + req.query.videoid);
+//    
+//  res.status(200).send( 'Retrieving video ' + req.query.videoid );
+//});
 
 videoRouter.get('/delete/unpublished', function(req, res, next) {
     if(req.query.id) {

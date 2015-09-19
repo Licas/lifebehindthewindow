@@ -126,15 +126,25 @@ function listUnpublished(stream, meta)  {
 function request(client, meta) {
     //IMPREOVEMENT : CHECK EXTENSION/ STREAM FILE
     if(meta && meta.id) {
-        //TODO Get extension of video from db
-        var file = fs.createReadStream(
-                        publishedVideosPath + '/' + meta.id + '.mp4',
+       videodb.videoByID(
+            meta.id, 
+            function(video) {
+                console.log("Found " + JSON.stringify(video));
+        
+                var file = fs.createReadStream(
+                        publishedVideosPath + '/' + meta.id + '.' + video.extension,
                         { flags: 'r', autoClose: true });
-        file.on('error', function(err) {
-            console.log("Error in request: " + err);
-            client.send(null);
-        });
-        client.send(file);
+                
+                file.on('error', function(err) {
+                    console.log("Error in request: " + err);
+                    client.send(null);
+                });
+                client.send(file,
+                           {"username":video.username, "userlocation":video.userlocation});
+            },
+            function(err){
+                console.log("Error " + err);
+            });
     }
 }
 
@@ -144,67 +154,33 @@ function request(client, meta) {
 function requestUnpublished(client, meta) {
     //IMPREOVEMENT : CHECK EXTENSION/ STREAM FILE
     if(meta && meta.id) {
-        //TODO Get extension of video from db
-        var file = fs.createReadStream(
-                        uploadPath + '/' + meta.id + '.mp4',
+        videodb.videoByID(
+            meta.id, 
+            function(video) {
+                var file = fs.createReadStream(
+                        uploadPath + '/' + meta.id + '.' + video.extension,
                         { flags: 'r', autoClose: true });
-        file.on('error', function(err) {
-            console.log("Error in request: " + err);
-            client.send(null);
-        });
+                
+                file.on('error', function(err) {
+                    console.log("Error in request: " + err);
+                    client.send(null);
+                });
 
+
+                if(file) {
+                    client.send(file, 
+                                {"username":video.username, "userlocation":video.userlocation});
+                } else {
+                    client.send(null);
+                }
+            },
+            function(err){
+                console.log("Error " + err);
+            });
         
-        if(file) {
-            client.send(file);
-        } else {
-            client.send(null);
-        }
     }
 }
 
-/**
- */
-//function upload(stream, meta) {
-//    console.log("UPLOADING IN SERVER");
-//    if (!~supportedTypes.indexOf(meta.type)) {
-//        stream.write({ err: 'Unsupported type: ' + meta.type });
-//        stream.end();
-//        return;
-//    }
-//
-//    var videoModel = {
-//        "title": meta.name,
-//        "username": "",
-//        "userlocation": ""
-//    };
-//    
-//    console.log(JSON.stringify(meta));
-//    
-//    videodb.createVid(
-//        videoModel,
-//        
-//        function(res) {
-//            var objectID = res;
-//            
-//            var file = fs.createWriteStream(uploadPath + '/' + objectID + ".mp4");
-//            stream.pipe(file);
-//
-//            stream.on('data', function (data) {
-//                stream.write({ rx : data.length / meta.size });
-//            });
-//
-//            stream.on('end', function () {
-//                stream.write({ end: true });
-//            });
-//        },
-//        
-//        function(err) {
-//            self.emit('error', err);
-//        });
-//}
-
-/**
- */
 function deleteUnpublished(videoId, successCb, errorCb) {
      
     videodb.deleteVideo(

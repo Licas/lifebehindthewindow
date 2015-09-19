@@ -104,23 +104,19 @@ var listVid = function(published, successCb, errorCb) {
     });
 };
 
-var videoByID = function(req, res, next, id) {
+var videoByID = function(id, successCb, errorCb) {
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
-                return res.status(400).send({
-                        message: 'Video is invalid'
-                });
+                return errorCb('Video is invalid');
         }
 
-        Video.findById(id).populate('user', 'displayName').exec(function(err, video) {
-                if (err) return next(err);
+        Video.findById(id).exec(function(err, video) {
+                if (err) 
+                    return errorCb(err);
                 if (!video) {
-                        return res.status(404).send({
-                                message: 'Video not found'
-                        });
+                        return errorCb('Video not found');
                 }
-                req.video = video;
-                next();
+                return successCb(video);
         });
 };
 
