@@ -36,15 +36,17 @@ body{
 
 
 .project-container {
-    position: absolute;
+    font-family: 'Avenir-Black';
+    position: relative;
     margin-left: 20px;
     margin-right: 20px;
     width: auto;
-    
     display: inline;
     height: auto;
 /*    background-color: rgba(0,0,0,0.5);*/
 }
+
+
 
 .custom-layer {
     width: auto;
@@ -107,7 +109,7 @@ input[readonly] {
 
 
 #upload-file-container {
-    background: url(/img/upload_button.png) no-repeat;
+/*    background: url(/img/upload_button.png) no-repeat;*/
 }
 
 #upload-file-container input {
@@ -118,15 +120,16 @@ input[readonly] {
 }
 
 .uploadButton {
-    background:url(/img/upload_button.png) no-repeat;
+/*    background:url(/img/upload_button.png) no-repeat;*/
+    background-color: transparent;
     cursor:pointer;
     width: 100%;
     height: auto;
+    margin-top: 150px;
     border: none;
 /*    color:white;*/
     padding-bottom: 5px;
 }
-
 
 
 
@@ -137,10 +140,13 @@ input[readonly] {
 .mgmt-block {
     position: absolute;
     margin-left: 0;
+    margin-top: 5%;
     width: 100%;
     min-width: 100%;
     display: inline;
     height: auto;
+    color: black;
+    font-family: 'Avenir-Book';
 }
 
 

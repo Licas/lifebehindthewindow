@@ -126,6 +126,7 @@ function listUnpublished(stream, meta)  {
 function request(client, meta) {
     //IMPREOVEMENT : CHECK EXTENSION/ STREAM FILE
     if(meta && meta.id) {
+        //TODO Get extension of video from db
         var file = fs.createReadStream(
                         publishedVideosPath + '/' + meta.id + '.mp4',
                         { flags: 'r', autoClose: true });
@@ -143,6 +144,7 @@ function request(client, meta) {
 function requestUnpublished(client, meta) {
     //IMPREOVEMENT : CHECK EXTENSION/ STREAM FILE
     if(meta && meta.id) {
+        //TODO Get extension of video from db
         var file = fs.createReadStream(
                         uploadPath + '/' + meta.id + '.mp4',
                         { flags: 'r', autoClose: true });

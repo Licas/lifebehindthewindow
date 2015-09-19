@@ -56,7 +56,8 @@ fieldset {
 #list ul li:before {
     content: "•";
     padding-right: 4px;
-    color: white; 
+/*    color: white; 
+    */
 }
 
 #video {
@@ -67,9 +68,15 @@ fieldset {
 
 
 tr.videolist {
-    color:white;
+/*    color:white;*/
 
 }
+
+tr.videolist td {
+    font-size: 12px;
+}
+
 tr.videolist:hover {
-    color:black;
+    background-color:dimgrey;
+/*    color:white;*/
 }

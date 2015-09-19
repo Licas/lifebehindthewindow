@@ -24,7 +24,7 @@
 </style>
 <div class="container">
     <div class="mgmt-block">
-        <h2 style="color:white;">Pagina di amministrazione</h2>
+        <h2>Pagina di amministrazione</h2>
         <div ng-controller="StreamCtrl" id="mgmtPage">
             <div class="row">
                 <section id="main">
@@ -33,7 +33,7 @@
                             <legend>Play the Video</legend>
 
                             <section class="left">
-                                <button type="button" class="btn btn-default btn-rounded" style="background-color:black;color:white;margin-bottom:10px;" ng-click="closeVideoBox(this)">Close</button>
+                                <button type="button" class="btn btn-default btn-rounded" style="margin-bottom:10px;" ng-click="closeVideoBox(this)">Close</button>
                                 <video id="videomgmt" width="800" height="600" controls autoplay>
                                 </video>
 
@@ -45,7 +45,7 @@
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
-                        <caption style="color:white;font-size:14pt">Lista di video in upload non ancora pubblicati</caption>
+                        <caption style="font-size:14pt">Lista di video in upload non ancora pubblicati</caption>
                         <tr class="videolist" ng-repeat="videoEntry in uploadedVideos">
                             <td align="left">
                                 {{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}
@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
-                        <caption style="color:white;font-size:14pt">Lista di video pubblicati</caption>
+                        <caption style="font-size:14pt">Lista di video pubblicati</caption>
                         <tr class="videolist" ng-repeat="videoEntry in publishedVideos">
                             <td align="left">
                                 {{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}

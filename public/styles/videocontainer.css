@@ -1,38 +1,87 @@
-
 .videogular-container {
-    position: fixed;
-    margin-left: 30%;
-    width: auto;
-    max-width: 80%;
-/*    min-width: 100%;*/
-    display: inline;
-    height: auto;
+
+    margin-top:5%;
+    width:501px;
+    height:700px;
+    cursor: pointer;
+    position:relative;
+    
 /*
-    background-color: transparent;
-    background-color: rgba(0,0,0,0.5);
+    padding-top: 10px;
+    padding-left: 25px;
 */
-    z-index: 10;
 }
 
+.videogular-container:after {
+    content: '';
+    display: block;
+    background-image: url(/img/lifebehindthewindow_cornice.png);
+    background-repeat:no-repeat;
+    background-position: top left;
+    -webkit-background-size: contain; 
+    -moz-background-size: contain; 
+    -o-background-size: contain; 
+    background-size: contain;
+z-index: 15;
+    width:100%;
+    height:100%;
+/*
+    top: 30px;
+    left: 0px;
+*/
+    position:absolute;
+    
+}
 
+.videogular-container video {
+    position: absolute;
+        top: 30px; 
+    left: 40px;
+    z-index: 5;
+}
+/*
 
 @media (min-width: 1200px) {
-	.videogular-container {
-		width: 1170px;
-		height: 658.125px;
+	.videogular-container::before {
+        
+        background-size:  cover;
+	}
+    .videogular-container,.videogular-container video{
+		width: 500px;
+		height: 700px;
 	}
 } 
 
 @media (min-width: 992px) and (max-width: 1199px) {
-	.videogular-container {
-		width: 940px;
-		height: 528.75px;
+	videogular-container::before {
+
+        background-size:  cover;
+	}
+    .videogular-container, .videogular-container video{
+		width: 320px;
+		height: 640px;
 	}
 }
  
 @media (min-width: 768px) and (max-width: 991px) {
-	.videogular-container {
-		width: 728px;
-		height: 409.5px;
+    videogular-container::before {
+        background-size:  cover;
+    }
+    
+    .videogular-container, .videogular-container video {
+		width: 320px;
+		height: 640px;
 	}
 }
+
+@media  (max-width: 767px) {
+    .videogular-container::before {
+         background-size:  contain;
+    } 
+    
+    .videogular-container, .videogular-container video {
+		width: 300px;
+		height: 400px;
+	}
+}
+*/
