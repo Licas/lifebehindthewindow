@@ -295,9 +295,13 @@ function upload(stream, meta) {
         extension = 'mp4';
     }
     
-    var file = fs.createWriteStream(uploadFolder + '/' + meta.name);
+    var file = fs.createWriteStream(uploadPath + '/' + meta.name);
     stream.pipe(file);
  
+    stream.on('error', function(err) {
+        stream.end();
+    });
+    
     stream.on('data', function (data) {
         stream.write({ rx: data.length / meta.size });
     });
@@ -316,16 +320,16 @@ function upload(stream, meta) {
             var objectID = data;
             
             if(!Lazy(mimetype).startsWith('video')) {
-                fs.unlink(uploadFolder + "/" + filename, function (err) {
+                fs.unlink(uploadPath + "/" + filename, function (err) {
                   if (err) 
                       console.log("Error: "+ err);
-                  console.log('successfully deleted ' + uploadFolder + "/" + filename);
+                  console.log('successfully deleted ' + uploadPath + "/" + filename);
                 });
 
                 console.log("Error in file format");
             }
 //            
-            fs.rename(uploadFolder + "/" + filename, uploadFolder + "/"  + objectID + "." + extension,
+            fs.rename(uploadPath + "/" + filename, uploadPath + "/"  + objectID + "." + extension,
                   function(err) {
                     if ( err ) {
                         console.log("upload not done." +err);
