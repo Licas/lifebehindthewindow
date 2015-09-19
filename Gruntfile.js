@@ -53,6 +53,18 @@ module.exports = function(grunt) {
         }
       }
     },
+    htmlmin: {
+      dist: {
+        options: {
+          removeComments: true,
+          collapseWhitespace: true
+        },
+        files: {
+          'public/index.html': 'public/index.html',
+          'public/views/**/*.html': 'public/views/**/*.html'
+        }
+      }
+    },
     jshint: {
         all: ['*.js']
     },
@@ -107,6 +119,7 @@ module.exports = function(grunt) {
         'clean',
         'ngconstant:production',
         'jshint',
+        'htmlmin:dist',
         'uglify:js',
         'cssmin'
     ]);
@@ -117,6 +130,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     
   // Default task(s).
 //  grunt.registerTask('default', ['clean']);
