@@ -4,6 +4,9 @@ dist
 public/bower_components
 bower_components
 logs/*
+/public/**/*.min.js
+/public/**/*.min.js.map
+/public/**/*.min.css
 uploads/
 videos/
 node_modules/

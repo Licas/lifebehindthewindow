@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+    var cssPath = 'public/styles';
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -41,40 +42,83 @@ module.exports = function(grunt) {
             }
           }
         }
-    }
+    },
+    cssmin: {
+      add_banner: {
+        options: {
+          banner: '/* My minified css file */'
+        },
+        files: {
+          'public/styles/styles.min.css': [cssPath+'/*.css','!'+cssPath+'/*.min.css']
+        }
+      }
+    },
+    jshint: {
+        all: ['*.js']
+    },
+    clean: {
+        js: ['public/scripts/**/*.min.js', 'public/views/**/*.min.js', 'public/scripts/**/*.min.js.map', 'public/views/**/*.min.js.map']
+    },
+    //uglify
+    uglify: {
+        options: {
+            sourceMap: true,
+            banner: '// <%= pkg.name %> - v<%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd") %>)\n' + '// http://www.lifebehindthewindow.com\n'       
+        },
+        js: {
+            files: [
+                {
+                expand: true,
+                cwd: 'public/views/',
+                src: ['**/*.js', '**/!*.min.js'],
+                dest: 'public/views/',
+                ext: '.min.js'
+            }, {
+                expand: true,
+                cwd: 'public/scripts/',
+                src: ['**/*.js', '**/!*.min.js'],
+                dest: 'public/scripts/',
+                ext: '.min.js'
+            },
+            {
+                expand: true,
+                cwd: 'public/js/',
+                src: ['**/*.js', '**/!*.min.js'],
+                dest: 'public/js/',
+                ext: '.min.js'
+            }]
+        }
+      }
   });
 
   grunt.registerTask('default', 'Log some stuff.', function() {
     grunt.log.write('Logging some stuff...').ok();
   });
 
-    grunt.registerTask('serve', function (target) {
-//      if (target === 'dist') {
-//        return grunt.task.run(['build', 'connect:dist:keepalive']);
-//      }
-
-        grunt.task.run([
-//            'clean:server',
-            'ngconstant:development'
-//            'bower-install',
-//            'concurrent:server',
-//            'autoprefixer',
-//            'connect:livereload',
-//            'watch'
-        ]);
-    });
-    
+    grunt.registerTask('serve', [
+        'clean',    
+        'ngconstant:development',
+        'jshint',
+        'uglify:js',
+        'cssmin'
+    ]);
+        
     grunt.registerTask('build', [
-//      'clean:dist',
-//      'bower-install',
-        'ngconstant:production' // ADD THIS
+        'clean',
+        'ngconstant:production',
+        'jshint',
+        'uglify:js',
+        'cssmin'
     ]);
     
     grunt.loadNpmTasks('grunt-ng-constant');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-bower-install');
-
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    
   // Default task(s).
-//  grunt.registerTask('default', ['uglify']);
+//  grunt.registerTask('default', ['clean']);
 
 };

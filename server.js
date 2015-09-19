@@ -99,7 +99,6 @@ bs.on('connection', function (client) {
 
             // attempt an upload
             case 'upload':
-            default:
                 console.log("Client uploading.." + JSON.stringify(meta));
                 videoManager.upload(stream, meta);
         }
