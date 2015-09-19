@@ -61,7 +61,12 @@ module.exports = function(grunt) {
         },
         files: {
           'public/index.html': 'public/index.html',
-          'public/views/**/*.html': 'public/views/**/*.html'
+          'public/views/login/login.html': 'public/views/login/login.html',
+          'public/views/main/contact.html': 'public/views/main/contact.html',
+          'public/views/main/cookie-policy.html': 'public/views/main/cookie-policy.html',
+          'public/views/main/main.html': 'public/views/main/main.html',
+          'public/views/main/project.html': 'public/views/main/project.html',
+          'public/views/stream/stream.html': 'public/views/stream/stream.html'
         }
       }
     },
