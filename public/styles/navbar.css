@@ -1,0 +1,52 @@
+
+/************************************************************
+                        Navigation Bar
+*************************************************************/
+
+.navbar { font-family: 'Avenir-Book';}
+/*    , sans-serif !important; }*/
+
+
+.navbar-header #brand {
+/*    font-family: 'Georgia', Arial, sans-serif;*/
+/*    color: white;*/
+    font-size: 16pt;
+    margin-top: -15px;
+/*    margin-left: 20px;*/
+/*    text-transform: uppercase;*/
+}
+
+.navbar-props {
+    margin: 0px !important;
+    background-color: oldlace;
+}
+
+.icon-bar {
+    background-color: black !important;
+}
+  
+.mynav li {
+        
+/*       font-family: 'Georgia', Arial, sans-serif;*/
+       font-size: 12pt;
+       list-style: none;
+        display: inline-block;
+       /*  border-left: 1px solid white; */
+        /*padding-top: 16px;*/
+        padding-left: 5px;
+        padding-right: 10px;
+        margin-top: 10px;
+}
+
+.mynav li a{
+    color:black !important;
+}
+
+.mynav li a:hover, 
+.mynav li a:link, 
+.mynav li a:visited,
+.mynav li a:active 
+{
+    text-decoration: none;
+/*    background-color: black;*/
+}

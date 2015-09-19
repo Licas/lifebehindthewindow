@@ -1,22 +1,20 @@
+
+
+@font-face {
+    font-family: 'Avenir-Book';
+    src: url('fonts/Avenir/Avenir-Book.ttf');
+}
+
 html {
-
-/*
-   width: 100%;
-    min-width: 100%;
-   height: auto;
-*/
-
-    background-color: black;
     background-repeat: repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-
 }
 
-
 body{
+    font-family: 'Avenir-Black';
     position: relative;
     width: 100%;
     min-width: 100%;
@@ -25,6 +23,8 @@ body{
     padding: 0; 
     border: 0;
     overflow: visible;
+    background-color:antiquewhite !important;
+/*        background-color: rgba(0,0,0,0.5);*/
 }
 
 .menu {
@@ -32,17 +32,6 @@ body{
     border-bottom: 0.1em solid black;
     margin-bottom: 2em;
     padding: 0 0 0.5em;
-}
-
-.videogular-container {
-    position: absolute;
-    margin-left: 0;
-    width: 100%;
-    min-width: 100%;
-    display: inline;
-    height: auto;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 10;
 }
 
 
@@ -61,7 +50,7 @@ body{
     width: auto;
     position: fixed;
     left: 50%;
-    top:40%;
+    top:50%;
     background-color: transparent;
     z-index: 50;
 }
@@ -73,11 +62,10 @@ body{
     left:40% !important;
     top:30% !important;
     overflow: scroll !important;
-    background-color: black;
+    background-color: transparent;
 }
 .custom-layer-messages {
-     position: fixed;
-    
+    position: fixed;
     text-align: center;
     left: 50%;
     transform: translate(-50%, 0);
@@ -113,34 +101,13 @@ body{
 }
 
 input[readonly] {
-    background-color: white !important;
+    background-color: whitesmoke!important;
     cursor: text !important;
 }
 
 
-@media (min-width: 1200px) {
-	.videogular-container {
-		width: 1170px;
-		height: 658.125px;
-	}
-} 
-
-@media (min-width: 992px) and (max-width: 1199px) {
-	.videogular-container {
-		width: 940px;
-		height: 528.75px;
-	}
-}
- 
-@media (min-width: 768px) and (max-width: 991px) {
-	.videogular-container {
-		width: 728px;
-		height: 409.5px;
-	}
-}
-
 #upload-file-container {
-    background: url(/img/circle_orange.png) no-repeat;
+    background: url(/img/upload_button.png) no-repeat;
 }
 
 #upload-file-container input {
@@ -151,63 +118,16 @@ input[readonly] {
 }
 
 .uploadButton {
-    background:url(/img/circle_orange.png) no-repeat;
+    background:url(/img/upload_button.png) no-repeat;
     cursor:pointer;
-    width: 80px;
-    height: 80px;
+    width: 100%;
+    height: auto;
     border: none;
-    color:white;
+/*    color:white;*/
     padding-bottom: 5px;
 }
 
 
-
-/************************************************************
-                        Navigation Bar
-*************************************************************/
-
-.navbar-header #brand {
-    font-family: 'Georgia', Arial, sans-serif;
-    color: white;
-    font-size: 16pt;
-    margin-top: 10px;
-/*    margin-left: 20px;*/
-    text-transform: uppercase;
-}
-
-.navbar-props {
-    margin: 0px !important;
-    background-color: black;
-}
-
-.icon-bar {
-    background-color: white !important;
-}
-  
-.mynav li {
-       font-family: 'Georgia', Arial, sans-serif;
-       font-size: 12pt;
-       list-style: none;
-        display: inline-block;
-       /*  border-left: 1px solid white; */
-        /*padding-top: 16px;*/
-        padding-left: 5px;
-        padding-right: 10px;
-        margin-top: 10px;
-}
-
-.mynav li a{
-    color:white;
-}
-
-.mynav li a:hover, 
-.mynav li a:link, 
-.mynav li a:visited,
-.mynav li a:active 
-{
-    text-decoration: none;
-    background-color: black;
-}
 
 
 /**********************************
@@ -224,26 +144,30 @@ input[readonly] {
 }
 
 
+
 /********************************/
 /******** Text Queries **********/
 /********************************/
 
+p,.btn,.input,div,span,h4,h3,h2,h1 {
+font-family: 'Avenir-Book';
+}
 /* responsive text queries */
 @media screen and (max-width: 992px) {
   p,.btn,input,div,span,h4 {
     font-size: 95%;
   }
   h1 {
-    font-size: 24px;  
+    font-size: 16px;  
   }
   h2 {
-    font-size: 22px;  
+    font-size: 14px;  
   }
   h3 {
-    font-size: 18px;  
+    font-size: 14px;  
   }
   p {
-    font-size: 14px;  
+    font-size: 12px;  
   }
 }
 
@@ -252,13 +176,13 @@ input[readonly] {
     font-size: 90%;
   }
   h1 {
-    font-size: 20px;  
+    font-size: 14px;  
   }
   h2 {
-    font-size: 18px;  
+    font-size: 12px;  
   }
   h3 {
-    font-size: 16px;  
+    font-size: 12px;  
   }
     p {
     font-size: 12px;  

@@ -1,9 +1,3 @@
-/*
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-*/
 
 a {
   color: #00B7FF;
@@ -17,7 +11,7 @@ fieldset {
     float: left;
     margin-left: auto;
     margin-right: auto;
-    color:white;
+/*    background-color:antiquewhite !important;*/
 }
 
 #uploadbox {
@@ -62,12 +56,13 @@ fieldset {
 #list ul li:before {
     content: "•";
     padding-right: 4px;
-    color: white; /* or whatever color you prefer */
+    color: white; 
 }
 
 #video {
     width: 320px;
     height: 240px;
+      background-color: antiquewhite !important;
 }
 
 
