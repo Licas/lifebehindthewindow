@@ -280,10 +280,20 @@ function upload(stream, meta) {
     }
     console.log("File received: " + JSON.stringify(meta));
  
-    //{"name":"MVI_9128.MOV","size":16709784,"type":"video/quicktime","event":"upload"}
-    var username = "";
-    var userlocation = "";
+    /* 
+    {"name":"MVI_9128.MOV", "size":16709784, "type":"video/quicktime", "username":"adada", "userlocation":"adad", "event":"upload"}
+    */
+    var filename = meta.name;
+    var mimetype = meta.type;
+    var username = meta.username;
+    var userlocation = meta.userlocation;
     var extension = "";
+    
+    if(meta.name.indexOf(".") > 0) { 
+        extension = meta.name.substr(meta.name.indexOf(".")+1);
+    } else {
+        extension = 'mp4';
+    }
     
     var file = fs.createWriteStream(uploadFolder + '/' + meta.name);
     stream.pipe(file);
@@ -294,6 +304,40 @@ function upload(stream, meta) {
  
     stream.on('end', function () {
         stream.write({ end: true });
+        
+        videodb.createVideo({
+            "title": filename,
+            "username": username,
+            "userlocation": userlocation,
+            "extension": extension
+            
+        }, function(data){
+            console.log("success in saving video on db: " + data);
+            var objectID = data;
+            
+            if(!Lazy(mimetype).startsWith('video')) {
+                fs.unlink(uploadFolder + "/" + filename, function (err) {
+                  if (err) 
+                      console.log("Error: "+ err);
+                  console.log('successfully deleted ' + uploadFolder + "/" + filename);
+                });
+
+                console.log("Error in file format");
+            }
+//            
+            fs.rename(uploadFolder + "/" + filename, uploadFolder + "/"  + objectID + "." + extension,
+                  function(err) {
+                    if ( err ) {
+                        console.log("upload not done." +err);
+                    }
+            });
+            
+            console.log("upload done");
+            
+        }, function(err){
+            console.log("error in saving video on db: " + err);
+            
+        });
     });
     
     
