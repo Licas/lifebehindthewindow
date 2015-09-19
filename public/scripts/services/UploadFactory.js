@@ -10,25 +10,74 @@ angular.module('lifebehindthewindowApp')
 
     // Public API here
     return {
-		uploadfile: function (fileData, success, error) {
-		        var url = baseUrl + '/api/upload';
+        //NO STREAMING
+//		uploadfile: function (fileData, success, error) {
+//		        var url = baseUrl + '/api/upload';
+//
+//		        var fd = new FormData();
+//		        fd.append("file", fileData.file);
+//		        fd.append("username", fileData.username);
+//		        fd.append("userlocation", fileData.userlocation);
+//               
+//                $http.post(url, fd, {
+//		                withCredentials: false,
+//		                headers: {'Content-Type': undefined},
+//		                transformRequest: angular.identity
+//		            })
+//		            .success(function (data) {
+//                        success(data);
+//		            })
+//		            .error(function (err) {
+//                        error(err);
+//		            });
+//		    },
+        
+        //WITHOUT STREAMING
+        uploadfile: function (fileData, success, error) {
+//            
+//            video.upload(fileData.file, function (err, data) {
+//                var msg;
+//
+//                if (data.end) {
+//                    msg = "Upload complete: " + file.name;
+//                } else if (data.rx) {
+//                    msg = Math.round(tx += data.rx * 100) + '% complete';
+//                } else {
+//                    // assume error
+//                    msg = data.err;                   
+//                }
+//                
+//                 console.log(msg);
+//                
+//                $progress.text(msg);
+//
+//                if (data.end) {
+//                    console.log(msg);
+//                    setTimeout(function () {
+//                        $progress.fadeOut(function () {
+//                            $progress.text('Drop file here');
+//                        }).fadeIn();
+//                    }, 5000);
+//                }
+//            });
+            var url = baseUrl + '/api/upload';
 
-		        var fd = new FormData();
-		        fd.append("file", fileData.file);
-		        fd.append("username", fileData.username);
-		        fd.append("userlocation", fileData.userlocation);
-               
-                $http.post(url, fd, {
-		                withCredentials: false,
-		                headers: {'Content-Type': undefined},
-		                transformRequest: angular.identity
-		            })
-		            .success(function (data) {
-                        success(data);
-		            })
-		            .error(function (err) {
-                        error(err);
-		            });
+            var fd = new FormData();
+            fd.append("file", fileData.file);
+            fd.append("username", fileData.username);
+            fd.append("userlocation", fileData.userlocation);
+
+            $http.post(url, fd, {
+                    withCredentials: false,
+                    headers: {'Content-Type': undefined},
+                    transformRequest: angular.identity
+                })
+                .success(function (data) {
+                    success(data);
+                })
+                .error(function (err) {
+                    error(err);
+                });
 		    },
         getlist: function(success, error) {
             video.list(function callService(err, files) {

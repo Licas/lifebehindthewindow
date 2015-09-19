@@ -5,6 +5,7 @@ var uploadPath,
     supportedTypes,
     supportedExtensions;
 
+var Lazy = require("lazy.js");
 var config = require('./config');
 var fs = require('fs');
 var path = require('path');
@@ -270,6 +271,96 @@ function approveUnpublished(videoId, successCb, errorCb) {
        });
 }
 
+function upload(stream, meta) {
+    if(!Lazy(meta.type).startsWith('video')) { 
+//    if (!~supportedTypes.indexOf(meta.type)) {
+        stream.write({ err: 'Unsupported type: ' + meta.type });
+        stream.end();
+        return;
+    }
+    console.log("File received: " + JSON.stringify(meta));
+ 
+    //{"name":"MVI_9128.MOV","size":16709784,"type":"video/quicktime","event":"upload"}
+    var username = "";
+    var userlocation = "";
+    var extension = "";
+    
+    var file = fs.createWriteStream(uploadFolder + '/' + meta.name);
+    stream.pipe(file);
+ 
+    stream.on('data', function (data) {
+        stream.write({ rx: data.length / meta.size });
+    });
+ 
+    stream.on('end', function () {
+        stream.write({ end: true });
+    });
+    
+    
+    
+    
+    
+    
+//    var originalName = req.file.originalname;
+//    
+//    if(req.file) {
+//        
+//        
+//        var username = "";
+//        var userlocation = "";
+//        var extension = "";
+//        
+//        if(req.body.username) 
+//            username = req.body.username;
+//        
+//        if(req.body.userlocation) 
+//            userlocation = req.body.userlocation;
+//        
+//        if(req.file.originalname.indexOf(".") > 0) { 
+//            extension = req.file.originalname.substr(req.file.originalname.indexOf(".")+1);
+////            extension = req.file.mimetype.substr(req.file.mimetype.indexOf("/")+1);
+//        } else {
+//            extension = 'mp4';
+//        }
+//        db.createVideo({
+//            "title": originalName,
+//            "username": username,
+//            "userlocation": userlocation,
+//            "extension": extension
+//            
+//        }, function(data){
+//            console.log("success in saving video on db: " + data);
+//            var objectID = data;
+//            
+//            if(!Lazy(req.file.mimetype).startsWith('video')) {
+//                fs.unlink(req.file.path, function (err) {
+//                  if (err) 
+//                      res.status(500).send("Error: "+ err);
+//                  console.log('successfully deleted ' +req.file.path);
+//                });
+//
+//                res.status(500).send("Error in file format");
+//            }
+//            
+//            fs.rename(req.file.path, req.file.destination + objectID + "." + extension,
+//                  function(err) {
+//                    if ( err ) {
+//                        res.status(500).send("upload not done." +err);
+//                    }
+//            });
+//            
+//            res.status(200).send("upload done");
+//            
+//        }, function(err){
+//            console.log("error in saving video on db: " + err);
+//            res.status(500).send("upload not done." +err);
+//        });
+//        
+//      } else {
+//          res.status(500).send("upload not done");
+//      }
+}
+
 /********************************
         Exports
 ********************************/
@@ -279,7 +370,7 @@ module.exports = {
     listUnpublished     : listUnpublished,
     request             : request,
     requestUnpublished  : requestUnpublished,
-//    upload              : upload,
+    upload              : upload,
     deleteUnpublished   : deleteUnpublished,
     deletePublished     : deletePublished,
     approveUnpublished  : approveUnpublished,

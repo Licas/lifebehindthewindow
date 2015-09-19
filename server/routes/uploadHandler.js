@@ -59,7 +59,7 @@ router.post('/api/upload', upload.single('file'), function(req, res, next) {
         if(req.body.userlocation) 
             userlocation = req.body.userlocation;
         
-        if(req.file.originalname.indexOf(".") > 0) {
+        if(req.file.originalname.indexOf(".") > 0) { 
             extension = req.file.originalname.substr(req.file.originalname.indexOf(".")+1);
 //            extension = req.file.mimetype.substr(req.file.mimetype.indexOf("/")+1);
         } else {

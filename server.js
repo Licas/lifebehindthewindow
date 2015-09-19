@@ -98,10 +98,10 @@ bs.on('connection', function (client) {
                 break;
 
             // attempt an upload
-//            case 'upload':
-//            default:
-//                console.log("Client uploading..");
-//                videoManager.upload(stream, meta);
+            case 'upload':
+            default:
+                console.log("Client uploading.." + JSON.stringify(meta));
+                videoManager.upload(stream, meta);
         }
     });
 });

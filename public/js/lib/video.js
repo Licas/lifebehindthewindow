@@ -33,12 +33,14 @@ video = (function () {
         } );
     }
 
-    function upload(file, cb) {
+    function upload(fileInfo, cb) {
         var stream = emit('upload', {
-            name  : file.name,
-            size  : file.size,
-            type  : file.type
-        }, file);
+            name            : fileInfo.file.name,
+            size            : fileInfo.file.size,
+            type            : fileInfo.file.type,
+            username        : fileInfo.username,
+            userlocation    : fileInfo.userlocation
+        }, fileInfo.file);
 
         stream.on('data', function (data) {
             cb(null, data);
