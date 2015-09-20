@@ -1,26 +1,28 @@
 <script>
-    var test = function(filename,data){
+    var test = function (filename, data) {
         // Set up the link
         var link = document.getElementById("videoEntryPub").createElement("a");
-        link.setAttribute("target","_blank");
-        if(Blob !== undefined) {
-            var blob = new Blob([text], {type: "text/plain"});
+        link.setAttribute("target", "_blank");
+        if (Blob !== undefined) {
+            var blob = new Blob([text], {
+                type: "text/plain"
+            });
             link.setAttribute("href", URL.createObjectURL(blob));
         } else {
-            link.setAttribute("href","data:text/plain," + encodeURIComponent(text));
+            link.setAttribute("href", "data:text/plain," + encodeURIComponent(text));
         }
-        link.setAttribute("download",filename);
+        link.setAttribute("download", filename);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
     }
 </script>
 <style>
-#videomgmt {  
-   width:100%; 
-   max-width:500px; 
-   height:auto; 
-}
+    #videomgmt {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+    }
 </style>
 <div class="container">
     <div class="mgmt-block">
@@ -31,12 +33,9 @@
                     <div ng-show="videoplaying">
                         <fieldset>
                             <legend>Play the Video</legend>
-
                             <section class="left">
-                                <button type="button" class="btn btn-default btn-rounded" style="margin-bottom:10px;" ng-click="closeVideoBox(this)">Close</button>
-                                <video id="videomgmt" width="800" height="600" controls autoplay>
-                                </video>
-
+                                <button type="button" class="btn btn-default btn-rounded" style="margin-bottom:10px" ng-click="closeVideoBox(this)">Close</button>
+                                <video id="videomgmt" width="800" height="600" controls autoplay></video>
                             </section>
                         </fieldset>
                     </div>
@@ -47,11 +46,9 @@
                     <table class="table table-hover table-condensed">
                         <caption style="font-size:14pt">Lista di video in upload non ancora pubblicati</caption>
                         <tr class="videolist" ng-repeat="videoEntry in uploadedVideos">
+                            <td align="left">{{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}</td>
                             <td align="left">
-                                {{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}
-                            </td>
-                            <td align="left">
-                               <div class="btn-group">
+                                <div class="btn-group">
                                     <button type="button" class="btn btn-primary" ng-click="playvideo(videoEntry)">View</button>
                                     <button type="button" class="btn btn-info" ng-click="downloadvideo(videoEntry)">Download</button>
                                     <button type="button" class="btn btn-success" ng-click="approvevideo(videoEntry.id, $index)">Approve</button>
@@ -62,15 +59,12 @@
                     </table>
                 </div>
             </div>
-            
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
                         <caption style="font-size:14pt">Lista di video pubblicati</caption>
                         <tr class="videolist" ng-repeat="videoEntry in publishedVideos">
-                            <td align="left">
-                                {{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}
-                            </td>
+                            <td align="left">{{videoEntry.title}} by {{videoEntry.username}} from {{videoEntry.userlocation}}</td>
                             <td align="left">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" ng-click="playpubvideo(videoEntry)">View</button>
@@ -81,8 +75,7 @@
                         </tr>
                     </table>
                 </div>
-            </div>
-             <a style="display:none" href="" id="lnkDownload">link</a>
+            </div><a style="display:none" href="" id="lnkDownload">link</a>
         </div>
     </div>
 </div>

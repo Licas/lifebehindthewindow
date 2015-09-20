@@ -40,6 +40,7 @@ body{
     position: relative;
     margin-left: 20px;
     margin-right: 20px;
+    top: 2em;
     width: auto;
     display: inline;
     height: auto;
@@ -158,10 +159,11 @@ input[readonly] {
 p,.btn,.input,div,span,h4,h3,h2,h1 {
 font-family: 'Avenir-Book';
 }
+
 /* responsive text queries */
-@media screen and (max-width: 992px) {
+@media screen and (min-width: 767px) {
   p,.btn,input,div,span,h4 {
-    font-size: 95%;
+    font-size: 100%;
   }
   h1 {
     font-size: 16px;  
@@ -191,6 +193,6 @@ font-family: 'Avenir-Book';
     font-size: 12px;  
   }
     p {
-    font-size: 12px;  
+    font-size: 10px;  
   }
 }
