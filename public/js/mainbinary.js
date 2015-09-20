@@ -8,20 +8,30 @@ $(document).ready(function () {
     client.on('stream', function (stream) {
         video.download(stream, function (err, src) {
 //            console.log("client received a stream " + src);
+            var tv_main_channel = $("#tv_main_channel");
             
-            var media  = $("#videogular-media");
-            media.attr('vg-src' , src);
-            
-            var sourceElement = angular.element("videogular video");
-            
-            if(sourceElement) {
-                if(!sourceElement[0]) {
-                    sourceElement[0] = {}
-                }
-                sourceElement[0].src = src;
-                sourceElement[0].type = "video/mp4";
+            if (tv_main_channel) {
+                tv_main_channel.attr('src', src);
+
+                var video_block = $('#videoplayer');
+                video_block.load();
             }
             
+            var media  = $("#videogular-media");
+            if(media) {
+                media.attr('vg-src' , src);
+
+                var sourceElement = angular.element("videogular video");
+
+                if(sourceElement) {
+                    if(!sourceElement[0]) {
+                        sourceElement[0] = {}
+                    }
+                    sourceElement[0].src = src;
+                    sourceElement[0].type = "video/mp4";
+                }
+            }
+
             var videomgmt = $("#videomgmt");   
             
             if(videomgmt) {

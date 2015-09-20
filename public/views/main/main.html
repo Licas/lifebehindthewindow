@@ -2,25 +2,53 @@
     var selectFile = function () {
         $("#file").click();
     }
+
+    var vid = $('#videoplayer');
+
+    setTimeout(function() {
+        angular.element($('#videoplayer')).scope().startPlayLoop();
+     }, 5000);
+
+
+    document.getElementById('videoplayer').addEventListener('ended', handleEnd,false);
+
+    function handleEnd(e) {
+        console.log("handleEnd");
+        if(!e) { e = window.event; }
+        console.log("load next video");
+        angular.element(vid).scope().onComplete();
+        angular.element(vid).scope().loadNextVideo();
+    }
 </script>
+
+
 <div ng-controller="HomeCtrl as controller">
+    <div class="container">
     <div class="row">
-        <div class="hidden-xs col-sm-1"><span>&nbsp;</span>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="videogular-container">
+        <div class="col-xs-5 col-xs-push-3">
+            <div id="videowrapper">
+<!--            <div class="videogular-container">-->
+                <video autoplay loop muted width="500" height="700" id="videoplayer">
+                    <source src="" id="tv_main_channel">
+                </video>
+            </div>
+<!--            <div class="videogular-container">
                 <videogular vg-responsive="controller.config.responsive" vg-stretch="controler.config.stretch" vg-auto-play="controller.config.autoPlay" vg-player-ready="controller.onPlayerReady($API)" vg-complete="controller.onCompleteVideo()">
                     <vg-media id="videogular-media" vg-volume="controller.config.volume" vg-loop="controller.config.loop" vg-src="controller.config.sources" vg-tracks="controller.config.tracks"></vg-media>
                     <vg-buffering></vg-buffering>
                 </videogular>
-            </div>
+            </div>-->
         </div>
-        <div class="col-xs-12 col-sm-3 col-md-1">
+        </div>
+         <div class="row">
+        <div class="col-xs-3 col-xs-push-4">
             <button type="button" class="uploadButton" data-toggle="modal" data-target="#uploadModal"><img src="img/upload_button.png">
                 <div id="progress"></div>
             </button>
         </div>
     </div>
+</div>
+
     <div ng-controller="FormCtrl as formctrl">
         <div class="custom-layer-messages">
             <div class="row">
