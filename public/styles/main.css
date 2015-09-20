@@ -5,6 +5,7 @@
     src: url('fonts/Avenir/Avenir-Book.ttf');
 }
 
+/*
 html {
     background-repeat: repeat;
     -webkit-background-size: cover;
@@ -12,6 +13,7 @@ html {
     -o-background-size: cover;
     background-size: cover;
 }
+*/
 
 body{
     font-family: 'Avenir-Black';
@@ -126,7 +128,9 @@ input[readonly] {
     cursor:pointer;
     width: 100%;
     height: auto;
-    margin-top: 150px;
+    margin-top: 20px;
+    margin-left: -13px;
+/*    margin-top: 19em;*/
     border: none;
 /*    color:white;*/
     padding-bottom: 5px;
@@ -195,4 +199,11 @@ font-family: 'Avenir-Book';
     p {
     font-size: 10px;  
   }
+}
+
+@media screen and (max-width: 768px) {
+
+    .uploadButton {
+        margin-top:10px;
+    }
 }

@@ -3,7 +3,10 @@
                         Navigation Bar
 *************************************************************/
 
-.navbar { font-family: 'Avenir-Book';}
+.navbar {
+    font-family: 'Avenir-Book';
+    min-height: 100px;
+}
 /*    , sans-serif !important; }*/
 
 
@@ -11,7 +14,8 @@
 /*    font-family: 'Georgia', Arial, sans-serif;*/
 /*    color: white;*/
     font-size: 16pt;
-    margin-top: -15px;
+    margin-top: 10px;
+
 /*    margin-left: 20px;*/
 /*    text-transform: uppercase;*/
 }
