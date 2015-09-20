@@ -129,6 +129,19 @@ module.exports = function(grunt) {
         'cssmin'
     ]);
     
+    grunt.registerTask('minifyall', [
+        'clean',
+        'htmlmin:dist',
+        'uglify:js',
+        'cssmin'
+    ]);
+    
+    grunt.registerTask('minifydev', [
+        'clean',
+        'uglify:js',
+        'cssmin'
+    ]);
+    
     grunt.loadNpmTasks('grunt-ng-constant');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-bower-install');
