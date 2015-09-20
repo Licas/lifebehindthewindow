@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Life behind the window - RePlace2015, L'Aquila">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Cache-control" content="private">
     <meta name="robots" content="NOODP">
     <meta name="googlebot" content="NOODP">
@@ -18,6 +18,7 @@
     <link rel="shortcut icon" href="logo.ico" type="image/x-icon">
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.min.css">
+
     <script type="text/javascript">
         window.cookieconsent_options = {
             "message": "This website uses cookies to ensure you get the best experience on our website.",
@@ -32,31 +33,46 @@
 
 <body>
     <div class="navbar navbar-static-top navbar-transparent navbar-props">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#/" id="brand"><img src="img/lifebehindthewindow_scritta.png" class="img-responsive" alt="Life behind the window">
-            </a>
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="true"><a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></a>
-            </button>
+        <div class="row">
+            <div class="navbar-header">
+                <div class="col-xs-12  col-sm-12 col-sm-push-5 col-md-12 col-md-push-7">
+                    <a class="navbar-brand" href="#/" id="brand"><img src="img/lifebehindthewindow_scritta.png" class="img-responsive" alt="Life behind the window">
+                    </a>
+                </div>
+                <div class="col-xs-6 col-xs-push-2 col-sm-8 col-sm-push-3">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="true"><a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></a>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
-            <ul class="nav navbar-nav mynav">
-                <li><a href="#/">How To</a>
-                </li>
-                <li><a href="#/project">Project</a>
-                </li>
-                <li><a href="#/contact">Contact</a>
-                </li>
-                <li ng-show="isloggedin"><a href="#/stream">Stream</a>
-                </li>
-                <li ng-show="isloggedin"><a href="#/login" ng-click="logout()">Logout</a>
-                </li>
-            </ul>
+
+        <div class="row">
+            <div class="col-xs-12 col-xs-pull-5">
+                <div class="navbar-collapse collapse pull-right" id="navbar-collapse-1">
+                    <ul class="nav navbar-nav mynav">
+                        <li><a href="#/">How To</a>
+                        </li>
+                        <li><a href="#/project">Project</a>
+                        </li>
+                        <li><a href="#/contact">Contact</a>
+                        </li>
+                        <li ng-show="isloggedin"><a href="#/stream">Stream</a>
+                        </li>
+                        <li ng-show="isloggedin"><a href="#/login" ng-click="logout()">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+
+</div>
     <!--[if lt IE 7]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
     <!--[if lt IE 9]><script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script><![endif]-->
     <div ng-view></div>
+
+
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
     <script src="/bower_components/angular/angular.min.js"></script>
@@ -70,16 +86,21 @@
     <script src="/bower_components/videogular-overlay-play/vg-overlay-play.min.js"></script>
     <script src="/bower_components/videogular-poster/vg-poster.min.js"></script>
     <script src="/bower_components/videogular-buffering/vg-buffering.min.js"></script>
-    <script src="js/lib/binary.min.js" type="text/javascript"></script>
-    <script src="js/lib/common.min.js" type="text/javascript"></script>
-    <script src="js/lib/video.min.js" type="text/javascript"></script>
-    <script src="js/mainbinary.min.js" type="text/javascript"></script>
+
+
+    <script src="js/lib/binary.js"></script>
+    <script src="js/lib/common.js"></script>
+    <script src="js/lib/video.js"></script>
+    <script src="js/mainbinary.js"></script>
+
     <script src="scripts/app.min.js" type="text/javascript"></script>
     <script src="scripts/config.min.js" type="text/javascript"></script>
+
     <script src="views/main/player.min.js" type="text/javascript"></script>
     <script src="views/main/Form.min.js" type="text/javascript"></script>
     <script src="views/login/login.min.js" type="text/javascript"></script>
     <script src="views/stream/stream.min.js" type="text/javascript"></script>
+
     <script src="scripts/services/AuthenticationService.min.js" type="text/javascript"></script>
     <script src="scripts/services/Base64.min.js" type="text/javascript"></script>
     <script src="scripts/services/UploadFactory.min.js" type="text/javascript"></script>
