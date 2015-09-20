@@ -74,7 +74,10 @@ module.exports = function(grunt) {
         all: ['*.js']
     },
     clean: {
-        js: ['public/scripts/**/*.min.js', 'public/views/**/*.min.js', 'public/scripts/**/*.min.js.map', 'public/views/**/*.min.js.map']
+        js: ['public/js/lib/*.min.js', 'public/js/lib/*.min.js.map',
+             'public/js/*.min.js', 'public/js/*.min.js.map',
+             'public/scripts/**/*.min.js', 'public/scripts/**/*.min.js.map',
+             'public/views/**/*.min.js', 'public/views/**/*.min.js.map']
     },
     //uglify
     uglify: {
@@ -112,6 +115,8 @@ module.exports = function(grunt) {
     grunt.log.write('Logging some stuff...').ok();
   });
 
+    grunt.registerTask('clean',['clean']);
+
     grunt.registerTask('serve', [
         'clean',    
         'ngconstant:development',
@@ -123,7 +128,6 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean',
         'ngconstant:production',
-        'jshint',
         'htmlmin:dist',
         'uglify:js',
         'cssmin'
