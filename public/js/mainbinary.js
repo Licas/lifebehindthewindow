@@ -54,8 +54,11 @@ $(document).ready(function () {
                         angular.element("#mgmtPage").scope().videoplaying = false;
                         angular.element("#mgmtPage").scope().$apply();
                     });
+                    var sourceVideomgmt = $("#videomgmt_channel");
 
-                    videomgmt.attr('src',src);  
+                    sourceVideomgmt.attr('src',src);
+                    sourceVideomgmt.attr('type', 'video/'+meta.extension);
+
                     videomgmt.load();
                     videomgmt.get(0).play();
                     angular.element("#mgmtPage").scope().videoplaying = true;

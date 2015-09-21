@@ -9,8 +9,12 @@
         angular.element($('#videoplayer')).scope().startPlayLoop();
      }, 3000);
 
+    var video =  document.getElementById('videoplayer');
 
-    document.getElementById('videoplayer').addEventListener('ended', handleEnd,false);
+    video.addEventListener('ended', handleEnd,false);
+    video.addEventListener('click',function(){
+        video.play();
+    },false);
 
     function handleEnd(e) {
         if(!e) { e = window.event; }
@@ -26,9 +30,9 @@
             <div class="col-xs-5 col-xs-push-3 col-md-8 col-md-push-3">
                 <div id="videowrapper">
     <!--            <div class="videogular-container">-->
-                    <video autoplay muted id="videoplayer">
-                        <source src="" id="tv_main_channel" type="video/mp4">
-                        Your browser cannot play this video
+                    <video muted id="videoplayer">
+                        <source src="" id="tv_main_channel"></source>
+                        Your browser doesn't support html video.
                     </video>
                 </div>
     <!--            <div class="videogular-container">
