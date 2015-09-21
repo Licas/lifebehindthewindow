@@ -21,7 +21,7 @@ $(document).ready(function () {
                 $('#location').text(meta.userlocation);
                 var video_block = $('#videoplayer');
                 video_block.load();
-                video_block..get(0).play();
+                video_block.get(0).play();
             }
             
             var media  = $("#videogular-media");
