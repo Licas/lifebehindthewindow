@@ -141,7 +141,11 @@ function request(client, meta) {
                     client.send(null);
                 });
                 client.send(file,
-                           {"username":video.username, "userlocation":video.userlocation});
+                    {
+                        "username":video.username,
+                        "userlocation":video.userlocation,
+                        "extension":video.extension
+                    });
             },
             function(err){
                 console.log("Error " + err);
