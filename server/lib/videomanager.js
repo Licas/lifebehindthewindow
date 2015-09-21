@@ -140,12 +140,13 @@ function request(client, meta) {
                     console.log("Error in request: " + err);
                     client.send(null);
                 });
-                client.send(file,
-                    {
+
+                var metaInfoFound = {
                         "username":video.username,
                         "userlocation":video.userlocation,
                         "extension":video.extension
-                    });
+                    };
+                client.send(file, metaInfoFound);
             },
             function(err){
                 console.log("Error " + err);
@@ -173,8 +174,14 @@ function requestUnpublished(client, meta) {
 
 
                 if(file) {
-                    client.send(file, 
-                                {"username":video.username, "userlocation":video.userlocation});
+
+                    var metaInfoFound = {
+                            "username":video.username,
+                            "userlocation":video.userlocation,
+                            "extension":video.extension
+                        };
+                    client.send(file, metaInfoFound);
+
                 } else {
                     client.send(null);
                 }
