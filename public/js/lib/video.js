@@ -1,12 +1,4 @@
 video = (function () {
-    return {
-        list                : list,
-        listUnpublished     : listUnpublished,
-        request             : request,
-        requestUnpublished  : requestUnpublished,
-        upload              : upload,
-        download            : download
-    };
 
     function list(cb) {
         var stream = emit('list');
@@ -18,7 +10,7 @@ video = (function () {
         stream.on('error', function(err) {
             cb(err,null);
         } );
-    }
+    };
     
     function listUnpublished(cb) {
         var stream = emit('listUnpublished');
@@ -31,7 +23,7 @@ video = (function () {
        stream.on('error', function(err) {
             cb(err,null);
         } );
-    }
+    };
 
     function upload(fileInfo, cb) {
         var stream = emit('upload', {
@@ -49,23 +41,23 @@ video = (function () {
         stream.on('error', function(err) {
             cb(err,null);
         } );
-    }
+    };
 
     function request(id) {
         emit('request', { id : id });
-    }
+    };
     
     function requestUnpublished(id) {
         emit('requestUnpublished', { id : id });
-    }
+    };
     
     function requestDownload(id) {
         emit('requestDownload', { id : id });
-    }
+    };
 
     function requestUnpublished(id) {
         emit('requestUnpublished', { id : id });
-    }
+    };
 
     function download(stream, cb) {
         var parts = [];
@@ -83,5 +75,14 @@ video = (function () {
             
             cb(null, src);
         });
-    }
+    };
+
+    return {
+        list                : list,
+        listUnpublished     : listUnpublished,
+        request             : request,
+        requestUnpublished  : requestUnpublished,
+        upload              : upload,
+        download            : download
+    };
 })();

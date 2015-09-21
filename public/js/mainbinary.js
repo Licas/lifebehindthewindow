@@ -6,7 +6,6 @@ $(document).ready(function () {
     });
 
     client.on('stream', function (stream, meta) {
-        //Meta: {"username":"username","userlocation":"location"}
 
         video.download(stream, function (err, src) {
 //            console.log("client received a stream " + src);
@@ -23,8 +22,7 @@ $(document).ready(function () {
 
                 if(video_block) {
                     video_block.load();
-                    if(video_block.get(0))
-                        video_block.get(0).play();
+                    video_block.get(0).play();
                 }
 
             }
@@ -54,11 +52,12 @@ $(document).ready(function () {
                         angular.element("#mgmtPage").scope().videoplaying = false;
                         angular.element("#mgmtPage").scope().$apply();
                     });
+
                     var sourceVideomgmt = $("#videomgmt_channel");
-
-                    sourceVideomgmt.attr('src',src);
-                    sourceVideomgmt.attr('type', 'video/'+meta.extension);
-
+                    if(sourceVideomgmt){
+                        sourceVideomgmt.attr('src',src);
+                        sourceVideomgmt.attr('type', 'video/'+meta.extension);
+                    }
                     videomgmt.load();
                     videomgmt.get(0).play();
                     angular.element("#mgmtPage").scope().videoplaying = true;
