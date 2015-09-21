@@ -5,14 +5,20 @@ $(document).ready(function () {
         video.list(setupList);
     });
 
-    client.on('stream', function (stream) {
+    client.on('stream', function (stream, meta) {
+        //Meta: {"username":"username","userlocation":"location"}
+
         video.download(stream, function (err, src) {
 //            console.log("client received a stream " + src);
             var tv_main_channel = $("#tv_main_channel");
             
             if (tv_main_channel) {
                 tv_main_channel.attr('src', src);
+                tv_main_channel.attr('type', 'video/'+meta.extension);
 
+                $('#videometa').attr('style','display');
+                $('#user').text(meta.username);
+                $('#location').text(meta.userlocation);
                 var video_block = $('#videoplayer');
                 video_block.load();
             }
