@@ -46,6 +46,9 @@ app.config(['$routeProvider',
         .when('/project', {
             templateUrl: 'views/main/project.html'
         })
+        .when('/test', {
+            templateUrl: 'views/main/testvideo.html'
+        })
         .otherwise({
             redirectTo: '/'
         });
