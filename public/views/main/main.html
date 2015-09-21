@@ -13,9 +13,9 @@
     document.getElementById('videoplayer').addEventListener('ended', handleEnd,false);
 
     function handleEnd(e) {
-        console.log("handleEnd");
+//        console.log("handleEnd");
         if(!e) { e = window.event; }
-        console.log("load next video");
+//        console.log("load next video");
         angular.element(vid).scope().onComplete();
         angular.element(vid).scope().loadNextVideo();
     }

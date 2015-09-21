@@ -1,8 +1,5 @@
 #videoplayer {
     z-index: 5;
-    margin-top: 55px;
-    margin-left: auto;
-
 }
 
 #videowrapper{
@@ -87,6 +84,8 @@
     video{
 		width: 320px;
 		height: 640px;
+        margin-top: 75px;
+        margin-left: 60px;
 	}
 } 
 
@@ -105,6 +104,8 @@
     video{
 		width: 320px;
 		height: 640px;
+        margin-top: 75px;
+        margin-left: 60px;
 	}
 }
  
@@ -123,6 +124,8 @@
     video{
 		width: 320px;
 		height: 640px;
+        margin-top: 75px;
+        margin-left: 60px;
 	}
 }
 
@@ -140,7 +143,9 @@
     video{
 		width: 320px;
 		height: 640px;
-	}
+        margin-top: 75px;
+        margin-left: 60px;
+    }
 }
 
 

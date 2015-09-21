@@ -81,26 +81,27 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
             state = 'ready';
 
             getVideoList();
-
-            $interval(getVideoList, 5000);
-            $interval(loadNextVideo, 5000);
+            $timeout(loadNextVideo,5000);
+            $interval(getVideoList, 60000);
+//            $interval(loadNextVideo, 5000);
         }
 
         $scope.onComplete = function() {
             state = 'ready';
         }
+        $scope.loadNextVideo = loadNextVideo;
 
         function loadNextVideo() {
             if(state == 'ready') {
                 currentVideo = currentVideo + 1;
 
-                console.log("load next video: " + currentVideo);
-                console.log("video length : "  + videos.length);
+//                console.log("load next video: " + currentVideo);
+//                console.log("video length : "  + videos.length);
                 if (currentVideo >= videos.length)
                     currentVideo = 0;
 
                  if(videos[currentVideo]) {
-                    console.log("requesting " + JSON.stringify(videos[currentVideo]));
+//                    console.log("requesting " + JSON.stringify(videos[currentVideo]));
                     video.request(videos[currentVideo].id);
                     state = 'starting';
                 }
@@ -108,13 +109,13 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
         }
 
         function getVideoList() {
-            console.log("getlist");
+//            console.log("getlist");
             UploadFactory.getlist(
                 function( msg ) { // success
                     videos = [];
                     
                     for(var idx in msg) {
-                        console.log("Pushing " + JSON.stringify(msg[idx]));
+//                        console.log("Pushing " + JSON.stringify(msg[idx]));
                         videos.push(msg[idx]);
                     }                    
                 },
