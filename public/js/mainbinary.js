@@ -6,14 +6,21 @@ $(document).ready(function () {
     });
 
     client.on('stream', function (stream, meta) {
+        var extension = "";
+
+        if(meta.extension.toUpperCase() === 'MOV') {
+            extension = 'mp4';
+        } else {
+            extension = meta.extension;
+        }
 
         video.download(stream, function (err, src) {
 //            console.log("client received a stream " + src);
             var tv_main_channel = $("#tv_main_channel");
             
-            if (tv_main_channel) {
+            if (tv_main_channel.length) {
                 tv_main_channel.attr('src', src);
-                tv_main_channel.attr('type', 'video/'+meta.extension);
+                tv_main_channel.attr('type', 'video/' + extension);
 
                 $('#videometa').attr('style','display');
                 $('#user').text(meta.username);
@@ -28,7 +35,7 @@ $(document).ready(function () {
             }
             
             var media  = $("#videogular-media");
-            if(media) {
+            if(media.length) {
                 media.attr('vg-src' , src);
 
                 var sourceElement = angular.element("videogular video");
@@ -38,13 +45,13 @@ $(document).ready(function () {
                         sourceElement[0] = {}
                     }
                     sourceElement[0].src = src;
-                    sourceElement[0].type = "video/mp4";
+                    sourceElement[0].type = "video/" + extension;
                 }
             }
 
             var videomgmt = $("#videomgmt");   
             
-            if(videomgmt) {
+            if(videomgmt.length) {
                 if(angular.element("#mgmtPage").scope().view) {
                     angular.element("#mgmtPage").scope().view=false;
                     
@@ -54,10 +61,10 @@ $(document).ready(function () {
                     });
 
                     var sourceVideomgmt = $("#videomgmt_channel");
-                    if(sourceVideomgmt){
-                        sourceVideomgmt.attr('src',src);
-                        sourceVideomgmt.attr('type', 'video/'+meta.extension);
-                    }
+
+                    sourceVideomgmt.attr('src',src);
+                    sourceVideomgmt.attr('type', 'video/' + extension);
+
                     videomgmt.load();
                     videomgmt.get(0).play();
                     angular.element("#mgmtPage").scope().videoplaying = true;
@@ -65,14 +72,14 @@ $(document).ready(function () {
                 }
                 
                 if(angular.element("#mgmtPage").scope().download) {
-                    console.log("gonna download");
+//                    console.log("gonna download");
                     angular.element("#mgmtPage").scope().download = false;
                     
                     var link = document.getElementById("lnkDownload");
   
                     link.setAttribute("target","_self");
                     link.setAttribute("href", src);
-                    link.setAttribute("download","video.mp4");
+                    link.setAttribute("download","video." + meta.extension);
                     link.click();
                     link.setAttribute("href","");                    
                 }
