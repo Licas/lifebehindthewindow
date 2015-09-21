@@ -9,11 +9,11 @@
         angular.element($('#videoplayer')).scope().startPlayLoop();
      }, 3000);
 
-    var video =  document.getElementById('videoplayer');
+    var videoEl =  document.getElementById('videoplayer');
 
-    video.addEventListener('ended', handleEnd,false);
-    video.addEventListener('click',function(){
-        video.play();
+    videoEl.addEventListener('ended', handleEnd,false);
+    videoEl.addEventListener('click',function(){
+        videoEl.play();
     },false);
 
     function handleEnd(e) {
@@ -124,7 +124,7 @@
                                 <div class="col-xs-12">
                                     <div class="btn-group">
                                         <button id="startUpload" type="submit" class="btn btn-success" ng-click="uploadedFile()" ng-disabled="uploadForm.$invalid" data-dismiss="modal">Upload</button>
-                                        <input type="file" style="display:none" id="file" name="file" onchange="angular.element(this).scope().fileNameChanged(this)" accept="video/*">
+                                        <input type="file" style="display:none" id="file" name="file" onchange="angular.element(this).scope().fileNameChanged(this)">
                                         <button id="cancelUpload" type="button" class="btn btn-warning" ng-click="clearForm()">Cancel</button>
                                         <button type="button" class="btn btn-default" ng-click="clearForm()" data-dismiss="modal">Close</button>
                                     </div>
