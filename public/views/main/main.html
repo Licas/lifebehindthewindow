@@ -24,30 +24,33 @@
 
 <div ng-controller="HomeCtrl as controller">
     <div class="container">
-    <div class="row">
-        <div class="col-xs-5 col-xs-push-3">
-            <div id="videowrapper">
-<!--            <div class="videogular-container">-->
-                <video autoplay loop muted width="500" height="700" id="videoplayer">
-                    <source src="" id="tv_main_channel">
-                </video>
+        <div class="row">
+            <div class="col-xs-5 col-xs-push-3 col-md-8 col-md-push-3">
+                <div id="videowrapper">
+    <!--            <div class="videogular-container">-->
+                    <video autoplay muted id="videoplayer">
+                        <source src="" id="tv_main_channel">
+                    </video>
+                </div>
+    <!--            <div class="videogular-container">
+                    <videogular vg-responsive="controller.config.responsive" vg-stretch="controler.config.stretch" vg-auto-play="controller.config.autoPlay" vg-player-ready="controller.onPlayerReady($API)" vg-complete="controller.onCompleteVideo()">
+                        <vg-media id="videogular-media" vg-volume="controller.config.volume" vg-loop="controller.config.loop" vg-src="controller.config.sources" vg-tracks="controller.config.tracks"></vg-media>
+                        <vg-buffering></vg-buffering>
+                    </videogular>
+                </div>-->
             </div>
-<!--            <div class="videogular-container">
-                <videogular vg-responsive="controller.config.responsive" vg-stretch="controler.config.stretch" vg-auto-play="controller.config.autoPlay" vg-player-ready="controller.onPlayerReady($API)" vg-complete="controller.onCompleteVideo()">
-                    <vg-media id="videogular-media" vg-volume="controller.config.volume" vg-loop="controller.config.loop" vg-src="controller.config.sources" vg-tracks="controller.config.tracks"></vg-media>
-                    <vg-buffering></vg-buffering>
-                </videogular>
-            </div>-->
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-sm-push-4">
+                <p id="progress" style="height:50px"></p>
+            </div>
         </div>
-         <div class="row">
-        <div class="col-xs-3 col-xs-push-4">
-            <button type="button" class="uploadButton" data-toggle="modal" data-target="#uploadModal"><img src="img/upload_button.png">
-                <div id="progress"></div>
-            </button>
+        <div class="row">
+            <div class="col-xs-3 col-xs-push-4">
+                <button type="button" class="uploadButton" data-toggle="modal" data-target="#uploadModal"><img src="img/upload_button.png"></button>
+            </div>
         </div>
     </div>
-</div>
 
     <div ng-controller="FormCtrl as formctrl">
         <div class="custom-layer-messages">
@@ -85,17 +88,17 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="uploadModalLabel">Upload Form</h4>
+                        <h4 class="modal-title" id="uploadModalLabel">Upload your video</h4>
                     </div>
                     <form name="uploadForm" class="form">
                         <div class="modal-body">
                             <div class="form-group" style="margin-bottom: 5px" ng-class="{ 'has-error' : uploadForm.username.$invalid && !uploadForm.username.$pristine }">
-                                <label>Who are you</label>
+                                <label style="font-size:14px">Who are you</label>
                                 <input type="text" name="username" class="form-control" ng-model="user_name" ng-minlength="3" ng-maxlength="50" placeholder="Name Surname" required>
                                 <p ng-show="uploadForm.username.$invalid && !uploadForm.username.$pristine" class="help-block">You name is required.</p>
                             </div>
                             <div class="form-group" style="margin-bottom: 5px">
-                                <label>Where are you from</label>
+                                <label style="font-size:14px">Where are you from</label>
                                 <input type="text" name="userlocation" class="form-control" ng-model="user_location" ng-minlength="2" ng-maxlength="100" placeholder="L'Aquila, Abruzzo, Italia" ng-class="{ 'has-error' : uploadForm.userlocation.$error.minlength && !uploadForm.userlocation.$error.maxlength }" required>
                                 <p ng-show="uploadForm.userlocation.$error.minlength" class="help-block">Location is too short.</p>
                                 <p ng-show="uploadForm.userlocation.$error.maxlength" class="help-block">Location is too long.</p>
