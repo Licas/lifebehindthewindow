@@ -20,8 +20,13 @@ $(document).ready(function () {
                 $('#user').text(meta.username);
                 $('#location').text(meta.userlocation);
                 var video_block = $('#videoplayer');
-                video_block.load();
-                video_block.get(0).play();
+
+                if(video_block) {
+                    video_block.load();
+                    if(video_block.get(0))
+                        video_block.get(0).play();
+                }
+
             }
             
             var media  = $("#videogular-media");
