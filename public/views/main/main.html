@@ -7,17 +7,15 @@
 
     setTimeout(function() {
         angular.element($('#videoplayer')).scope().startPlayLoop();
-     }, 5000);
+     }, 3000);
 
 
     document.getElementById('videoplayer').addEventListener('ended', handleEnd,false);
 
     function handleEnd(e) {
-//        console.log("handleEnd");
         if(!e) { e = window.event; }
-//        console.log("load next video");
+
         angular.element(vid).scope().onComplete();
-        angular.element(vid).scope().loadNextVideo();
     }
 </script>
 
@@ -46,7 +44,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-3 col-xs-push-4">
+            <div class="col-xs-3 col-xs-push-3 col-sm-push-4 col-md-4 col-md-push-4">
                 <button type="button" class="uploadButton" data-toggle="modal" data-target="#uploadModal"><img src="img/upload_button_last.png"></button>
             </div>
         </div>

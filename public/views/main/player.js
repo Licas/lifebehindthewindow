@@ -88,6 +88,7 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
 
         $scope.onComplete = function() {
             state = 'ready';
+            loadNextVideo();
         }
         $scope.loadNextVideo = loadNextVideo;
 

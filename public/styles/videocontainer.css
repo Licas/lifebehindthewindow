@@ -151,18 +151,20 @@
 
 @media  (max-width: 499px) {
     #videowrapper:after{
-        background-size: 330px 600px;
+        background-size: 380px 600px;
 	}
 
     #videowrapper{
-		width: 330px;
+		width: 380px;
 /*		height: 700px;*/
-        background-size: 350px 600px;
+        background-size: 380px 600px;
+        margin-left:-20px;
 	}
 
     video{
 		width: 220px;
 		height: 640px;
+        margin-top: -56px;
 	}
 }
 
