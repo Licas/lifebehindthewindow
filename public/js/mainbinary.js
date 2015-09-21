@@ -50,13 +50,14 @@ $(document).ready(function () {
                 if(angular.element("#mgmtPage").scope().view) {
                     angular.element("#mgmtPage").scope().view=false;
                     
-                    videomgmt.bind('ended', function() { 
+                    videomgmt.on('ended', function() {
                         angular.element("#mgmtPage").scope().videoplaying = false;
                         angular.element("#mgmtPage").scope().$apply();
                     });
 
                     videomgmt.attr('src',src);  
-                    
+                    videomgmt.load();
+                    videomgmt.get(0).play();
                     angular.element("#mgmtPage").scope().videoplaying = true;
                     angular.element("#mgmtPage").scope().$apply();
                 }
