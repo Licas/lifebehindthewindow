@@ -66,10 +66,9 @@
 }
 */
 
-
 @media  (min-width: 500px)  {
     #videowrapper:after{
-           background-size: 500px 770px;
+           background-size: 500px 690px;
 	}
 
     #videowrapper{
@@ -81,7 +80,7 @@
     video{
 		width: 240px;
 		height: 480px;
-        margin-top: 100px;
+         margin-top 63px
         margin-left:50px;
     }
 }
