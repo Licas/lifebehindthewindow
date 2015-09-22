@@ -22,27 +22,19 @@ $(document).ready(function () {
             var tv_main_channel_mov = $("#tv_main_channel_mov");
             var tv_main_channel_m4v = $("#tv_main_channel_m4v");
             
-            if (tv_main_channel_ogg.length) {
+            if ($('#videoplayer').length) {
 //                tv_main_channel.attr('src', src);
                 tv_main_channel_ogg.attr('src', meta.src + ".ogg");
                 tv_main_channel_webm.attr('src', meta.src + ".webm");
                 tv_main_channel_mp4.attr('src', meta.src + ".mp4");
                 tv_main_channel_mov.attr('src', meta.src + ".mov");
                 tv_main_channel_m4v.attr('src', meta.src + ".m4v");
-//                tv_main_channel.attr('type', 'video/' + extension);
 
                 $('#videometa').attr('style','display');
                 $('#user').text(meta.username);
                 $('#location').text(meta.userlocation);
-                var video_block = $('#videoplayer');
-
-                $.each($( '#videoplayer'), function(idx, val) {
-                    val.play();});
-//                if(video_block) {
-//                    video_block.load();
-//                    $('#videoplayer').trigger('click');
-//                }
-
+                $( '#videoplayer').get(0).load();
+                $( '#videoplayer').get(0).play();
             }
             
 //            var media  = $("#videogular-media");
