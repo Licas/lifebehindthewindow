@@ -13,7 +13,10 @@
 
     videoEl.addEventListener('ended', handleEnd,false);
     videoEl.addEventListener('click',function(){
+
+        console.log("i am playing");
         videoEl.play();
+        console.log(videoEl);
     },false);
 
     function handleEnd(e) {

@@ -77,11 +77,12 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
 
         
         $scope.startPlayLoop = function() {
+//            console.log("startPlayLoop");
             currentVideo = -1;
             state = 'ready';
 
             getVideoList();
-            $timeout(loadNextVideo,5000);
+            $timeout(loadNextVideo,3000);
             $interval(getVideoList, 60000);
 //            $interval(loadNextVideo, 5000);
         }
@@ -93,7 +94,7 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
         $scope.loadNextVideo = loadNextVideo;
 
         function loadNextVideo() {
-            if(state == 'ready') {
+            if(state == 'ready' && videos.length > 0) {
                 currentVideo = currentVideo + 1;
 
 //                console.log("load next video: " + currentVideo);
@@ -118,7 +119,10 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
                     for(var idx in msg) {
 //                        console.log("Pushing " + JSON.stringify(msg[idx]));
                         videos.push(msg[idx]);
-                    }                    
+                    }
+                    if(state == 'ready') {
+                        loadNextVideo();
+                    }
                 },
                 function( msg ) { // error
                     console.log('!!! error in get video list ' + msg);

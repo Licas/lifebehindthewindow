@@ -29,7 +29,8 @@ $(document).ready(function () {
 
                 if(video_block) {
                     video_block.load();
-                    video_block.get(0).play();
+//                    video_block.get(0).play();
+                    $('#videoplayer').trigger('click');
                 }
 
             }
