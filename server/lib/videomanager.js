@@ -142,6 +142,7 @@ function request(client, meta) {
                 });
 
                 var metaInfoFound = {
+                        "src":"http://www.lifebehindthewindow.com/media/videos/" + video.id + "." + video.extension,
                         "username":video.username,
                         "userlocation":video.userlocation,
                         "extension":video.extension
@@ -176,6 +177,7 @@ function requestUnpublished(client, meta) {
                 if(file) {
 
                     var metaInfoFound = {
+                            "src":"http://www.lifebehindthewindow.com/media/uploads/"+ video.id + "." + video.extension,
                             "username":video.username,
                             "userlocation":video.userlocation,
                             "extension":video.extension
