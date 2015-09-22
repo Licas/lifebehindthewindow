@@ -11,14 +11,14 @@
 /*    background-color: rgba(0,0,0,0.5);*/
 }
 
-.contactheading {
-    font-family: 'Brandon_med';
-    font-size: 15pt;
+
+.contactheading{
+    font-family: 'Brandon_bld';
+    font-size: 12pt;
 }
 
 .contactdesc {
     font-family: 'Brandon_thin', italic;
     font-style: italic;
     font-size: 12pt;
-
 }
