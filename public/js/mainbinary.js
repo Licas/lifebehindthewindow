@@ -20,7 +20,7 @@ $(document).ready(function () {
             
             if (tv_main_channel.length) {
                 tv_main_channel.attr('src', src);
-                tv_main_channel.attr('type', 'video/' + extension);
+//                tv_main_channel.attr('type', 'video/' + extension);
 
                 $('#videometa').attr('style','display');
                 $('#user').text(meta.username);
