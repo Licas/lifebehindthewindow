@@ -16,11 +16,15 @@ $(document).ready(function () {
 
         video.download(stream, function (err, src) {
 //            console.log("client received a stream " + src);
-            var tv_main_channel = $("#tv_main_channel");
+            var tv_main_channel_ogg = $("#tv_main_channel_ogg");
+            var tv_main_channel_mp4 = $("#tv_main_channel_mp4");
+            var tv_main_channel_webm = $("#tv_main_channel_webm");
             
-            if (tv_main_channel.length) {
-                tv_main_channel.attr('src', src);
-                tv_main_channel.attr('src', meta.src);
+            if (tv_main_channel_ogg.length) {
+//                tv_main_channel.attr('src', src);
+                tv_main_channel_ogg.attr('src', meta.src + ".ogg");
+                tv_main_channel_webm.attr('src', meta.src + ".webm");
+                tv_main_channel_mp4.attr('src', meta.src + ".mp4");
 //                tv_main_channel.attr('type', 'video/' + extension);
 
                 $('#videometa').attr('style','display');
@@ -28,28 +32,29 @@ $(document).ready(function () {
                 $('#location').text(meta.userlocation);
                 var video_block = $('#videoplayer');
 
-                if(video_block) {
-                    video_block.load();
-//                    video_block.get(0).play();
-                    $('#videoplayer').trigger('click');
-                }
+                $.each($( '#videoplayer'), function(idx, val) {
+                    val.play();});
+//                if(video_block) {
+//                    video_block.load();
+//                    $('#videoplayer').trigger('click');
+//                }
 
             }
             
-            var media  = $("#videogular-media");
-            if(media.length) {
-                media.attr('vg-src' , src);
-
-                var sourceElement = angular.element("videogular video");
-
-                if(sourceElement) {
-                    if(!sourceElement[0]) {
-                        sourceElement[0] = {}
-                    }
-                    sourceElement[0].src = src;
-                    sourceElement[0].type = "video/" + extension;
-                }
-            }
+//            var media  = $("#videogular-media");
+//            if(media.length) {
+//                media.attr('vg-src' , src);
+//
+//                var sourceElement = angular.element("videogular video");
+//
+//                if(sourceElement) {
+//                    if(!sourceElement[0]) {
+//                        sourceElement[0] = {}
+//                    }
+//                    sourceElement[0].src = src;
+//                    sourceElement[0].type = "video/" + extension;
+//                }
+//            }
 
             var videomgmt = $("#videomgmt");   
             
@@ -62,13 +67,20 @@ $(document).ready(function () {
                         angular.element("#mgmtPage").scope().$apply();
                     });
 
-                    var sourceVideomgmt = $("#videomgmt_channel");
+                    var sourceVideomgmt_ogg = $("#videomgmt_channel_ogg");
+                    var sourceVideomgmt_webm = $("#videomgmt_channel_webm");
+                    var sourceVideomgmt_mp4 = $("#videomgmt_channel_mp4");
 
-                    sourceVideomgmt.attr('src',src);
-                    sourceVideomgmt.attr('type', 'video/' + extension);
+                    sourceVideomgmt_ogg.attr('src',src + ".ogg");
+                    sourceVideomgmt_webm.attr('src',src + ".webm");
+                    sourceVideomgmt_mp4.attr('src',src + ".mp4");
+//                    sourceVideomgmt.attr('type', 'video/' + extension);
 
                     videomgmt.load();
-                    videomgmt.get(0).play();
+                    $.each(videomgmt, function(idx, val) {
+                        val.play();
+                    });
+
                     angular.element("#mgmtPage").scope().videoplaying = true;
                     angular.element("#mgmtPage").scope().$apply();
                 }
