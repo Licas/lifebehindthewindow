@@ -40,6 +40,9 @@ app.config(['$routeProvider',
             templateUrl: 'views/login/login.html',
             controller: 'LoginCtrl'
         })
+        .when('/howto', {
+            templateUrl: 'views/main/howto.html'
+        })
         .when('/contact', {
             templateUrl: 'views/main/contact.html'
         })
