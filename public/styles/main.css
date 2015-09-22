@@ -58,7 +58,14 @@ body{
 /*    background-color: rgba(0,0,0,0.5);*/
 }
 
-
+hr {
+    display:block;
+    height: 1px;
+    background: transparent;
+    width:100%;
+    border: none;
+    border-top:solid 1px #aaa;
+}
 
 .custom-layer {
     width: auto;
