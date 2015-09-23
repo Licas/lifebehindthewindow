@@ -1,4 +1,4 @@
-video = (function () {
+videoUtilities = (function () {
 
     function list(cb) {
         var stream = emit('list');

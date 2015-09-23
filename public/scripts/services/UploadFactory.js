@@ -35,7 +35,7 @@ angular.module('lifebehindthewindowApp')
         //WITHOUT STREAMING
         uploadfile: function (fileData, success, error) {
 //            
-//            video.upload(fileData.file, function (err, data) {
+//            videoUtilities.upload(fileData.file, function (err, data) {
 //                var msg;
 //
 //                if (data.end) {
@@ -80,7 +80,7 @@ angular.module('lifebehindthewindowApp')
                 });
 		    },
         getlist: function(success, error) {
-            video.list(function callService(err, files) {
+            videoUtilities.list(function callService(err, files) {
                 if(err) 
                     return error(err);
                 
@@ -94,7 +94,7 @@ angular.module('lifebehindthewindowApp')
             });
         },
         getnewvideoslist: function(success, error) {
-            video.listUnpublished(function callService(err, files) {
+            videoUtilities.listUnpublished(function callService(err, files) {
                 if(err) {
                     return error(err);
                 } else {

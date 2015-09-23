@@ -5,50 +5,41 @@
 
     var vid = $('#videoplayer');
 
-    setTimeout(function() {
+    setTimeout(function () {
         angular.element($('#videoplayer')).scope().startPlayLoop();
-     }, 3000);
+    }, 3000);
 
-    var videoEl =  document.getElementById('videoplayer');
+    var videoEl = document.getElementById('videoplayer');
 
-    videoEl.addEventListener('ended', handleEnd,false);
-    videoEl.addEventListener('click',function(){
+    videoEl.addEventListener('ended', handleEnd, false);
+    videoEl.addEventListener('click', function () {
 
-        console.log("i am playing");
         videoEl.play();
         console.log(videoEl);
-    },false);
+    }, false);
 
     function handleEnd(e) {
-        if(!e) { e = window.event; }
+        if (!e) {
+            e = window.event;
+        }
 
         angular.element(vid).scope().onComplete();
     }
 </script>
-
-
 <div ng-controller="HomeCtrl as controller">
     <div class="container">
         <div class="row">
-<!--            <div class="col-xs-5 col-xs-push-3 col-md-5 col-md-push-4">-->
             <div class="col-xs-12 col-md-5 col-md-push-4">
                 <div id="videowrapper">
-    <!--            <div class="videogular-container">-->
-                    <video id="videoplayer" preload="yes" autoplay  muted>
-                        <source src="" id="tv_main_channel_ogg" />
-                        <source src="" id="tv_main_channel_webm" />
-                        <source src="" id="tv_main_channel_mp4" />
-                        <source src="" id="tv_main_channel_mov" />
-                        <source src="" id="tv_main_channel_m4v" />
+                    <video id="videoplayer" preload="auto" autoplay muted>
+                        <source src="" id="tv_main_channel_webm">
+                        <source src="" id="tv_main_channel_ogg">
+                        <source src="" id="tv_main_channel_mp4">
+<!--                        <source src="" id="tv_main_channel_mov">-->
+<!--                        <source src="" id="tv_main_channel_m4v">-->
                         Your browser doesn't support html video.
                     </video>
                 </div>
-    <!--            <div class="videogular-container">
-                    <videogular vg-responsive="controller.config.responsive" vg-stretch="controler.config.stretch" vg-auto-play="controller.config.autoPlay" vg-player-ready="controller.onPlayerReady($API)" vg-complete="controller.onCompleteVideo()">
-                        <vg-media id="videogular-media" vg-volume="controller.config.volume" vg-loop="controller.config.loop" vg-src="controller.config.sources" vg-tracks="controller.config.tracks"></vg-media>
-                        <vg-buffering></vg-buffering>
-                    </videogular>
-                </div>-->
             </div>
         </div>
         <div class="row">
@@ -63,11 +54,11 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-push-4 col-md-6 col-md-push-3 col-lg-3 col-lg-push-4" style="margin-left:15px">
-                <button type="button" class="uploadButton" data-toggle="modal" data-target="#uploadModal"><img src="img/upload_button_last.png"></button>
+                <button type="button" class="uploadButton" data-toggle="modal" data-target="#uploadModal"><img src="img/upload_button_last.png">
+                </button>
             </div>
         </div>
     </div>
-
     <div ng-controller="FormCtrl as formctrl">
         <div class="custom-layer-messages">
             <div class="row">

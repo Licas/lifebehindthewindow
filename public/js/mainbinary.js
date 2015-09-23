@@ -2,7 +2,7 @@ $(document).ready(function () {
     
     client.on('open', function () {
         console.log("client open connection");
-        video.list(setupList);
+        videoUtilities.list(setupList);
     });
 
     client.on('stream', function (stream, meta) {
@@ -14,7 +14,7 @@ $(document).ready(function () {
             extension = meta.extension;
         }
 
-        video.download(stream, function (err, src) {
+        videoUtilities.download(stream, function (err, src) {
 //            console.log("client received a stream " + src);
             var tv_main_channel_ogg = $("#tv_main_channel_ogg");
             var tv_main_channel_mp4 = $("#tv_main_channel_mp4");
@@ -67,7 +67,7 @@ $(document).ready(function () {
                     var sourceVideomgmt_webm = $("#videomgmt_channel_webm");
                     var sourceVideomgmt_mp4 = $("#videomgmt_channel_mp4");
 
-                    sourceVideomgmt_ogg.attr('src',src + ".ogg");
+                    sourceVideomgmt_ogg.attr('src',src + ".ogv");
                     sourceVideomgmt_webm.attr('src',src + ".webm");
                     sourceVideomgmt_mp4.attr('src',src + ".mp4");
 //                    sourceVideomgmt.attr('type', 'video/' + extension);
@@ -112,7 +112,7 @@ $(document).ready(function () {
                 fizzle(e);
 
                 var name = $(this).text();
-                video.request(name);
+                videoUtilities.request(name);
             });
         });
     }

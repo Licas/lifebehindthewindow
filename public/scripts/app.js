@@ -10,12 +10,7 @@ var app = angular.module('lifebehindthewindowApp', [
     'controllers.player',
     'controllers.login',
     'controllers.uploadform',
-    'controllers.stream',
-    
-    'com.2fdevs.videogular',
-	'com.2fdevs.videogular.plugins.controls',
-	'com.2fdevs.videogular.plugins.overlayplay',
-    'com.2fdevs.videogular.plugins.poster'
+    'controllers.stream'
 ]);
 
 app.config(['$routeProvider',

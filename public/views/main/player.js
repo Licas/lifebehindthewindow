@@ -104,7 +104,7 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
 
                  if(videos[currentVideo]) {
 //                    console.log("requesting " + JSON.stringify(videos[currentVideo]));
-                    video.request(videos[currentVideo].id);
+                    videoUtilities.request(videos[currentVideo].id);
                     state = 'starting';
                 }
             }

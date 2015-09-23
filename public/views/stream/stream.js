@@ -44,7 +44,7 @@ streamController.controller('StreamCtrl', ['$scope', '$rootScope', 'UploadFactor
         $scope.videoplaying = true;
         $scope.view=true;
         
-        video.requestUnpublished(id);
+        videoUtilities.requestUnpublished(id);
     }
     
     $scope.playpubvideo = function(videoElement) {
@@ -53,21 +53,21 @@ streamController.controller('StreamCtrl', ['$scope', '$rootScope', 'UploadFactor
         $scope.view=true;
         $scope.videoplaying = true;
         
-        video.request(id);
+        videoUtilities.request(id);
     }
     
     $scope.downloadpubvideo = function(videoElement) {
         var id = videoElement.id;
         
         $scope.download = true;
-        video.request(id);
+        videoUtilities.request(id);
     }
     
     $scope.downloadvideo = function(videoElement) {
         var id = videoElement.id;
         
         $scope.download = true;
-        video.requestUnpublished(id);
+        videoUtilities.requestUnpublished(id);
     }
     
     $scope.approvevideo = function(videoId, idx) {
