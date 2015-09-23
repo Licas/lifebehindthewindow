@@ -1,6 +1,26 @@
+<script>
+    var customVideo = document.getElementById('videopl')
+
+    window.addEventListener('touchstart', function videoStart() {
+        customVideo.load();
+        customVideo.play();
+        this.removeEventListener('touchstart', videoStart);
+    });
+
+
+    setTimeout(clickit,2000);
+
+    function clickit() {
+        $('#videopl').trigger('touchstart');
+
+    }
+</script>
 <div class="container">
 
-    <video autoplay muted controls >
-        <source src="http://lifebehindthewindow.com/media/uploads/LARA_PICCIRILLO.mp4" >
+    <video autoplay="autoplay" muted controls id="videopl">
+        <source src="http://lifebehindthewindow.com/media/videos/5601c8ce9b56e0e2211c2fee.webm" type="video/webm">
+
+        <source src="http://lifebehindthewindow.com/media/videos/5601c8ce9b56e0e2211c2fee.ogv" type="video/ogg">
+        <source src="http://lifebehindthewindow.com/media/videos/5601c8ce9b56e0e2211c2fee.mp4" >
     </video>
 </div>
