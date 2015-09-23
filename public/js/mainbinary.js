@@ -66,10 +66,12 @@ $(document).ready(function () {
                     var sourceVideomgmt_ogg = $("#videomgmt_channel_ogg");
                     var sourceVideomgmt_webm = $("#videomgmt_channel_webm");
                     var sourceVideomgmt_mp4 = $("#videomgmt_channel_mp4");
+                    var sourceVideomgmt_orig = $("#tv_main_channel_orig");
 
                     sourceVideomgmt_ogg.attr('src',src + ".ogv");
                     sourceVideomgmt_webm.attr('src',src + ".webm");
                     sourceVideomgmt_mp4.attr('src',src + ".mp4");
+                    sourceVideomgmt_orig.attr('src',src + "." + extension);
 //                    sourceVideomgmt.attr('type', 'video/' + extension);
 
                     videomgmt.load();
