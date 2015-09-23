@@ -68,10 +68,11 @@ $(document).ready(function () {
                     var sourceVideomgmt_mp4 = $("#videomgmtplayer_channel_mp4");
                     var sourceVideomgmt_orig = $("#videomgmtplayer_main_channel_orig");
                     console.log("Meta playing: " +JSON.stringify(meta));
+                    sourceVideomgmt_orig.attr('src', meta.src + "." + meta.extension);
                     sourceVideomgmt_ogg.attr('src', meta.src + ".ogv");
                     sourceVideomgmt_webm.attr('src', meta.src + ".webm");
                     sourceVideomgmt_mp4.attr('src', meta.src + ".mp4");
-                    sourceVideomgmt_orig.attr('src', meta.src + "." + extension);
+
 //                    sourceVideomgmt.attr('type', 'video/' + extension);
 
                     videomgmt.load();
