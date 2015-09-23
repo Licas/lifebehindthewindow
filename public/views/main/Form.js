@@ -37,7 +37,7 @@ formController.controller('FormCtrl', [
                 var username     = $scope.user_name;
                 var userlocation =  $scope.user_location;
                 
-                video.upload(
+                videoUtilities.upload(
                     {
                         file:file2upload,
                         username: username,
