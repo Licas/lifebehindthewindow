@@ -67,7 +67,7 @@ $(document).ready(function () {
                     var sourceVideomgmt_webm = $("#videomgmtplayer_channel_webm");
                     var sourceVideomgmt_mp4 = $("#videomgmtplayer_channel_mp4");
                     var sourceVideomgmt_orig = $("#videomgmtplayer_main_channel_orig");
-                    console.log("Meta playing: " +JSON.stringify(meta));
+
                     sourceVideomgmt_orig.attr('src', meta.src + "." + meta.extension);
                     sourceVideomgmt_ogg.attr('src', meta.src + ".ogv");
                     sourceVideomgmt_webm.attr('src', meta.src + ".webm");
@@ -90,7 +90,7 @@ $(document).ready(function () {
                     var link = document.getElementById("lnkDownload");
   
                     link.setAttribute("target","_self");
-                    link.setAttribute("href", src);
+                    link.setAttribute("href", meta.src + "." + meta.extension);
                     link.setAttribute("download","video." + meta.extension);
                     link.click();
                     link.setAttribute("href","");                    
