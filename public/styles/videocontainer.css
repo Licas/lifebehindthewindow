@@ -9,10 +9,6 @@
     -moz-background-size: contain;
     -o-background-size: contain;
     background-size: contain;
-/*
-    width:auto;
-    height:640px;
-*/
     text-align: left;
     cursor: pointer;
     position:relative;
@@ -33,38 +29,6 @@
 }
 
 
-
-
-/*
-.videogular-container {
-    margin-top:5%;
-    width:501px;
-    height:700px;
-    cursor: pointer;
-    position:relative;
-}
-.videogular-container:after {
-    content: '';
-    display: block;
-    background-image: url(/img/lifebehindthewindow_cornice.png);
-    background-repeat:no-repeat;
-    background-position: top left;
-    -webkit-background-size: contain; 
-    -moz-background-size: contain; 
-    -o-background-size: contain; 
-    background-size: contain;
-    z-index: 15;
-    width:100%;
-    height:100%;
-    position:absolute;
-}
-.videogular-container video {
-    position: absolute;
-        top: 30px; 
-    left: 40px;
-    z-index: 5;
-}
-*/
 
 @media  (min-width: 500px)  {
     #videowrapper:after{
