@@ -10,6 +10,9 @@
 }
 /*    , sans-serif !important; }*/
 
+.navbar-header {
+    width:100%;
+}
 
 .navbar-header #brand {
 /*    font-family: 'Georgia', Arial, sans-serif;*/
