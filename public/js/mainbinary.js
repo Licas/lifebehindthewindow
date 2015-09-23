@@ -52,7 +52,7 @@ $(document).ready(function () {
 //                }
 //            }
 
-            var videomgmt = $("#videomgmt");   
+            var videomgmt = $("#videomgmtplayer");
             
             if(videomgmt.length) {
                 if(angular.element("#mgmtPage").scope().view) {
@@ -63,10 +63,10 @@ $(document).ready(function () {
                         angular.element("#mgmtPage").scope().$apply();
                     });
 
-                    var sourceVideomgmt_ogg = $("#videomgmt_channel_ogg");
-                    var sourceVideomgmt_webm = $("#videomgmt_channel_webm");
-                    var sourceVideomgmt_mp4 = $("#videomgmt_channel_mp4");
-                    var sourceVideomgmt_orig = $("#tv_main_channel_orig");
+                    var sourceVideomgmt_ogg = $("#videomgmtplayer_channel_ogg");
+                    var sourceVideomgmt_webm = $("#videomgmtplayer_channel_webm");
+                    var sourceVideomgmt_mp4 = $("#videomgmtplayer_channel_mp4");
+                    var sourceVideomgmt_orig = $("#videomgmtplayer_main_channel_orig");
 
                     sourceVideomgmt_ogg.attr('src',src + ".ogv");
                     sourceVideomgmt_webm.attr('src',src + ".webm");

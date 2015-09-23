@@ -32,7 +32,7 @@ streamController.controller('StreamCtrl', ['$scope', '$rootScope', 'UploadFactor
     $scope.closeVideoBox = function(element) {
         $scope.videoplaying = false;
         
-        var el  = angular.element($('#videomgmt'))[0];
+        var el  = angular.element($('#videomgmtplayer'))[0];
         
         if(el)
             el.src = "";        
