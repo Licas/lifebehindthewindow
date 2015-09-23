@@ -182,6 +182,7 @@ function requestUnpublished(client, meta) {
                             "userlocation":video.userlocation,
                             "extension":video.extension
                         };
+                    console.log("UNPUBLISHED: found " + JSON.stringify(metaInfoFound));
                     client.send(file, metaInfoFound);
 
                 } else {
