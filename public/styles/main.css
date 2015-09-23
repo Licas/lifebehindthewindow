@@ -278,8 +278,22 @@ p,.btn,.input {
         max-width:500px;
         position:relative;
     }
+}
 
 
+@media screen and (min-width: 773px) and (max-width: 997px) {
+
+    #videowrapper {
+        left:15%;
+        margin-left: 0px !important;
+    }
+
+    .navbar-collapse {
+        left:30%;
+        top:25%;
+        max-width:500px;
+        position:relative;
+    }
 }
 
 
@@ -289,6 +303,14 @@ p,.btn,.input {
         margin-left:30px;
         margin-top:10px;
         width:380px;
+    }
+}
+
+@media screen and (min-width: 500px) and  (max-width: 772px) {
+
+    #videowrapper {
+        left:15%;
+        margin-left: 0px !important;
     }
 }
 
@@ -304,6 +326,7 @@ p,.btn,.input {
         margin-top:10px;
         width:300px;
     }
+
 }
 
 
@@ -318,5 +341,30 @@ p,.btn,.input {
         margin-left: 10px;
         margin-top: 10px;
         width:300px;
+    }
+}
+
+
+@media screen and (min-width 501px) and (max-width:767px) {
+    .navbar-collapse {
+        margin-left: 14%;
+    }
+}
+@media screen and (max-width:500px) {
+    #videometa, #videowrapper {
+       display:none;
+    }
+     .navbar-collapse {
+        margin-left: 65%;
+    }
+    .uploadButton {
+        margin-top:90px !important;
+        margin-left:0px !important;
+        top:25%;
+
+    }
+
+    .uploadButton img {
+        width: 150px;
     }
 }
