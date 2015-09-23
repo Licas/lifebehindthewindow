@@ -237,9 +237,86 @@ p,.btn,.input {
 }
 */
 
-@media screen and (max-width: 768px) {
+
+@media screen and (min-width: 1161px) {
+
+    .navbar-header #brand{
+        left:30%;
+        top:25%;
+        position:relative;
+    }
 
     .uploadButton {
         margin-top:10px;
+    }
+
+    .navbar-collapse {
+        left:38%;
+        top:25%;
+        max-width:500px;
+        position:relative;
+    }
+
+}
+
+@media screen and (min-width: 728px) and (max-width: 1160px) {
+
+    .navbar-toggle {
+        margin-left:10%;
+        width:50px;
+    }
+
+    .navbar-header #brand{
+        left:25%;
+        top:25%;
+        position:relative;
+    }
+
+    .navbar-collapse {
+        left:38%;
+        top:25%;
+        max-width:500px;
+        position:relative;
+    }
+
+
+}
+
+
+@media (min-width:700px) and (max-width:900px) {
+
+     .navbar-header #brand {
+        margin-left:30px;
+        margin-top:10px;
+        width:380px;
+    }
+}
+
+@media screen and (min-width: 401px) and  (max-width: 700px) {
+
+    .navbar-toggle {
+        margin-left:10%;
+        width:45px;
+    }
+
+    .navbar-header #brand {
+        margin-left:30px;
+        margin-top:10px;
+        width:300px;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+
+    .navbar-toggle {
+        margin-left:10%;
+        width:45px;
+    }
+
+    .navbar-header #brand {
+        margin-left: 10px;
+        margin-top: 10px;
+        width:300px;
     }
 }
