@@ -67,23 +67,22 @@ $(document).ready(function () {
                     var sourceVideomgmt_webm = $("#videomgmtplayer_channel_webm");
                     var sourceVideomgmt_mp4 = $("#videomgmtplayer_channel_mp4");
                     var sourceVideomgmt_orig = $("#videomgmtplayer_main_channel_orig");
-
-                    sourceVideomgmt_ogg.attr('src',src + ".ogv");
-                    sourceVideomgmt_webm.attr('src',src + ".webm");
-                    sourceVideomgmt_mp4.attr('src',src + ".mp4");
-                    sourceVideomgmt_orig.attr('src',src + "." + extension);
+                    console.log("Meta playing: " +JSON.stringify(meta));
+                    sourceVideomgmt_ogg.attr('src', meta.src + ".ogv");
+                    sourceVideomgmt_webm.attr('src', meta.src + ".webm");
+                    sourceVideomgmt_mp4.attr('src', meta.src + ".mp4");
+                    sourceVideomgmt_orig.attr('src', meta.src + "." + extension);
 //                    sourceVideomgmt.attr('type', 'video/' + extension);
 
                     videomgmt.load();
-                    $.each(videomgmt, function(idx, val) {
-                        val.play();
-                    });
+//                    $.each(videomgmt, function(idx, val) {
+//                        videomgmt.play();
+//                    });
 
                     angular.element("#mgmtPage").scope().videoplaying = true;
                     angular.element("#mgmtPage").scope().$apply();
                 }
-                
-                if(angular.element("#mgmtPage").scope().download) {
+                else if(angular.element("#mgmtPage").scope().download) {
 //                    console.log("gonna download");
                     angular.element("#mgmtPage").scope().download = false;
                     
