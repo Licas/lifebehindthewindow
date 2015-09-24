@@ -23,6 +23,7 @@ $(document).ready(function () {
             var tv_main_channel_m4v = $("#tv_main_channel_m4v");
             
             if ($('#videoplayer').length) {
+                $( '#videoplayer').attr('poster', meta.src + ".png");
 //                tv_main_channel.attr('src', src);
                 tv_main_channel_ogg.attr('src', meta.src + ".ogg");
                 tv_main_channel_webm.attr('src', meta.src + ".webm");
@@ -30,11 +31,13 @@ $(document).ready(function () {
                 tv_main_channel_mov.attr('src', meta.src + ".mov");
                 tv_main_channel_m4v.attr('src', meta.src + ".m4v");
 
+
                 $('#videometa').attr('style','display');
                 $('#user').text(meta.username);
                 $('#location').text(meta.userlocation);
                 $( '#videoplayer').get(0).load();
                 $( '#videoplayer').get(0).play();
+
             }
             
 //            var media  = $("#videogular-media");
