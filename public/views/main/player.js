@@ -82,8 +82,8 @@ playerController.controller('HomeCtrl', ["$scope", "$sce", "$timeout", "$interva
             state = 'ready';
 
             getVideoList();
-            $timeout(loadNextVideo,3000);
-            $interval(getVideoList, 60000);
+            $timeout(loadNextVideo,1000);
+            $interval(getVideoList, 10000);
 //            $interval(loadNextVideo, 5000);
         }
 
