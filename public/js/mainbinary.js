@@ -7,6 +7,9 @@ $(document).ready(function () {
 
     client.on('stream', function (stream, meta) {
         var extension = "";
+//        console.log("client received a stream " + JSON.stringify(meta));
+
+        $('#temp_poster').attr('src',meta.src+".png");
 
         if(meta.extension.toUpperCase() === 'MOV') {
             extension = 'mp4';
@@ -15,16 +18,20 @@ $(document).ready(function () {
         }
 
         videoUtilities.download(stream, function (err, src) {
-//            console.log("client received a stream " + src);
+//            console.log("client received a stream " + meta.src + ", " + JSON.stringify(meta));
+
             var tv_main_channel_ogg = $("#tv_main_channel_ogg");
             var tv_main_channel_mp4 = $("#tv_main_channel_mp4");
             var tv_main_channel_webm = $("#tv_main_channel_webm");
             var tv_main_channel_mov = $("#tv_main_channel_mov");
             var tv_main_channel_m4v = $("#tv_main_channel_m4v");
-            
+            var sourceVideomgmt_orig = $("#tv_main_channel_orig");
+
             if ($('#videoplayer').length) {
                 $( '#videoplayer').attr('poster', meta.src + ".png");
 //                tv_main_channel.attr('src', src);
+
+                sourceVideomgmt_orig.attr('src', meta.src + "." + meta.extension);
                 tv_main_channel_ogg.attr('src', meta.src + ".ogg");
                 tv_main_channel_webm.attr('src', meta.src + ".webm");
                 tv_main_channel_mp4.attr('src', meta.src + ".mp4");
@@ -76,12 +83,8 @@ $(document).ready(function () {
                     sourceVideomgmt_webm.attr('src', meta.src + ".webm");
                     sourceVideomgmt_mp4.attr('src', meta.src + ".mp4");
 
-//                    sourceVideomgmt.attr('type', 'video/' + extension);
 
                     videomgmt.load();
-//                    $.each(videomgmt, function(idx, val) {
-//                        videomgmt.play();
-//                    });
 
                     angular.element("#mgmtPage").scope().videoplaying = true;
                     angular.element("#mgmtPage").scope().$apply();
