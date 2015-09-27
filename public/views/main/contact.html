@@ -1,11 +1,51 @@
-<script type="text/javascript">function split_mail(divid, user, domain, tld) {
+<script type="text/javascript">
+    function split_mail(divid, user, domain, tld) {
         var mail = '';
         mail += '<a href="' + 'ma' + 'il' + 'to:' + user;
         mail += '&#64;' + domain + '.' + tld;
         mail += '">' + user + '&#64;' + domain + '.' + tld + '<' + '/a>';
 
-        $('#'+divid).html(mail);
+        $('#' + divid).html(mail);
 
     }
 
-    split_mail('saramailbox','sara','sararicciardi','org');</script><div class="container"><div class="profile-container"><br><br><div class="row"><div class="col-xs-12"><div class="name-location"><p class="contactheading">SARA RICCIARDI</p><span></span></div><div class="clearfix margin-bottom-20"></div><p class="contactdesc"><a href="http://www.sararicciardi.org">www.sararicciardi.org</a></p><p class="contactdesc" id="saramailbox"></p><br><br><p class="contactdesc">Born in Benevento / Italy / 26 years ago/eating pomegranates/drawings on walls/running in the fields/stories of witches/Greek and street theatre/Classic High School/unexpected meeting/Milan/NABA univeristy/raging curiosity/incomparable nocturnal coffee/researcher of possibility/new life in Turkey/daily loves/NYC master studies/working hard/set design/cocept&brainstorming/products development/art residencies/co-founder at LA LATTONERIA/Social design teacher at NABA/busy 24 hrs a day in following building up new visions.</p></div></div></div></div>
+    split_mail('saramailbox', 'sara', 'sararicciardi', 'org');
+        split_mail('manuelmailbox', 'morinimanuel', 'gmail', 'com');
+</script>
+<div class="container">
+    <div class="profile-container">
+        <br>
+        <br>
+        <!-- Sara -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="name-location">
+                    <p class="contactheading">SARA RICCIARDI</p><span></span>
+                </div>
+                <div class="clearfix margin-bottom-20"></div>
+                <p class="contactdesc"><a href="http://www.sararicciardi.org">www.sararicciardi.org</a>
+                </p>
+                <p class="contactdesc" id="saramailbox"></p>
+                <br>
+                <br>
+                <p class="contactdesc">Born in Benevento / Italy / 26 years ago/eating pomegranates/drawings on walls/running in the fields/stories of witches/Greek and street theatre/Classic High School/unexpected meeting/Milan/NABA univeristy/raging curiosity/incomparable nocturnal coffee/researcher of possibility/new life in Turkey/daily loves/NYC master studies/working hard/set design/cocept&brainstorming/products development/art residencies/co-founder at LA LATTONERIA/Social design teacher at NABA/busy 24 hrs a day in following building up new visions.</p>
+            </div>
+        </div>
+        <hr />
+        <!-- Manuel -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="name-location">
+                    <p class="contactheading">MANUEL MORINI</p><span></span>
+                </div>
+                <div class="clearfix margin-bottom-20"></div>
+                <p class="contactdesc"><a href="https://it.linkedin.com/in/manuelmorini">it.linkedin.com/in/manuelmorini</a>
+                </p>
+                <p class="contactdesc" id="manuelmailbox"></p>
+                <br>
+                <br>
+                <p class="contactdesc">Born in Benevento, Italy, in 1987, graduated in Computer Science at University of Sannio (BN), passionate programmer and runner, piano  player and music lover, always searching for new technologies in IT field, looking for new challenges.</p>
+            </div>
+        </div>
+    </div>
+</div>
