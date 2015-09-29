@@ -44,8 +44,11 @@ app.config(['$routeProvider',
         .when('/project', {
             templateUrl: 'views/main/project.html'
         })
-        .when('/test', {
-            templateUrl: 'views/main/test.html'
+        .when('/media', {
+            templateUrl: 'views/main/media.html'
+        })
+        .when('/press', {
+            templateUrl: 'views/main/press.html'
         })
         .otherwise({
             redirectTo: '/'
