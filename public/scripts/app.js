@@ -67,7 +67,7 @@ app.run(['$http', '$rootScope', '$location', '$cookies', function($http, $rootSc
     
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // redirect to login page if not logged in and trying to access a restricted page
-        var restrictedPage = $location.path() != '/' && ($.inArray($location.path(), ["/login", "/stream"]) !== -1);
+        var restrictedPage = $location.path() != '/' && ($.inArray($location.path(), ["/login", "/stream","/media"]) !== -1);
         $rootScope.isloggedin = $cookies.get('loggedin');
         
         if (restrictedPage && !$cookies.get('loggedin')) {
